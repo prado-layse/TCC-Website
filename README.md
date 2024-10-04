@@ -5,7 +5,7 @@
 
 ## Etapa 02 - Telas que serão desenvolvidas
 
-### Tela 01 - Tela Inicial
+### [Tela 01 - Tela Inicial](https://www.figma.com/design/EPTVJpVS7sxUz39PcWSnuc/Hoquei-Brasil?node-id=264-932&t=aSKJJNja9RiYNrQK-4)
 [Tela Inicial - Link Figma](https://www.figma.com/design/EPTVJpVS7sxUz39PcWSnuc/Hoquei-Brasil?node-id=264-932&t=aSKJJNja9RiYNrQK-4)
 ### Tela 02 - Tela de Login
 [Tela Login - Link Figma](https://www.figma.com/design/EPTVJpVS7sxUz39PcWSnuc/Hoquei-Brasil?node-id=75-166&t=aSKJJNja9RiYNrQK-4)
