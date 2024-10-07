@@ -1,0 +1,17 @@
+{
+    "name": "meuapp-frontend",
+    "version": "1.0.0",
+    "private": true,
+    "dependencies": {
+      "axios": "^0.21.1",
+      "next": "latest",
+      "react": "latest",
+      "react-dom": "latest"
+    },
+    "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start"
+    }
+  }
+  
