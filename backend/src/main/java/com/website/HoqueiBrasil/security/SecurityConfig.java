@@ -10,16 +10,18 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @SuppressWarnings({ "removal", "deprecation" })
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()  // Desabilita CSRF (não recomendado em produção sem atenção)
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/**").authenticated()  // Requer autenticação para essas rotas
-                .anyRequest().permitAll()  // Permite todas as outras requisições
+            .csrf().disable() // Desabilita CSRF (use com cuidado)
+            .authorizeRequests(auth -> auth
+                .requestMatchers("/api/users/**").authenticated() // Requer autenticação
+                .anyRequest().permitAll() // Permite outras requisições
             )
-            .httpBasic();  // Usar autenticação básica
+            .httpBasic(); // Autenticação básica
 
         return http.build();
     }
 }
+
