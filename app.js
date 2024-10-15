@@ -28,6 +28,16 @@ app.get("/", function(require, response){
 app.get("/login", function(require, response){
     response.sendFile(__dirname + "/src/login.html");
     
-})
+});
+
+app.get("/cadastroDeAtletas", function(require, response){
+    response.sendFile(__dirname + "/src/cadastroDeAtletas.html");
+    
+});
+
+app.get("/controleDoClube", function(require, response){
+    response.sendFile(__dirname + "/src/controleDoClube.html");
+    
+});
 
 app.listen(4002, () => console.log("Servidor rodando na porta 4002"));
