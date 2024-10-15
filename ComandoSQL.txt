@@ -1,0 +1,39 @@
+#CRIANDO O BANCO DE DADOS
+CREATE DATABASE hoqueibrasil;
+USE hoqueibrasil;
+#-------------------------------------------------
+#CRIANDO AS TABELAS
+#-------------------------------------------------
+CREATE TABLE Federacao (
+    cd_Federacao INT AUTO_INCREMENT PRIMARY KEY,
+    nm_RazaoSocial VARCHAR(255) NOT NULL,
+    nm_Fantasia VARCHAR(255) NOT NULL,
+    sg_Sigla CHAR(10) NOT NULL,
+    cd_CNPJ CHAR(14) NOT NULL UNIQUE,
+    cd_CEP CHAR(8) NOT NULL,
+    ds_EnderecoSede VARCHAR(255) NOT NULL,
+    ds_Cidade VARCHAR(100) NOT NULL,
+    sg_Estado CHAR(2) NOT NULL,
+    nm_Presidente VARCHAR(255) NOT NULL
+);
+CREATE TABLE Clube (
+    cd_Clube INT AUTO_INCREMENT PRIMARY KEY,
+    cd_Federacao INT NOT NULL, -- FK
+    nm_RazaoSocial VARCHAR(255) NOT NULL,
+    nm_Fantasia VARCHAR(255) NOT NULL,
+    sg_Sigla CHAR(10) NOT NULL,
+    cd_CNPJ CHAR(14) NOT NULL UNIQUE,
+    cd_CEP CHAR(8) NOT NULL,
+    ds_EnderecoSede VARCHAR(255) NOT NULL,
+    ds_Cidade VARCHAR(100) NOT NULL,
+    sg_Estado CHAR(2) NOT NULL,
+    nm_Presidente VARCHAR(255) NOT NULL
+);
+#-------------------------------------------------
+# RELAÇÕES ENTRE TABELAS 
+#-------------------------------------------------
+ALTER TABLE Clube
+ADD CONSTRAINT fk_Federacao
+FOREIGN KEY (cd_Federacao) REFERENCES Federacao(cd_Federacao)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
