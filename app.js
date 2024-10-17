@@ -4,6 +4,7 @@ const app = express();
 
 //Conexao BD (Será alterado depois o local)
 const mysql = require('mysql');
+//Caso você esteja enfrentando dificuldade com o erro: "Erro Conexão: Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client", basta no seu prompt de comando do windows instalar uma a extensão 'mysql2' do node através do comando npm install mysql2 e substituir na linha acima o 'mysql' por 'mysql2'. 
 const conexao = mysql.createConnection({
     host: 'localhost',
     user: 'admin',
@@ -19,6 +20,14 @@ conexao.connect(function(err){
     } 
 
     console.log('Conexão com o ID: ' + conexao.threadId);
+})
+
+conexao.query('SELECT * FROM federacao', function(err, rows, fields){
+    if(!err){
+        console.log('Federações: ', rows);
+    }else{
+        console.log('Erro ao realizar a consults');
+    }
 })
 
 app.get("/", function(require, response){

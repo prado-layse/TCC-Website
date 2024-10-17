@@ -37,3 +37,27 @@ ADD CONSTRAINT fk_Federacao
 FOREIGN KEY (cd_Federacao) REFERENCES Federacao(cd_Federacao)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
+#-------------------------------------------------
+# INPUT DE UMA FEDERAÇÃO PARA TESTE DE CONSULTA
+#-------------------------------------------------
+INSERT INTO Federacao (
+    nm_RazaoSocial, 
+    nm_Fantasia, 
+    sg_Sigla, 
+    cd_CNPJ, 
+    cd_CEP, 
+    ds_EnderecoSede, 
+    ds_Cidade, 
+    sg_Estado, 
+    nm_Presidente
+) VALUES (
+    'Federação Teste Ltda', 
+    'Federação Teste', 
+    'FT', 
+    '12345678000199', 
+    '12345678', 
+    'Rua Exemplo, 123', 
+    'São Paulo', 
+    'SP', 
+    'João da Silva'
+);
