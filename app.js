@@ -26,7 +26,7 @@ conexao.query('SELECT * FROM federacao', function(err, rows, fields){
     if(!err){
         console.log('Federações: ', rows);
     }else{
-        console.log('Erro ao realizar a consults');
+        console.log('Erro ao realizar a consulta');
     }
 })
 
@@ -39,13 +39,13 @@ app.get("/login", function(require, response){
     
 });
 
-app.get("/cadastroDeAtletas", function(require, response){
-    response.sendFile(__dirname + "/src/cadastroDeAtletas.html");
+app.get("/cadastro-atletas", function(require, response){
+    response.sendFile(__dirname + "/src/cadastro-atletas.html");
     
 });
 
-app.get("/controleDoClube", function(require, response){
-    response.sendFile(__dirname + "/src/controleDoClube.html");
+app.get("/controle-clube", function(require, response){
+    response.sendFile(__dirname + "/src/controle-clube.html");
     
 });
 

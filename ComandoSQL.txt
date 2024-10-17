@@ -38,7 +38,7 @@ FOREIGN KEY (cd_Federacao) REFERENCES Federacao(cd_Federacao)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
 #-------------------------------------------------
-# INPUT DE UMA FEDERAÇÃO PARA TESTE DE CONSULTA
+# INPUT DOS DADOS 
 #-------------------------------------------------
 INSERT INTO Federacao (
     nm_RazaoSocial, 
@@ -51,13 +51,36 @@ INSERT INTO Federacao (
     sg_Estado, 
     nm_Presidente
 ) VALUES (
-    'Federação Teste Ltda', 
-    'Federação Teste', 
-    'FT', 
-    '12345678000199', 
-    '12345678', 
-    'Rua Exemplo, 123', 
+    'Federação Paulista de Hóquei sobre Patins', 
+    'Federação Paulista', 
+    'FPHP', 
+    '16751403000102 ', 
+    '01315902',
+    'Rua Santo Amaro, 71', 
     'São Paulo', 
     'SP', 
-    'João da Silva'
+    'Ricardo Casale'
+);
+INSERT INTO Clube(
+	cd_Federacao,
+    nm_RazaoSocial, 
+    nm_Fantasia, 
+    sg_Sigla, 
+    cd_CNPJ, 
+    cd_CEP, 
+    ds_EnderecoSede, 
+    ds_Cidade, 
+    sg_Estado, 
+    nm_Presidente
+)VALUES(
+	1,
+    'Associação Mogiana Hóquei Clube',
+    'Mogiana Hóquei Clube',
+    'MHC',
+    '46090040000172',
+    '14170340',
+    'Rua Dino Aleixo Merlin, 294',
+    'Sertãozinho',
+    'SP',
+    'Arthur Oliveira Galloro'
 );
