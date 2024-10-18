@@ -5,97 +5,100 @@ USE hoqueibrasil;
 #CRIANDO AS TABELAS
 #-------------------------------------------------
 CREATE TABLE Federacao (
-    cd_Federacao INT AUTO_INCREMENT PRIMARY KEY,
-    nm_RazaoSocial VARCHAR(255) NOT NULL,
-    nm_Fantasia VARCHAR(255) NOT NULL,
-    sg_Sigla CHAR(10) NOT NULL,
-    cd_CNPJ CHAR(14) NOT NULL UNIQUE,
-    cd_CEP CHAR(8) NOT NULL,
-    ds_EnderecoSede VARCHAR(255) NOT NULL,
-    ds_Cidade VARCHAR(100) NOT NULL,
-    sg_Estado CHAR(2) NOT NULL,
-    nm_Presidente VARCHAR(255) NOT NULL
+    codFederacao INT AUTO_INCREMENT PRIMARY KEY,
+    razaoSocial VARCHAR(255) NOT NULL,
+    nomeFantasia VARCHAR(255) NOT NULL,
+    sigla CHAR(10) NOT NULL,
+    cnpj CHAR(14) NOT NULL UNIQUE,
+    presidente VARCHAR(255) NOT NULL
 );
 CREATE TABLE Clube (
-    cd_Clube INT AUTO_INCREMENT PRIMARY KEY,
-    cd_Federacao INT NOT NULL, -- FK
-    nm_RazaoSocial VARCHAR(255) NOT NULL,
-    nm_Fantasia VARCHAR(255) NOT NULL,
-    sg_Sigla CHAR(10) NOT NULL,
-    cd_CNPJ CHAR(14) NOT NULL UNIQUE,
-    cd_CEP CHAR(8) NOT NULL,
-    ds_EnderecoSede VARCHAR(255) NOT NULL,
-    ds_Cidade VARCHAR(100) NOT NULL,
-    sg_Estado CHAR(2) NOT NULL,
-    nm_Presidente VARCHAR(255) NOT NULL
+    codClube INT AUTO_INCREMENT PRIMARY KEY,
+    codFederacao INT NOT NULL, -- FK
+    razaoSocial VARCHAR(255) NOT NULL,
+    nomeFantasia VARCHAR(255) NOT NULL,
+    sigla CHAR(10) NOT NULL,
+    cnpj CHAR(14) NOT NULL UNIQUE,
+    presidente VARCHAR(255) NOT NULL
+);
+CREATE TABLE Endereco (
+    codEndereco INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    codFederacao INT NULL, 
+    codAtleta INT NULL,  
+    codClube INT NULL,
+    cep CHAR(8) NOT NULL,
+    enderecoSede VARCHAR(255) NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    estado CHAR(2) NOT NULL,
+    pais VARCHAR(100)
 );
 CREATE TABLE Contato (
-    cd_Contato INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    cd_Federacao INT NULL, 
-    cd_Atleta INT NULL,  
-    cd_Clube INT NULL,
-    cd_Responsavel INT NOT NULL,
-    cd_Telefone VARCHAR(15) NOT NULL,
-    ds_Email VARCHAR(255) NOT NULL,
-    ds_Facebook VARCHAR(255) NULL,
-    ds_Instagram VARCHAR(255) NULL,
-    ds_OutraRedeSocial VARCHAR(255) NULL
+    codContato INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    codFederacao INT NULL, 
+    codAtleta INT NULL,  
+    codClube INT NULL,
+    codResponsavel INT NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    facebook VARCHAR(255) NULL,
+    instagram VARCHAR(255) NULL,
+    outraRede VARCHAR(255) NULL
 );
 CREATE TABLE Atleta (
-    cd_Atleta INT NOT NULL UNIQUE PRIMARY KEY,
-    cd_Clube INT NOT NULL,   
-    cd_Responsavel INT NULL, 
-    ds_Status VARCHAR(20) NOT NULL CHECK (ds_Status IN  ('Ativo', 'Pendente', 'Suspenso', 'Emprestado')),
-    nm_Atleta VARCHAR(100) NOT NULL,
-    nm_Sobrenome VARCHAR(100) NOT NULL,
-    dt_Nascimento DATE NOT NULL,
-    sg_Sexo CHAR(1) NOT NULL CHECK (sg_Sexo IN ('F', 'M')),
-    ds_Nacionalidade VARCHAR(100) NOT NULL,
-    cd_RG CHAR(9) NULL UNIQUE,
-    cd_CPF CHAR(11) NULL UNIQUE,
-    cd_Passaporte VARCHAR(20) NULL UNIQUE,
-    dt_ValidadePassaporte DATE NULL,
-    cd_CEP CHAR(8) NOT NULL,
-    ds_Endereco VARCHAR(255) NOT NULL,
-    ds_Cidade VARCHAR(100) NOT NULL,
-    sg_Estado CHAR(2) NOT NULL
+    codAtleta INT NOT NULL UNIQUE PRIMARY KEY,
+    codClube INT NOT NULL,   
+    codResponsavel INT NULL, 
+    statusAtleta VARCHAR(20) NOT NULL CHECK (statusAtleta IN  ('Ativo', 'Pendente', 'Suspenso', 'Emprestado')),
+    nome VARCHAR(100) NOT NULL,
+    sobrenome VARCHAR(100) NOT NULL,
+    nascimento DATE NOT NULL,
+    sexo CHAR(1) NOT NULL CHECK (sexo IN ('F', 'M')),
+    nacionalidade VARCHAR(100) NOT NULL,
+    rg CHAR(9) NULL UNIQUE,
+    cpf CHAR(11) NULL UNIQUE,
+    passaporte VARCHAR(20) NULL UNIQUE,
+    validadePassaporte DATE NULL
 );
 CREATE TABLE ResponsavelAtleta (
-    cd_Responsavel INT NOT NULL UNIQUE PRIMARY KEY,
-    nm_Responsavel VARCHAR(255) NOT NULL,
-    nm_Sobrenome VARCHAR(255) NOT NULL,
-    cd_RG_Responsavel CHAR(9) NOT NULL UNIQUE,
-    cd_CPF_Responsavel CHAR(11) NOT NULL UNIQUE
-)
+    codResponsavel INT NOT NULL UNIQUE PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    sobrenome VARCHAR(255) NOT NULL,
+    rg CHAR(9) NOT NULL UNIQUE,
+    cpf CHAR(11) NOT NULL UNIQUE
+);
 CREATE TABLE Contrato (
-    cd_Contrato INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    cd_Atleta INT NULL,           
-    cd_Clube_Origem INT NULL,    
-    cd_Clube_Destino INT NULL,  
-    dt_Inicio DATE NOT NULL,
-    dt_Fim DATE NOT NULL,
-    ds_Condicoes TEXT NULL,
-    ds_Status VARCHAR(50) NOT NULL CHECK (ds_Status IN ('Ativo', 'Finalizado', 'Cancelado')),
-    ds_Tipo VARCHAR(50) NOT NULL CHECK (ds_Tipo IN ('Emprestimo', 'Transferencia')),
-    dt_Criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    dt_Atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+    codContrato INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    codAtleta INT NULL,           
+    clubeOrigem INT NULL,    
+    clubeDestino INT NULL,  
+    inicio DATE NOT NULL,
+    fim DATE NOT NULL,
+    condicao TEXT NULL,
+    statusContrato VARCHAR(50) NOT NULL CHECK (statusContrato IN ('Ativo', 'Finalizado', 'Cancelado')),
+    tipo VARCHAR(50) NOT NULL CHECK (tipo IN ('Emprestimo', 'Transferencia')),
+    criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
 #-------------------------------------------------
 # RELAÇÕES ENTRE TABELAS 
 #-------------------------------------------------
-ALTER TABLE Clube ADD CONSTRAINT fk_Federacao FOREIGN KEY (cd_Federacao) REFERENCES Federacao(cd_Federacao) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Clube ADD CONSTRAINT fk_Federacao FOREIGN KEY (codFederacao) REFERENCES Federacao(codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
 --
-ALTER TABLE Contato ADD CONSTRAINT fk_ContatoFederacao FOREIGN KEY (cd_Federacao) REFERENCES Federacao (cd_Federacao) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Contato ADD CONSTRAINT fk_ContatoClube FOREIGN KEY (cd_Clube) REFERENCES Clube (cd_Clube) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Contato ADD CONSTRAINT fk_ContatoAtleta FOREIGN KEY (cd_Atleta) REFERENCES Atleta (cd_Atleta) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Contato ADD CONSTRAINT fk_ContatoResponsavel FOREIGN KEY (cd_Responsavel) REFERENCES ResponsavelAtleta (cd_Responsavel) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Contato ADD CONSTRAINT fk_ContatoFederacao FOREIGN KEY (codFederacao) REFERENCES Federacao (codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Contato ADD CONSTRAINT fk_ContatoClube FOREIGN KEY (codClube) REFERENCES Clube (codClube) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Contato ADD CONSTRAINT fk_ContatoAtleta FOREIGN KEY (codAtleta) REFERENCES Atleta (codAtleta) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Contato ADD CONSTRAINT fk_ContatoResponsavel FOREIGN KEY (codResponsavel) REFERENCES ResponsavelAtleta (codResponsavel) ON DELETE CASCADE ON UPDATE CASCADE;
 --
-ALTER TABLE Atleta ADD CONSTRAINT fk_Clube FOREIGN KEY (cd_Clube) REFERENCES Clube(cd_Clube) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Atleta ADD CONSTRAINT fk_Responsavel FOREIGN KEY (cd_Responsavel) REFERENCES ResponsavelAtleta(cd_Responsavel) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoFederacao FOREIGN KEY (codFederacao) REFERENCES Federacao (codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoClube FOREIGN KEY (codClube) REFERENCES Clube (codClube) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoAtleta FOREIGN KEY (codAtleta) REFERENCES Atleta (codAtleta) ON DELETE CASCADE ON UPDATE CASCADE;
 --
-ALTER TABLE Contrato ADD CONSTRAINT fk_Atleta FOREIGN KEY (cd_Atleta) REFERENCES Atleta(cd_Atleta) ON DELETE SET NULL ON UPDATE CASCADE;
-ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeOrigem FOREIGN KEY (cd_Clube_Origem) REFERENCES Clube(cd_Clube) ON DELETE SET NULL ON UPDATE CASCADE;
-ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeDestino FOREIGN KEY (cd_Clube_Destino) REFERENCES Clube(cd_Clube) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE Atleta ADD CONSTRAINT fk_Clube FOREIGN KEY (codClube) REFERENCES Clube(codClube) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Atleta ADD CONSTRAINT fk_Responsavel FOREIGN KEY (codResponsavel) REFERENCES ResponsavelAtleta(codResponsavel) ON DELETE SET NULL ON UPDATE CASCADE;
+--
+ALTER TABLE Contrato ADD CONSTRAINT fk_Atleta FOREIGN KEY (codAtleta) REFERENCES Atleta(codAtleta) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeOrigem FOREIGN KEY (clubeOrigem) REFERENCES Clube(codClube) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeDestino FOREIGN KEY (clubeDestino) REFERENCES Clube(codClube) ON DELETE SET NULL ON UPDATE CASCADE;
 #-------------------------------------------------
 # DADOS DAS TABELAS
 #-------------------------------------------------
