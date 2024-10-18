@@ -31,9 +31,9 @@ CREATE TABLE Clube (
 );
 CREATE TABLE Contato (
     cd_Contato INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    cd_Federacao INT NOT NULL, 
-    cd_Atleta INT NOT NULL,  
-    cd_Clube INT NOT NULL,
+    cd_Federacao INT NULL, 
+    cd_Atleta INT NULL,  
+    cd_Clube INT NULL,
     cd_Responsavel INT NOT NULL,
     cd_Telefone VARCHAR(15) NOT NULL,
     ds_Email VARCHAR(255) NOT NULL,
@@ -67,7 +67,19 @@ CREATE TABLE ResponsavelAtleta (
     cd_RG_Responsavel CHAR(9) NOT NULL UNIQUE,
     cd_CPF_Responsavel CHAR(11) NOT NULL UNIQUE
 )
-
+CREATE TABLE Contrato (
+    cd_Contrato INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cd_Atleta INT NULL,           
+    cd_Clube_Origem INT NULL,    
+    cd_Clube_Destino INT NULL,  
+    dt_Inicio DATE NOT NULL,
+    dt_Fim DATE NOT NULL,
+    ds_Condicoes TEXT NULL,
+    ds_Status VARCHAR(50) NOT NULL CHECK (ds_Status IN ('Ativo', 'Finalizado', 'Cancelado')),
+    ds_Tipo VARCHAR(50) NOT NULL CHECK (ds_Tipo IN ('Emprestimo', 'Transferencia')),
+    dt_Criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    dt_Atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+);
 #-------------------------------------------------
 # RELAÇÕES ENTRE TABELAS 
 #-------------------------------------------------
@@ -81,7 +93,9 @@ ALTER TABLE Contato ADD CONSTRAINT fk_ContatoResponsavel FOREIGN KEY (cd_Respons
 ALTER TABLE Atleta ADD CONSTRAINT fk_Clube FOREIGN KEY (cd_Clube) REFERENCES Clube(cd_Clube) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE Atleta ADD CONSTRAINT fk_Responsavel FOREIGN KEY (cd_Responsavel) REFERENCES ResponsavelAtleta(cd_Responsavel) ON DELETE SET NULL ON UPDATE CASCADE;
 --
-
+ALTER TABLE Contrato ADD CONSTRAINT fk_Atleta FOREIGN KEY (cd_Atleta) REFERENCES Atleta(cd_Atleta) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeOrigem FOREIGN KEY (cd_Clube_Origem) REFERENCES Clube(cd_Clube) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeDestino FOREIGN KEY (cd_Clube_Destino) REFERENCES Clube(cd_Clube) ON DELETE SET NULL ON UPDATE CASCADE;
 #-------------------------------------------------
 # DADOS DAS TABELAS
 #-------------------------------------------------
@@ -128,4 +142,43 @@ INSERT INTO Clube(
     'Sertãozinho',
     'SP',
     'Arthur Oliveira Galloro'
+);
+INSERT INTO Contato(
+	cd_Clube,
+    cd_Telefone,
+    ds_Email,
+    ds_Facebook,
+    ds_Instagram
+)VALUES(
+	1,
+    '1681446481',
+    'mogianahc@gmail.com',
+    'https://www.facebook.com/mogianahoqueiclube/',
+    'https://www.instagram.com/mogianahc/'
+);
+INSERT INTO Contato(
+	cd_Clube,
+    cd_Telefone,
+    ds_Email,
+    ds_Facebook,
+    ds_Instagram
+)VALUES(
+	1,
+    '1681446481',
+    'mogianahc@gmail.com',
+    'https://www.facebook.com/mogianahoqueiclube/',
+    'https://www.instagram.com/mogianahc/'
+);
+INSERT INTO Contato(
+	cd_Federacao,
+    cd_Telefone,
+    ds_Email,
+    ds_Facebook,
+    ds_Instagram
+)VALUES(
+	1,
+    '11987654322',
+    'federacao-paulista@gmail.com',
+    'https://www.facebook.com/federacaopaulistadehoqueisobrepatins/',
+    'https://www.instagram.com/fphp/'
 );
