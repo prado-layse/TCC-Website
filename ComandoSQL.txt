@@ -1,0 +1,187 @@
+#CRIANDO O BANCO DE DADOS
+CREATE DATABASE hoqueibrasil;
+USE hoqueibrasil;
+#-------------------------------------------------
+#CRIANDO AS TABELAS
+#-------------------------------------------------
+CREATE TABLE Federacao (
+    codFederacao INT AUTO_INCREMENT PRIMARY KEY,
+    razaoSocial VARCHAR(255) NOT NULL,
+    nomeFantasia VARCHAR(255) NOT NULL,
+    sigla CHAR(10) NOT NULL,
+    cnpj CHAR(14) NOT NULL UNIQUE,
+    presidente VARCHAR(255) NOT NULL
+);
+CREATE TABLE Clube (
+    codClube INT AUTO_INCREMENT PRIMARY KEY,
+    codFederacao INT NOT NULL, -- FK
+    razaoSocial VARCHAR(255) NOT NULL,
+    nomeFantasia VARCHAR(255) NOT NULL,
+    sigla CHAR(10) NOT NULL,
+    cnpj CHAR(14) NOT NULL UNIQUE,
+    presidente VARCHAR(255) NOT NULL
+);
+CREATE TABLE Endereco (
+    codEndereco INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    codFederacao INT NULL, 
+    codAtleta INT NULL,  
+    codClube INT NULL,
+    cep CHAR(8) NOT NULL,
+    enderecoSede VARCHAR(255) NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    estado CHAR(2) NOT NULL,
+    pais VARCHAR(100)
+);
+CREATE TABLE Contato (
+    codContato INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    codFederacao INT NULL, 
+    codAtleta INT NULL,  
+    codClube INT NULL,
+    codResponsavel INT NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    facebook VARCHAR(255) NULL,
+    instagram VARCHAR(255) NULL,
+    outraRede VARCHAR(255) NULL
+);
+CREATE TABLE Atleta (
+    codAtleta INT NOT NULL UNIQUE PRIMARY KEY,
+    codClube INT NOT NULL,   
+    codResponsavel INT NULL, 
+    statusAtleta VARCHAR(20) NOT NULL CHECK (statusAtleta IN  ('Ativo', 'Pendente', 'Suspenso', 'Emprestado')),
+    nome VARCHAR(100) NOT NULL,
+    sobrenome VARCHAR(100) NOT NULL,
+    nascimento DATE NOT NULL,
+    sexo CHAR(1) NOT NULL CHECK (sexo IN ('F', 'M')),
+    nacionalidade VARCHAR(100) NOT NULL,
+    rg CHAR(9) NULL UNIQUE,
+    cpf CHAR(11) NULL UNIQUE,
+    passaporte VARCHAR(20) NULL UNIQUE,
+    validadePassaporte DATE NULL
+);
+CREATE TABLE ResponsavelAtleta (
+    codResponsavel INT NOT NULL UNIQUE PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    sobrenome VARCHAR(255) NOT NULL,
+    rg CHAR(9) NOT NULL UNIQUE,
+    cpf CHAR(11) NOT NULL UNIQUE
+);
+CREATE TABLE Contrato (
+    codContrato INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    codAtleta INT NULL,           
+    clubeOrigem INT NULL,    
+    clubeDestino INT NULL,  
+    inicio DATE NOT NULL,
+    fim DATE NOT NULL,
+    condicao TEXT NULL,
+    statusContrato VARCHAR(50) NOT NULL CHECK (statusContrato IN ('Ativo', 'Finalizado', 'Cancelado')),
+    tipo VARCHAR(50) NOT NULL CHECK (tipo IN ('Emprestimo', 'Transferencia')),
+    criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+);
+#-------------------------------------------------
+# RELAÇÕES ENTRE TABELAS 
+#-------------------------------------------------
+ALTER TABLE Clube ADD CONSTRAINT fk_Federacao FOREIGN KEY (codFederacao) REFERENCES Federacao(codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
+--
+ALTER TABLE Contato ADD CONSTRAINT fk_ContatoFederacao FOREIGN KEY (codFederacao) REFERENCES Federacao (codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Contato ADD CONSTRAINT fk_ContatoClube FOREIGN KEY (codClube) REFERENCES Clube (codClube) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Contato ADD CONSTRAINT fk_ContatoAtleta FOREIGN KEY (codAtleta) REFERENCES Atleta (codAtleta) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Contato ADD CONSTRAINT fk_ContatoResponsavel FOREIGN KEY (codResponsavel) REFERENCES ResponsavelAtleta (codResponsavel) ON DELETE CASCADE ON UPDATE CASCADE;
+--
+ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoFederacao FOREIGN KEY (codFederacao) REFERENCES Federacao (codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoClube FOREIGN KEY (codClube) REFERENCES Clube (codClube) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoAtleta FOREIGN KEY (codAtleta) REFERENCES Atleta (codAtleta) ON DELETE CASCADE ON UPDATE CASCADE;
+--
+ALTER TABLE Atleta ADD CONSTRAINT fk_Clube FOREIGN KEY (codClube) REFERENCES Clube(codClube) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Atleta ADD CONSTRAINT fk_Responsavel FOREIGN KEY (codResponsavel) REFERENCES ResponsavelAtleta(codResponsavel) ON DELETE SET NULL ON UPDATE CASCADE;
+--
+ALTER TABLE Contrato ADD CONSTRAINT fk_Atleta FOREIGN KEY (codAtleta) REFERENCES Atleta(codAtleta) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeOrigem FOREIGN KEY (clubeOrigem) REFERENCES Clube(codClube) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeDestino FOREIGN KEY (clubeDestino) REFERENCES Clube(codClube) ON DELETE SET NULL ON UPDATE CASCADE;
+#-------------------------------------------------
+# DADOS DAS TABELAS
+#-------------------------------------------------
+INSERT INTO Federacao (
+    nm_RazaoSocial, 
+    nm_Fantasia, 
+    sg_Sigla, 
+    cd_CNPJ, 
+    cd_CEP, 
+    ds_EnderecoSede, 
+    ds_Cidade, 
+    sg_Estado, 
+    nm_Presidente
+) VALUES (
+    'Federação Paulista de Hóquei sobre Patins', 
+    'Federação Paulista', 
+    'FPHP', 
+    '16751403000102 ', 
+    '01315902',
+    'Rua Santo Amaro, 71', 
+    'São Paulo', 
+    'SP', 
+    'Ricardo Casale'
+);
+INSERT INTO Clube(
+	cd_Federacao,
+    nm_RazaoSocial, 
+    nm_Fantasia, 
+    sg_Sigla, 
+    cd_CNPJ, 
+    cd_CEP, 
+    ds_EnderecoSede, 
+    ds_Cidade, 
+    sg_Estado, 
+    nm_Presidente
+)VALUES(
+	1,
+    'Associação Mogiana Hóquei Clube',
+    'Mogiana Hóquei Clube',
+    'MHC',
+    '46090040000172',
+    '14170340',
+    'Rua Dino Aleixo Merlin, 294',
+    'Sertãozinho',
+    'SP',
+    'Arthur Oliveira Galloro'
+);
+INSERT INTO Contato(
+	cd_Clube,
+    cd_Telefone,
+    ds_Email,
+    ds_Facebook,
+    ds_Instagram
+)VALUES(
+	1,
+    '1681446481',
+    'mogianahc@gmail.com',
+    'https://www.facebook.com/mogianahoqueiclube/',
+    'https://www.instagram.com/mogianahc/'
+);
+INSERT INTO Contato(
+	cd_Clube,
+    cd_Telefone,
+    ds_Email,
+    ds_Facebook,
+    ds_Instagram
+)VALUES(
+	1,
+    '1681446481',
+    'mogianahc@gmail.com',
+    'https://www.facebook.com/mogianahoqueiclube/',
+    'https://www.instagram.com/mogianahc/'
+);
+INSERT INTO Contato(
+	cd_Federacao,
+    cd_Telefone,
+    ds_Email,
+    ds_Facebook,
+    ds_Instagram
+)VALUES(
+	1,
+    '11987654322',
+    'federacao-paulista@gmail.com',
+    'https://www.facebook.com/federacaopaulistadehoqueisobrepatins/',
+    'https://www.instagram.com/fphp/'
+);
