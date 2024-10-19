@@ -1,0 +1,13 @@
+Aqui vão uma pequena série de comandos de instalação de módulos do node que não estão presentes no computadores da Fatec que são necessários para o projeto rodar nos computadores de lá.
+
+Obs: não sei se colar todos eles juntos funciona. Por precaução, instale um por vez.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+npm i express-handlebars
+
+npm i moment
+
+npm i cors
+
+npm i sequelize
+
+npm install mysql2
