@@ -26,7 +26,7 @@ site.get('/', (req, res) => {
 });
 
 // ROTA: Listar Federações
-site.get('/federacao', (req, res) => {
+site.get('/federacoes', (req, res) => {
     console.log('Requisição recebida para listar federações');
     Federacao.findAll()
         .then(federacoes => {
@@ -38,12 +38,34 @@ site.get('/federacao', (req, res) => {
         });
 });
 
+// ROTA: Consultar Federação
+site.get('/consulta-federacao/:codFederacao', (req, res) => {
+    Federacao.findOne({ where: { codFederacao: req.params.codFederacao } })
+        .then(federacao => {
+            if (federacao) {
+                return res.json(federacao);
+            } else {
+                return res.status(404).json({
+                    error: true,
+                    message: "Essa Federação não Existe!"
+                });
+            }
+        })
+        .catch(erro => {
+            console.error(erro);
+            return res.status(500).json({
+                error: true,
+                message: "Erro ao consultar a Federação."
+            });
+        });
+});
+
 // ROTA: Tela de Cadastro de Federação
 site.get('/cadastro', (req, res) => {
     res.render('cadastro-federacao');
 });
 
-// ROTA: Adicionar uma Nova Federação
+//Adicionar uma Nova Federação
 site.post('/add-federacao', (req, res) => {
     Federacao.create({
         razaoSocial: req.body.razaoSocial,
@@ -61,14 +83,42 @@ site.post('/add-federacao', (req, res) => {
     });
 });
 
+// ROTA: Tela de Editar Federação
+site.get('/editar-federacao/:codFederacao', (req, res) => {
+    Federacao.findOne({ where: { codFederacao: req.params.codFederacao } })
+        .then(federacao => {
+            if (federacao) {
+                res.render('editar-federacao', { federacao: federacao.dataValues }); // Passa os dados para a página
+            } else {
+                res.status(404).send("Federação não encontrada");
+            }
+        })
+        .catch(erro => {
+            console.error(erro);
+            res.status(500).send("Erro ao buscar a federação");
+        });
+});
+
+// ROTA: Atualizar Federação
+site.post('/atualizar-federacao/:codFederacao', (req, res) => {
+    Federacao.update({
+        razaoSocial: req.body.razaoSocial,
+        nomeFantasia: req.body.nomeFantasia,
+        sigla: req.body.sigla,
+        cnpj: req.body.cnpj,
+        presidente: req.body.presidente
+    }, {
+        where: { codFederacao: req.params.codFederacao }
+    })
+    .then(() => {
+        res.redirect('/federacoes'); // Redireciona para a lista de federações após a atualização
+    })
+    .catch(erro => {
+        console.error(erro);
+        res.status(500).send("Erro ao atualizar a federação");
+    });
+});
 // Inicie o servidor
 site.listen(3000, () => {
     console.log('Servidor rodando na porta 3000: http://localhost:3000/');
 });
-
-// Rotas
-/*site.get('/federacao', function(req, res){
-    Federacao.findAll().then(function(federacoes){
-        res.render('pag-federacoes', {federacoes});
-    })
-})*/
