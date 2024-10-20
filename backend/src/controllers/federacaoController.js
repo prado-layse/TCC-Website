@@ -4,7 +4,7 @@ const Federacao = require('../models/Federacao');
 exports.listarFederacoes = (req, res) => {
     Federacao.findAll()
         .then(federacoes => {
-            res.status(200).json(federacoes);
+            res.render('listar-federacoes', { federacoes }); // Renderiza a tela com a lista de federações
         })
         .catch(erro => {
             console.error(erro);

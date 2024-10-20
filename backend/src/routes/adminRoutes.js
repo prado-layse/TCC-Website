@@ -4,9 +4,10 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-router.use(auth('user-admin')); // Apenas usuários admin podem acessar essas rotas
+// Aplicando o middleware de autenticação
+router.use(auth(1)); // Apenas usuários admin podem acessar essas rotas
 
-// Defina suas rotas admin aqui
+// Rota do painel do admin
 router.get('/dashboard', (req, res) => {
     res.send('Bem-vindo ao painel do admin!');
 });

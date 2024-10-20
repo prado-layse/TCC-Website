@@ -11,6 +11,7 @@ require('dotenv').config({ path: path.join(__dirname, 'config', '.env') });
 const federacaoRoutes = require('./src/routes/federacaoRoutes');
 const usuarioRoutes = require('./src/routes/usuarioRoutes');
 const clubeRoutes = require('./src/routes/clubeRoutes');
+const adminRoutes = require('./src/routes/adminRoutes')
 const sessionMiddleware = require('./config/session');
 
 const site = express();
@@ -43,6 +44,7 @@ site.use(express.urlencoded({ extended: false }));
 
 // Rotas
 site.use('/api/usuarios', usuarioRoutes);
+site.use('/api/admin', adminRoutes);
 site.use('/api/federacoes', federacaoRoutes);
 site.use('/api/clubes', clubeRoutes);
 
