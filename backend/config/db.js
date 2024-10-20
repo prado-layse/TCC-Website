@@ -1,8 +1,7 @@
-//backend/config/db.js
+// backend/config/db.js
 const Sequelize = require("sequelize");
-require('dotenv').config(); // Carregar variáveis de ambiente
+require('dotenv').config();
 
-// Conectando com o banco
 const sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
@@ -13,20 +12,29 @@ const sequelize = new Sequelize(
     }
 );
 
-// Função para testar a conexão com o banco de dados
-const testConnection = async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('Conexão com o banco de dados estabelecida com sucesso.');
-    } catch (error) {
-        console.error('Não foi possível conectar ao banco de dados:', error);
-    }
+// Importando modelos
+const UsuarioModel = require('../src/models/Usuario');
+const PerfilModel = require('../src/models/Perfil');
+
+// Definindo os modelos
+const Usuario = UsuarioModel(sequelize, Sequelize.DataTypes);
+const Perfil = PerfilModel(sequelize, Sequelize.DataTypes);
+
+// Associando modelos (se necessário)
+const models = {
+    Usuario,
+    Perfil,
 };
 
-// Chamar a função para testar a conexão
-testConnection();
+// Chamando as associações, se existirem
+Object.keys(models).forEach((modelName) => {
+    if (models[modelName].associate) {
+        models[modelName].associate(models);
+    }
+});
 
 module.exports = {
-    Sequelize: Sequelize,
-    sequelize: sequelize
+    Sequelize,
+    sequelize,
+    ...models, // Exportando os modelos
 };

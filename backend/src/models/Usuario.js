@@ -1,30 +1,34 @@
-const db = require('../../config/db');
+// backend/src/models/Usuario.js
+module.exports = (sequelize, DataTypes) => {
+    const Usuario = sequelize.define('Usuario', {
+        codUsuario: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        idPerfil: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        email: {
+            type: DataTypes.STRING(50),
+            allowNull: false,
+            unique: true,
+        },
+        senha: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
+    }, {
+        tableName: 'usuario', // Nome da tabela no banco de dados
+        timestamps: false, // Caso não tenha timestamps (createdAt, updatedAt)
+    });
 
-const Usuario = db.sequelize.define('usuario', {
-    codUsuario: {
-        type: db.Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-    email: { // Adicionando a coluna 'email'
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-    },
-    senha: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            len: [3, 100]
-        }
-    },
-    idPerfil: {
-        type: db.Sequelize.ENUM('user-admin', 'user-clube', 'user-consulta'),
-        allowNull: false,
-    },
-}, {
-    tableName: 'usuario',
-    timestamps: false,
-});
+    // Associações podem ser definidas aqui, se necessário
+    Usuario.associate = (models) => {
+        // Define a associação com o modelo Perfil, se necessário
+        Usuario.belongsTo(models.Perfil, { foreignKey: 'idPerfil' });
+    };
 
-module.exports = Usuario;
+    return Usuario;
+};

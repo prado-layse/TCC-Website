@@ -1,13 +1,13 @@
-// src/routes/usuarioRoutes.js
 const express = require('express');
 const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
 
-// ROTA: Cadastro de Administrador (POST)
-router.post('/cadastro-admin', usuarioController.cadastrarAdmin);
+// Rota para acessar a página de login
+router.get('/login', (req, res) => {
+    res.render('login'); // Renderiza a página de login
+});
 
-// ROTA: Login (POST)
+// Rota para processar o login
 router.post('/login', usuarioController.login);
 
-// Exportando o router
 module.exports = router;
