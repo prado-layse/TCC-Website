@@ -1,4 +1,4 @@
-const db = require('./db');
+const db = require('../../config/db');
 const validarCNPJ = require('../utils/validarCNPJ');
 
 const Federacao = db.sequelize.define('federacao', {

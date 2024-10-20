@@ -1,20 +1,34 @@
-<h1>Cadastrar Federacao</h1>
-<form action="/add-federacao" method="POST">
-    <label>Razão Social</label>
-    <input type="text" name="razaoSocial"><br><br>
-    
-    <label></label>
-    <label>Nome Fantasia</label>
-    <input type="text" name="nomeFantasia"><br><br>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Federação</title>
+</head>
+<body>
+    <h1>Cadastrar Federação</h1>
+    <form action="/api/federacoes" method="POST">
+        <label for="razaoSocial">Razão Social:</label>
+        <input type="text" name="razaoSocial" required>
+        <br>
 
-    <label>Sigla</label>
-    <input type="text" name="sigla"><br><br>
+        <label for="nomeFantasia">Nome Fantasia:</label>
+        <input type="text" name="nomeFantasia" required>
+        <br>
 
-    <label>CNPJ</label>
-    <input type="text" name="cnpj"><br><br>
-    
-    <label>Presidente</label>
-    <input type="text" name="presidente"><br><br>
+        <label for="sigla">Sigla:</label>
+        <input type="text" name="sigla" required>
+        <br>
 
-    <button type="submit">Cadastrar</button>
-</form>
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" name="cnpj" required>
+        <br>
+
+        <label for="presidente">Presidente:</label>
+        <input type="text" name="presidente" required>
+        <br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+    <a href="/federacoes">Voltar</a>
+</body>
+</html>

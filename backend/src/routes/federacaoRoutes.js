@@ -1,23 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const federacaoController = require('../controllers/federacaoController');
+const verificarToken = require('../middleware/authMiddleware');
 
 // ROTA: Listar Federações
-router.get('/federacoes', federacaoController.listarFederacoes);
-
+router.get('/', verificarToken, federacaoController.listarFederacoes); // Aplicando o middleware
 // ROTA: Consultar Federação
-router.get('/consulta-federacao/:codFederacao', federacaoController.consultarFederacao);
-
+router.get('/:codFederacao', federacaoController.consultarFederacao);
+// ROTA: Adicionar uma Nova Federação
+router.post('/', verificarToken, federacaoController.adicionarFederacao); // Middleware para proteger a rota
 // ROTA: Tela de Cadastro de Federação
 router.get('/cadastro', federacaoController.renderizarCadastro);
-
-// Adicionar uma Nova Federação
-router.post('/add-federacao', federacaoController.adicionarFederacao);
-
 // ROTA: Tela de Editar Federação
-router.get('/editar-federacao/:codFederacao', federacaoController.renderizarEdicao);
-
+router.get('/editar/:codFederacao', federacaoController.renderizarEdicao);
 // ROTA: Atualizar Federação
-router.post('/atualizar-federacao/:codFederacao', federacaoController.atualizarFederacao);
+router.put('/:codFederacao', verificarToken, federacaoController.atualizarFederacao); // Middleware para proteger a rota
 
 module.exports = router;
