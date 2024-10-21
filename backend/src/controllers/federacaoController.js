@@ -33,38 +33,20 @@ exports.consultarFederacao = (req, res) => {
 exports.adicionarFederacao = async (req, res) => {
     console.log('Corpo da requisição:', req.body); // Log da estrutura completa
 
-    // Acessando dados diretamente com a notação de colchetes
-    const federacaoData = {
-        razaoSocial: req.body['federacaoData.razaoSocial'],
-        nomeFantasia: req.body['federacaoData.nomeFantasia'],
-        sigla: req.body['federacaoData.sigla'],
-        cnpj: req.body['federacaoData.cnpj'],
-        presidente: req.body['federacaoData.presidente']
-    };
+    // Extraindo dados diretamente da requisição
+    //const { federacaoData, enderecoData, contatoData } = req.body;
 
-    const enderecoData = {
-        cep: req.body['enderecoData.cep'],
-        enderecoSede: req.body['enderecoData.enderecoSede'],
-        cidade: req.body['enderecoData.cidade'],
-        estado: req.body['enderecoData.estado'],
-        pais: req.body['enderecoData.pais']
-    };
+    const { razaoSocial, nomeFantasia, sigla, cnpj, presidente } = req.body;
+    const { cep, enderecoSede, cidade, estado, pais } = req.body;
+    const { telefone, email, facebook, instagram, site } = req.body;
 
-    const contatoData = {
-        telefone: req.body['contatoData.telefone'],
-        email: req.body['contatoData.email'],
-        facebook: req.body['contatoData.facebook'],
-        instagram: req.body['contatoData.instagram']
-    };
-
-    // Valida se os dados da federação não estão vazios
-    if (!federacaoData.razaoSocial || !federacaoData.nomeFantasia || !federacaoData.sigla || !federacaoData.cnpj || !federacaoData.presidente) {
+    // Validação dos dados da federação
+    if (!razaoSocial || !nomeFantasia || !sigla || !cnpj || !presidente) {
         return res.status(400).json({ error: "Todos os campos da federação são obrigatórios." });
     }
 
-    // Verifica se o usuário está autenticado e se tem permissão
-    const codUsuario = req.session.userId; // Supondo que o ID do usuário esteja na sessão
-
+    // Verifica se o usuário está autenticado
+    const codUsuario = req.session.userId;
     if (!codUsuario) {
         return res.status(401).json({ error: "Você deve estar logado para cadastrar uma federação." });
     }
@@ -77,16 +59,10 @@ exports.adicionarFederacao = async (req, res) => {
             return res.status(403).json({ error: "Acesso negado. Apenas usuários admin podem cadastrar federações." });
         }
 
-        // Prossegue com a criação da federação, endereço e contato
-        const novaFederacao = await Federacao.create(federacaoData);
-        await Endereco.create({
-            ...enderecoData,
-            codFederacao: novaFederacao.codFederacao
-        });
-        await Contato.create({
-            ...contatoData,
-            codFederacao: novaFederacao.codFederacao
-        });
+        // Criação da federação e associações
+        const novaFederacao = await Federacao.create({ razaoSocial, nomeFantasia, sigla, cnpj, presidente });
+        await Endereco.create({ ...{ cep, enderecoSede, cidade, estado, pais }, codFederacao: novaFederacao.codFederacao });
+        await Contato.create({ ...{ telefone, email, facebook, instagram, site }, codFederacao: novaFederacao.codFederacao });
 
         res.status(201).json(novaFederacao);
     } catch (erro) {

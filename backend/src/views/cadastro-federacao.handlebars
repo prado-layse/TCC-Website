@@ -1,50 +1,71 @@
-<form action="/api/federacoes/adicionar" method="POST">
-    <h2>Cadastrar Federação</h2>
-    
-    <label>Razão Social:</label>
-    <input type="text" name="federacaoData.razaoSocial" required><br>
+<h1>Cadastrar Nova Federação</h1>
+    <form action="/api/federacoes/adicionar" method="POST">
+        <fieldset>
+            <legend>Dados da Federação</legend>
+            <label for="razaoSocial">Razão Social:</label>
+            <input type="text" name="razaoSocial" required>
+            <br>
 
-    <label>Nome Fantasia:</label>
-    <input type="text" name="federacaoData.nomeFantasia" required><br>
+            <label for="nomeFantasia">Nome Fantasia:</label>
+            <input type="text" name="nomeFantasia" required>
+            <br>
 
-    <label>Sigla:</label>
-    <input type="text" name="federacaoData.sigla" required><br>
+            <label for="sigla">Sigla:</label>
+            <input type="text" name="sigla" required>
+            <br>
 
-    <label>CNPJ:</label>
-    <input type="text" name="federacaoData.cnpj" required><br>
+            <label for="cnpj">CNPJ:</label>
+            <input type="text" name="cnpj" required>
+            <br>
 
-    <label>Presidente:</label>
-    <input type="text" name="federacaoData.presidente" required><br>
+            <label for="presidente">Presidente:</label>
+            <input type="text" name="presidente" required>
+        </fieldset>
 
-    <h3>Endereço</h3>
+        <fieldset>
+            <legend>Endereço da Sede</legend>
+            <label for="cep">CEP:</label>
+            <input type="text" name="cep" required>
+            <br>
 
-    <label>CEP:</label>
-    <input type="text" name="enderecoData.cep" required><br>
+            <label for="enderecoSede">Endereço:</label>
+            <input type="text" name="enderecoSede" required>
+            <br>
 
-    <label>Endereço:</label>
-    <input type="text" name="enderecoData.enderecoSede" required><br>
-    
-    <label>Cidade:</label>
-    <input type="text" name="enderecoData.cidade" required><br>
-    
-    <label>Estado:</label>
-    <input type="text" name="enderecoData.estado" required><br>
+            <label for="cidade">Cidade:</label>
+            <input type="text" name="cidade" required>
+            <br>
 
-    <label>Pais:</label>
-    <input type="text" name="enderecoData.pais" required><br>
-    
-    <h3>Contato</h3>
-    <label>Telefone:</label>
-    <input type="text" name="contatoData.telefone" required><br>
+            <label for="estado">Estado:</label>
+            <input type="text" name="estado" required>
+            <br>
 
-    <label>Email:</label>
-    <input type="email" name="contatoData.email" required><br>
+            <label for="pais">País:</label>
+            <input type="text" name="pais" required>
+        </fieldset>
 
-    <label>Facebook:</label>
-    <input type="url" name="contatoData.facebook" required><br>
+        <fieldset>
+            <legend>Contato</legend>
+            <label for="telefone">Telefone:</label>
+            <input type="text" name="telefone" required>
+            <br>
 
-    <label>Instagram:</label>
-    <input type="url" name="contatoData.instagram" required><br>
-    
-    <button type="submit">Cadastrar</button>
-</form>
+            <label for="email">Email:</label>
+            <input type="text" name="email" required>
+            <br>
+
+            <label for="facebook">Facebook:</label>
+            <input type="text" name="facebook">
+            <br>
+
+            <label for="instagram">Instagram:</label>
+            <input type="text" name="instagram">
+            <br>
+
+            <label for="site">Site::</label>
+            <input type="text" name="Site">
+        
+        </fieldset>
+
+        <button type="submit">Cadastrar Federação</button>
+    </form>

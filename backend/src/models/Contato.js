@@ -14,28 +14,24 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'codFederacao',
             },
         },
-        codUsuario: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
         telefone: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING,
             allowNull: true,
         },
         email: {
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING,
             allowNull: true,
         },
         facebook: {
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING,
             allowNull: true,
         },
         instagram: {
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING,
             allowNull: true,
         },
-        outraRede: {
-            type: DataTypes.STRING(255),
+        site: {
+            type: DataTypes.STRING,
             allowNull: true,
         },
     }, {
