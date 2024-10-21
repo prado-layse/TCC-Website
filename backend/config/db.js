@@ -1,4 +1,3 @@
-// backend/config/db.js
 const Sequelize = require("sequelize");
 require('dotenv').config();
 
@@ -20,13 +19,12 @@ const PerfilModel = require('../src/models/Perfil');
 const Usuario = UsuarioModel(sequelize, Sequelize.DataTypes);
 const Perfil = PerfilModel(sequelize, Sequelize.DataTypes);
 
-// Associando modelos (se necessário)
+// Associando modelos
 const models = {
     Usuario,
     Perfil,
 };
 
-// Chamando as associações, se existirem
 Object.keys(models).forEach((modelName) => {
     if (models[modelName].associate) {
         models[modelName].associate(models);
@@ -36,5 +34,5 @@ Object.keys(models).forEach((modelName) => {
 module.exports = {
     Sequelize,
     sequelize,
-    ...models, // Exportando os modelos
+    ...models,
 };

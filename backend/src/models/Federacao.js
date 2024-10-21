@@ -1,4 +1,51 @@
-const db = require('../../config/db');
+// backend/src/models/Federacao.js
+module.exports = (sequelize, DataTypes) => {
+    const Federacao = sequelize.define('Federacao', {
+        codFederacao: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        razaoSocial: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        nomeFantasia: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        sigla: {
+            type: DataTypes.CHAR(10),
+            allowNull: false,
+        },
+        cnpj: {
+            type: DataTypes.CHAR(14),
+            allowNull: false,
+            unique: true,
+        },
+        presidente: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        status: {
+            type: DataTypes.ENUM('Ativo', 'Desativado'),
+            defaultValue: 'Ativo',
+        },
+    }, {
+        tableName: 'federacao',
+        timestamps: false,
+    });
+
+    Federacao.associate = (models) => {
+        Federacao.hasMany(models.Contato, { foreignKey: 'codFederacao' });
+        Federacao.hasMany(models.Endereco, { foreignKey: 'codFederacao' });
+    };
+
+    return Federacao;
+};
+
+
+/*const db = require('../../config/db');
 const validarCNPJ = require('../utils/validarCNPJ');
 
 const Federacao = db.sequelize.define('federacao', {
@@ -61,3 +108,4 @@ db.Sequelize.addHook('beforeValidate', (federacao) => {
 });
 
 module.exports = Federacao;
+*/

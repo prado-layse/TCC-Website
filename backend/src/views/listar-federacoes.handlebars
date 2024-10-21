@@ -1,32 +1,26 @@
-<!-- backend/src/views/lista-federacoes.handlebars -->
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Federações</title>
-</head>
-<body>
-    <h1>Federações Cadastradas</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Nome</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each federacoes}}
-            <tr>
-                <td>{{this.codFederacao}}</td>
-                <td>{{this.nome}}</td>
-                <td>
-                    <a href="/federacoes/{{this.codFederacao}}">Consultar</a>
-                    <a href="/federacoes/editar/{{this.codFederacao}}">Editar</a>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-</body>
-</html>
+<h1>LISTAR FEDERAÇÕES</h1>
+<button onclick="window.location.href='/api/federacoes/cadastrar'">Nova Federação</button>
+<table>
+    <thead>
+        <tr>
+            <th>Código Federação</th>
+            <th>Razão Social</th>
+            <th>Nome Fantasia</th>
+            <th>Sigla</th>
+            <th>CNPJ</th>
+            <th>Presidente</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each federacoes}}
+        <tr>
+            <td>{{this.dataValues.codFederacao}}</td>
+            <td>{{this.dataValues.razaoSocial}}</td>
+            <td>{{this.dataValues.nomeFantasia}}</td>
+            <td>{{this.dataValues.sigla}}</td>
+            <td>{{this.dataValues.cnpj}}</td>
+            <td>{{this.dataValues.presidente}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
