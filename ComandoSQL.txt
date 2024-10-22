@@ -10,7 +10,8 @@ CREATE TABLE Federacao (
     nomeFantasia VARCHAR(255) NOT NULL,
     sigla CHAR(10) NOT NULL,
     cnpj CHAR(14) NOT NULL UNIQUE,
-    presidente VARCHAR(255) NOT NULL
+    presidente VARCHAR(255) NOT NULL,
+    status ENUM('Ativo', 'Inativo') DEFAULT 'Ativo'
 );
 CREATE TABLE Clube (
     codClube INT AUTO_INCREMENT PRIMARY KEY,
@@ -19,7 +20,8 @@ CREATE TABLE Clube (
     nomeFantasia VARCHAR(255) NOT NULL,
     sigla CHAR(10) NOT NULL,
     cnpj CHAR(14) NOT NULL UNIQUE,
-    presidente VARCHAR(255) NOT NULL
+    presidente VARCHAR(255) NOT NULL,
+    status ENUM('Ativo','Inativo') DEFAULT 'Ativo'
 );
 CREATE TABLE Endereco (
     codEndereco INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -27,7 +29,7 @@ CREATE TABLE Endereco (
     codAtleta INT NULL,  
     codClube INT NULL,
     cep CHAR(8) NOT NULL,
-    enderecoSede VARCHAR(255) NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
     cidade VARCHAR(100) NOT NULL,
     estado CHAR(2) NOT NULL,
     pais VARCHAR(100)
@@ -37,22 +39,22 @@ CREATE TABLE Contato (
     codFederacao INT NULL, 
     codAtleta INT NULL,  
     codClube INT NULL,
-    codResponsavel INT NOT NULL,
+    codResponsavel INT NULL,
     telefone VARCHAR(15) NOT NULL,
     email VARCHAR(255) NOT NULL,
     facebook VARCHAR(255) NULL,
     instagram VARCHAR(255) NULL,
-    outraRede VARCHAR(255) NULL
+    site VARCHAR(255) NULL
 );
 CREATE TABLE Atleta (
     codAtleta INT NOT NULL UNIQUE PRIMARY KEY,
     codClube INT NOT NULL,   
     codResponsavel INT NULL, 
-    statusAtleta VARCHAR(20) NOT NULL CHECK (statusAtleta IN  ('Ativo', 'Pendente', 'Suspenso', 'Emprestado')),
+    status ENUM('Ativo','Inativo', 'Pendente', 'Suspenso', 'Emprestado') DEFAULT 'Ativo',
     nome VARCHAR(100) NOT NULL,
     sobrenome VARCHAR(100) NOT NULL,
     nascimento DATE NOT NULL,
-    sexo CHAR(1) NOT NULL CHECK (sexo IN ('F', 'M')),
+    sexo ENUM('F','M'),
     nacionalidade VARCHAR(100) NOT NULL,
     rg CHAR(9) NULL UNIQUE,
     cpf CHAR(11) NULL UNIQUE,
@@ -74,114 +76,49 @@ CREATE TABLE Contrato (
     inicio DATE NOT NULL,
     fim DATE NOT NULL,
     condicao TEXT NULL,
-    statusContrato VARCHAR(50) NOT NULL CHECK (statusContrato IN ('Ativo', 'Finalizado', 'Cancelado')),
-    tipo VARCHAR(50) NOT NULL CHECK (tipo IN ('Emprestimo', 'Transferencia')),
+    status ENUM('Ativo','Finalizado', 'Cancelado') DEFAULT 'Ativo',
+    tipo ENUM('Emprestimo', 'Transferencia'),
     criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+);
+CREATE TABLE Usuario (
+    codUsuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idPerfil INT NOT NULL,
+    email VARCHAR(255),
+    senha VARCHAR(100)
+);
+CREATE TABLE Perfil (
+    idPerfil INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome ENUM('user-admin','user-clube','user-consulta)
+);
+CREATE TABLE Sessions (
+    session_id VARCHAR(128) PRIMARY KEY,
+    expires INT UNIQUE,
+    data mediumtext
 );
 #-------------------------------------------------
 # RELAÇÕES ENTRE TABELAS 
 #-------------------------------------------------
-ALTER TABLE Clube ADD CONSTRAINT fk_Federacao FOREIGN KEY (codFederacao) REFERENCES Federacao(codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Contato ADD CONSTRAINT fk_Federacao FOREIGN KEY (codFederacao) REFERENCES Federacao(codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
 --
-ALTER TABLE Contato ADD CONSTRAINT fk_ContatoFederacao FOREIGN KEY (codFederacao) REFERENCES Federacao (codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Contato ADD CONSTRAINT fk_ContatoClube FOREIGN KEY (codClube) REFERENCES Clube (codClube) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Contato ADD CONSTRAINT fk_ContatoAtleta FOREIGN KEY (codAtleta) REFERENCES Atleta (codAtleta) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Contato ADD CONSTRAINT fk_ContatoResponsavel FOREIGN KEY (codResponsavel) REFERENCES ResponsavelAtleta (codResponsavel) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Clube ADD CONSTRAINT fk_FederacaoClube FOREIGN KEY (codFederacao) REFERENCES Federacao(codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
 --
-ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoFederacao FOREIGN KEY (codFederacao) REFERENCES Federacao (codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoClube FOREIGN KEY (codClube) REFERENCES Clube (codClube) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoAtleta FOREIGN KEY (codAtleta) REFERENCES Atleta (codAtleta) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoFederacao FOREIGN KEY (codFederacao) REFERENCES Federacao(codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Endereco ADD CONSTRAINT fk_EnderecoClube FOREIGN KEY (codClube) REFERENCES Clube(codClube) ON DELETE CASCADE ON UPDATE CASCADE;
 --
-ALTER TABLE Atleta ADD CONSTRAINT fk_Clube FOREIGN KEY (codClube) REFERENCES Clube(codClube) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Atleta ADD CONSTRAINT fk_Responsavel FOREIGN KEY (codResponsavel) REFERENCES ResponsavelAtleta(codResponsavel) ON DELETE SET NULL ON UPDATE CASCADE;
---
-ALTER TABLE Contrato ADD CONSTRAINT fk_Atleta FOREIGN KEY (codAtleta) REFERENCES Atleta(codAtleta) ON DELETE SET NULL ON UPDATE CASCADE;
-ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeOrigem FOREIGN KEY (clubeOrigem) REFERENCES Clube(codClube) ON DELETE SET NULL ON UPDATE CASCADE;
-ALTER TABLE Contrato ADD CONSTRAINT fk_ClubeDestino FOREIGN KEY (clubeDestino) REFERENCES Clube(codClube) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE Usuario ADD CONSTRAINT fk_Perfil FOREIGN KEY (idPerfil) REFERENCES Perfil(idPerfil) ON DELETE CASCADE ON UPDATE CASCADE;
 #-------------------------------------------------
 # DADOS DAS TABELAS
 #-------------------------------------------------
-INSERT INTO Federacao (
-    nm_RazaoSocial, 
-    nm_Fantasia, 
-    sg_Sigla, 
-    cd_CNPJ, 
-    cd_CEP, 
-    ds_EnderecoSede, 
-    ds_Cidade, 
-    sg_Estado, 
-    nm_Presidente
+INSERT INTO Usuario (
+    idPerfil,
+    email,
+    senha
 ) VALUES (
-    'Federação Paulista de Hóquei sobre Patins', 
-    'Federação Paulista', 
-    'FPHP', 
-    '16751403000102 ', 
-    '01315902',
-    'Rua Santo Amaro, 71', 
-    'São Paulo', 
-    'SP', 
-    'Ricardo Casale'
+    1, --admin 
+    'admin@example.com', 
+    'senhaSegura', 
 );
-INSERT INTO Clube(
-	cd_Federacao,
-    nm_RazaoSocial, 
-    nm_Fantasia, 
-    sg_Sigla, 
-    cd_CNPJ, 
-    cd_CEP, 
-    ds_EnderecoSede, 
-    ds_Cidade, 
-    sg_Estado, 
-    nm_Presidente
-)VALUES(
-	1,
-    'Associação Mogiana Hóquei Clube',
-    'Mogiana Hóquei Clube',
-    'MHC',
-    '46090040000172',
-    '14170340',
-    'Rua Dino Aleixo Merlin, 294',
-    'Sertãozinho',
-    'SP',
-    'Arthur Oliveira Galloro'
-);
-INSERT INTO Contato(
-	cd_Clube,
-    cd_Telefone,
-    ds_Email,
-    ds_Facebook,
-    ds_Instagram
-)VALUES(
-	1,
-    '1681446481',
-    'mogianahc@gmail.com',
-    'https://www.facebook.com/mogianahoqueiclube/',
-    'https://www.instagram.com/mogianahc/'
-);
-INSERT INTO Contato(
-	cd_Clube,
-    cd_Telefone,
-    ds_Email,
-    ds_Facebook,
-    ds_Instagram
-)VALUES(
-	1,
-    '1681446481',
-    'mogianahc@gmail.com',
-    'https://www.facebook.com/mogianahoqueiclube/',
-    'https://www.instagram.com/mogianahc/'
-);
-INSERT INTO Contato(
-	cd_Federacao,
-    cd_Telefone,
-    ds_Email,
-    ds_Facebook,
-    ds_Instagram
-)VALUES(
-	1,
-    '11987654322',
-    'federacao-paulista@gmail.com',
-    'https://www.facebook.com/federacaopaulistadehoqueisobrepatins/',
-    'https://www.instagram.com/fphp/'
-);
+#-------------------------------------------------
+
+
