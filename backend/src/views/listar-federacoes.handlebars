@@ -9,18 +9,45 @@
             <th>Sigla</th>
             <th>CNPJ</th>
             <th>Presidente</th>
+            <th>CEP</th>
+            <th>Endereço</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>País</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Facebook</th>
+            <th>Instagram</th>
+            <th>Site</th>
         </tr>
     </thead>
     <tbody>
-        {{#each federacoes}}
-        <tr>
-            <td>{{this.dataValues.codFederacao}}</td>
-            <td>{{this.dataValues.razaoSocial}}</td>
-            <td>{{this.dataValues.nomeFantasia}}</td>
-            <td>{{this.dataValues.sigla}}</td>
-            <td>{{this.dataValues.cnpj}}</td>
-            <td>{{this.dataValues.presidente}}</td>
-        </tr>
-        {{/each}}
-    </tbody>
+    {{#each federacoes}}
+    <tr>
+        <td>{{this.codFederacao}}</td>
+        <td>{{this.razaoSocial}}</td>
+        <td>{{this.nomeFantasia}}</td>
+        <td>{{this.sigla}}</td>
+        <td>{{this.cnpj}}</td>
+        <td>{{this.presidente}}</td>
+            {{#each this.Enderecos}} <!-- Abertura do loop para Enderecos -->
+                <td>{{this.cep}}</td>
+                <td>{{this.enderecoSede}}</td>
+                <td>{{this.cidade}}</td>
+                <td>{{this.estado}}</td>
+                <td>{{this.pais}}</td>
+            {{/each}} <!-- Fechamento do loop para Enderecos -->
+        </td>
+        <td>
+            {{#each this.Contatos}} <!-- Abertura do loop para Contatos -->
+                <p>Telefone: {{this.telefone}}</p>
+                <p>Email: {{this.email}}</p>
+                <p>Facebook: {{this.facebook}}</p>
+                <p>Instagram: {{this.instagram}}</p>
+                <p>Site: {{this.site}}</p>
+            {{/each}} <!-- Fechamento do loop para Contatos -->
+        </td>
+    </tr>
+    {{/each}}
+</tbody>
 </table>

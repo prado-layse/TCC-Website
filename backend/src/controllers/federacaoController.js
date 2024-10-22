@@ -2,7 +2,25 @@
 const { Federacao, Endereco, Contato, Usuario } = require('../models');
 
 // Listar Federações
-exports.listarFederacoes = (req, res) => {
+exports.listarFederacoes = async (req, res) => {
+    try {
+        const federacoes = await Federacao.findAll({
+            include: [
+                { model: Endereco, as: 'Enderecos' }, // Altere aqui para 'enderecos'
+                { model: Contato, as: 'Contatos' }    // Altere aqui para 'contatos'
+            ]
+        });
+
+        const federacoesLimpas = JSON.parse(JSON.stringify(federacoes)); // Evita problemas com propriedades do Sequelize
+
+        res.render('listar-federacoes', { federacoes: federacoesLimpas });
+    } catch (error) {
+        console.error("Erro ao listar federações:", error);
+        res.status(500).send("Erro ao listar federações");
+    }
+};
+
+/*exports.listarFederacoes = (req, res) => {
     Federacao.findAll()
         .then(federacoes => {
             res.render('listar-federacoes', { federacoes });
@@ -11,7 +29,7 @@ exports.listarFederacoes = (req, res) => {
             console.error(erro);
             res.status(500).json({ error: "Erro ao listar federações", message: erro.message });
         });
-};
+};*/
 
 // Consultar Federação
 exports.consultarFederacao = (req, res) => {
