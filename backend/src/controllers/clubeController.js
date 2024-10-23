@@ -1,15 +1,48 @@
 // src/controllers/clubeController.js
-exports.adicionarClube = async (req, res) => {
-    try {
-        const { nome, cidade } = req.body;
+const { Federacao, Endereco, Contato, Usuario, Clube} = require('../models');
+const bcrypt = require('bcryptjs');
 
-        // Lógica para adicionar o clube ao banco de dados
-        // Exemplo:
-        // await Clube.create({ nome, cidade });
+exports.adicionarClube = async (req, res) => {
+    console.log('Corpo da requisição:', req.body);
+    
+    const { codFederacao, razaoSocial, nomeFantasia, sigla, cnpj, presidente } = req.body;
+    const { cep, enderecoSede, cidade, estado, pais } = req.body;
+    const { telefone, email, facebook, instagram, site } = req.body;
+
+    if (!razaoSocial || !nomeFantasia || !sigla || !cnpj || !presidente) {
+        return res.status(400).json({ error: "Todos os campos da federação são obrigatórios." });
+    } 
+
+    try {
+        const usuario = await Usuario.findOne({ where: { codUsuario }});
+        
+        if (usuario.idPerfil !== 1) {
+            return res.status(403).json({ error: "Acesso negado. Apenas usuários admin podem cadastrar federações." });
+        }
+
+        //criar clube
+        const novoClube = await Clube.create({ codFederacao, razaoSocial, nomeFantasia, sigla, cnpj, presidente });
+        await Endereco.create({ ...{ cep, enderecoSede, cidade, estado, pais }, codClube: novoClube.codClube });
+        await Contato.create({ ...{ telefone, email, facebook, instagram, site }, codClube: novoClube.codClube });
+        res.status(201).json(novaFederacao);
+
+        //criar perfil de acesso
+        const hashSenha = await bcrypt.hash(senha, 10);
+        await Usuario.create({
+            idPerfil: 2,
+            email,
+            senha: hashSenha
+        });
 
         res.status(201).json({ message: 'Clube cadastrado com sucesso!' });
-    } catch (error) {
-        console.error('Erro ao adicionar clube:', error);
-        res.status(500).json({ message: 'Erro no servidor.' });
+
+    } catch (erro) {
+        console.error(erro);
+        res.status(500).json({ error: "Erro ao cadastrar clube", message: erro.message });
     }
+};
+
+// Renderizar Tela de Cadastro
+exports.rdCadastroClube = (req, res) => {
+    res.render('cadastro-clube');
 };

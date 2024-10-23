@@ -1,71 +1,61 @@
 <h1>Cadastrar Nova Federação</h1>
-    <form action="/api/federacoes/adicionar" method="POST">
-        <fieldset>
-            <legend>Dados da Federação</legend>
-            <label for="razaoSocial">Razão Social:</label>
-            <input type="text" name="razaoSocial" required>
-            <br>
+<form action="/api/federacoes/adicionar" method="POST">
+    <fieldset>
+        <legend>Dados da Federação</legend>
+        <label for="razaoSocial">Razão Social:</label>
+        <input type="text" name="razaoSocial" required><br>
 
-            <label for="nomeFantasia">Nome Fantasia:</label>
-            <input type="text" name="nomeFantasia" required>
-            <br>
+        <label for="nomeFantasia">Nome Fantasia:</label>
+        <input type="text" name="nomeFantasia" required><br>
 
-            <label for="sigla">Sigla:</label>
-            <input type="text" name="sigla" required>
-            <br>
+        <label for="sigla">Sigla:</label>
+        <input type="text" name="sigla" required><br>
 
-            <label for="cnpj">CNPJ:</label>
-            <input type="text" name="cnpj" required>
-            <br>
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" name="cnpj" required><br>
 
-            <label for="presidente">Presidente:</label>
-            <input type="text" name="presidente" required>
-        </fieldset>
+        <label for="presidente">Presidente:</label>
+        <input type="text" name="presidente" required>
 
-        <fieldset>
-            <legend>Endereço da Sede</legend>
-            <label for="cep">CEP:</label>
-            <input type="text" name="cep" required>
-            <br>
+        <label for="situacao">Situação:</label>
+        <input type="text" name="situacao" required>
+    </fieldset>
 
-            <label for="enderecoSede">Endereço:</label>
-            <input type="text" name="enderecoSede" required>
-            <br>
+    <fieldset>
+        <legend>Endereço da Sede</legend>
+        <label for="cep">CEP:</label>
+        <input type="text" name="cep" required><br>
 
-            <label for="cidade">Cidade:</label>
-            <input type="text" name="cidade" required>
-            <br>
+        <label for="endereco">Endereço:</label>
+        <input type="text" name="endereco" required><br>
 
-            <label for="estado">Estado:</label>
-            <input type="text" name="estado" required>
-            <br>
+        <label for="cidade">Cidade:</label>
+        <input type="text" name="cidade" required><br>
 
-            <label for="pais">País:</label>
-            <input type="text" name="pais" required>
-        </fieldset>
+        <label for="estado">Estado:</label>
+        <input type="text" name="estado" required><br>
 
-        <fieldset>
-            <legend>Contato</legend>
-            <label for="telefone">Telefone:</label>
-            <input type="text" name="telefone" required>
-            <br>
+        <label for="pais">País:</label>
+        <input type="text" name="pais" required>
+    </fieldset>
 
-            <label for="email">Email:</label>
-            <input type="text" name="email" required>
-            <br>
+    <fieldset>
+        <legend>Contato</legend>
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone" required><br>
 
-            <label for="facebook">Facebook:</label>
-            <input type="text" name="facebook">
-            <br>
+        <label for="email">Email:</label>
+        <input type="text" name="email" required><br>
 
-            <label for="instagram">Instagram:</label>
-            <input type="text" name="instagram">
-            <br>
+        <label for="facebook">Facebook:</label>
+        <input type="text" name="facebook"><br>
 
-            <label for="site">Site::</label>
-            <input type="text" name="Site">
-        
-        </fieldset>
+        <label for="instagram">Instagram:</label>
+        <input type="text" name="instagram"><br>
 
-        <button type="submit">Cadastrar Federação</button>
-    </form>
+        <label for="site">Site:</label>
+        <input type="text" name="site">
+    </fieldset>
+
+    <button type="submit">Cadastrar Federação</button>
+</form>

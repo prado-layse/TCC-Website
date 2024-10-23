@@ -5,7 +5,7 @@ const { engine } = require('express-handlebars');
 const moment = require('moment');
 require('dotenv').config({ path: path.join(__dirname, 'config', '.env') });
 
-const { sequelize, Usuario, Perfil, Federacao, Contato, Endereco } = require('./config/db'); // Use db.js para obter modelos e conexão
+const { sequelize, Usuario, Perfil, Federacao, Contato, Endereco, Clube } = require('./config/db'); // Use db.js para obter modelos e conexão
 const sessionMiddleware = require('./config/session');
 
 // Importando rotas

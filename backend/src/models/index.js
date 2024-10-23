@@ -18,9 +18,9 @@ const Perfil = require('./Perfil')(sequelize, Sequelize.DataTypes);
 const Federacao = require('./Federacao')(sequelize, Sequelize.DataTypes);
 const Contato = require('./Contato')(sequelize, Sequelize.DataTypes);
 const Endereco = require('./Endereco')(sequelize, Sequelize.DataTypes);
+const Clube = require('./Clube')(sequelize, Sequelize.DataTypes);
 
-
-const models = { Usuario, Perfil, Federacao, Contato, Endereco };
+const models = { Usuario, Perfil, Federacao, Contato, Endereco, Clube };
 
 Object.keys(models).forEach((modelName) => {
     if (models[modelName].associate) {

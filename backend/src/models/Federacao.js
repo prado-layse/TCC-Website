@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        status: {
+        situacao: {
             type: DataTypes.ENUM('Ativo', 'Inativo'),
             defaultValue: 'Ativo',
         },
@@ -37,8 +37,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Federacao.associate = (models) => {
-        Federacao.hasMany(models.Contato, { foreignKey: 'codFederacao' });
-        Federacao.hasMany(models.Endereco, { foreignKey: 'codFederacao' });
+        Federacao.hasMany(models.Contato, { foreignKey: 'codFederacao', as: 'Contatos'});
+        Federacao.hasMany(models.Endereco, { foreignKey: 'codFederacao', as: 'Enderecos' });
+        //Federacao.hasMany(models.Clube, { foreignKey: 'codFederacao'});
     };
 
     return Federacao;

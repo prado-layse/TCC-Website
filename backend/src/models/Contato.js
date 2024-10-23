@@ -8,10 +8,34 @@ module.exports = (sequelize, DataTypes) => {
         },
         codFederacao: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             references: {
                 model: 'federacao',
                 key: 'codFederacao',
+            },
+        },
+        codAtleta: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'atleta',
+                key: 'codAlteta',
+            },
+        },
+        codClube: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'clube',
+                key: 'codClube',
+            },
+        },
+        codResponsavel: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'ResponsavelAtleta',
+                key: 'codResponsavel',
             },
         },
         telefone: {
@@ -39,9 +63,10 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
     });
 
-    Contato.associate = (models) => {
-        Contato.belongsTo(models.Federacao, { foreignKey: 'codFederacao' });
-    };
+    //Contato.associate = (models) => {
+    //    Contato.belongsTo(models.Federacao, { foreignKey: 'codFederacao' });
+    //    Contato.belongsTo(models.Clube, { foreignKey: 'codClube'});
+    //};
 
     return Contato;
 };

@@ -100,6 +100,9 @@ CREATE TABLE Sessions (
 # RELAÇÕES ENTRE TABELAS 
 #-------------------------------------------------
 ALTER TABLE Contato ADD CONSTRAINT fk_Federacao FOREIGN KEY (codFederacao) REFERENCES Federacao(codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Contato ADD CONSTRAINT fk_Clube FOREIGN KEY (codClube) REFERENCES Clube(codClube) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
 --
 ALTER TABLE Clube ADD CONSTRAINT fk_FederacaoClube FOREIGN KEY (codFederacao) REFERENCES Federacao(codFederacao) ON DELETE CASCADE ON UPDATE CASCADE;
 --

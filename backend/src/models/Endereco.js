@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        enderecoSede: {
+        endereco: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -47,9 +47,10 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
     });
 
-    Endereco.associate = (models) => {
-        Endereco.belongsTo(models.Federacao, { foreignKey: 'codFederacao' });
-    };
+    //Endereco.associate = (models) => {
+    //    Endereco.belongsTo(models.Federacao, { foreignKey: 'codFederacao' });
+    //    Endereco.belongsTo(models.Clube, { foreignKey: 'codClube'});
+   // };
 
     return Endereco;
 };
