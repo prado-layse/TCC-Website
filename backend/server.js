@@ -37,7 +37,6 @@ app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/federacoes', federacaoRoutes);
 app.use('/api/clubes', clubeRoutes);
-
 // Sincronizar o banco e iniciar o servidor
 const PORT = process.env.PORT || 3000;
 

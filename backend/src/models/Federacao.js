@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     Federacao.associate = (models) => {
         Federacao.hasMany(models.Contato, { foreignKey: 'codFederacao', as: 'Contatos'});
         Federacao.hasMany(models.Endereco, { foreignKey: 'codFederacao', as: 'Enderecos' });
-        //Federacao.hasMany(models.Clube, { foreignKey: 'codFederacao'});
+        Federacao.hasMany(models.Clube, { foreignKey: 'codFederacao', as: 'Clubes'});
     };
 
     return Federacao;

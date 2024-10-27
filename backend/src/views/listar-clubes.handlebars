@@ -1,9 +1,10 @@
-<h1>LISTAR FEDERAÇÕES</h1>
-<button onclick="window.location.href='/api/federacoes/cadastrar'">Nova Federação</button>
+<h1>LISTAR CLUBES</h1>
+<button onclick="window.location.href='/api/clubes/cadastrar'">Novo Clube</button>
 <table>
     <thead>
         <tr>
             <th>Código Federação</th>
+            <th>Código Clube</th>
             <th>Razão Social</th>
             <th>Nome Fantasia</th>
             <th>Sigla</th>
@@ -26,6 +27,7 @@
     {{#each federacoes}}
     <tr>
         <td>{{this.codFederacao}}</td>
+        <td>{{this.codClube}}</td>
         <td>{{this.razaoSocial}}</td>
         <td>{{this.nomeFantasia}}</td>
         <td>{{this.sigla}}</td>

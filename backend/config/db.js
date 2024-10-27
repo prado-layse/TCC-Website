@@ -41,8 +41,18 @@ const Clube = ClubeModel(sequelize, Sequelize.DataTypes);
 // Associando os modelos após a inicialização completa
 Federacao.hasMany(Endereco, { foreignKey: 'codFederacao', as: 'Enderecos' });
 Federacao.hasMany(Contato, { foreignKey: 'codFederacao', as: 'Contatos' });
+Federacao.hasMany(Clube, { foreignKey: 'codFederacao', as: 'Clubes'});
+
 Endereco.belongsTo(Federacao, { foreignKey: 'codFederacao' });
+Endereco.belongsTo(Clube, { foreignKey: 'codClube' });
+
 Contato.belongsTo(Federacao, { foreignKey: 'codFederacao' });
+Contato.belongsTo(Clube, { foreignKey: 'codClube' });
+
+
+Clube.belongsTo(Federacao, { foreignKey: 'codFederacao'});
+Clube.hasMany(Endereco, { foreignKey: 'codClube', as: 'Enderecos' });
+Clube.hasMany(Contato, { foreignKey: 'codClube', as: 'Contatos' });
 
 
 // Associando modelos

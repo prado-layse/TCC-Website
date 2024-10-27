@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     Usuario.associate = (models) => {
         // Define a associação com o modelo Perfil, se necessário
         Usuario.belongsTo(models.Perfil, { foreignKey: 'idPerfil' });
+        Usuario.hasMany(models.Clube, {foreignKey: 'codUsuario', as: 'Usuarios'});
     };
 
     return Usuario;

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         codFederacao: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             references: {
                 model: 'federacao',
                 key: 'codFederacao',
