@@ -6,9 +6,8 @@ const router = express.Router();
 
 // Aplicando o middleware de autenticação
 router.use(auth(1)); // Apenas usuários admin podem acessar essas rotas
-
 // Rota do painel do admin
-router.get('/dashboard', (req, res) => {
+router.get('/clube-dashboard', (req, res) => {
     res.render('dashboard');
 });
 

@@ -119,3 +119,21 @@ exports.adicionarClube = async (req, res) => {
 exports.rdCadastroClube = (req, res) => {
     res.render('cadastro-clube');
 };
+
+// Acessar a Tela do Clube
+exports.dashboard = async (req, res) => {
+    try {
+        const { email } = req.session.usuario;
+
+        const usuario = await Usuario.findOne({ where: { email } });
+
+        if (!usuario) {
+            return res.status(404).send('Clube não encontrado.');
+        }
+
+        res.render('clube-dashboard', { usuario });
+    } catch (error) {
+        console.error('Erro ao carregar a página do clube:', error);
+        res.status(500).send('Erro interno no servidor.');
+    }
+};

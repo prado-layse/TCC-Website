@@ -1,36 +1,45 @@
 // backend/src/controllers/usuarioController.js
-const { Usuario } = require('../../config/db'); // Certifique-se de que esta importação esteja correta
+const { Usuario } = require('../../config/db');
 const bcrypt = require('bcryptjs');
 
 exports.login = async (req, res) => {
     const { email, senha } = req.body;
 
     try {
-        const usuario = await Usuario.findOne({
-            where: { email },
-        });
+        const usuario = await Usuario.findOne({ where: { email } });
 
         if (!usuario) {
             return res.status(401).json({ message: 'Email ou senha incorretos.' });
         }
 
-        // Comparar a senha fornecida com a senha armazenada
         const isPasswordValid = await bcrypt.compare(senha, usuario.senha);
 
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Email ou senha incorretos.' });
         }
 
-        // Se a senha for válida, você pode proceder com o login
-        req.session.userId = usuario.codUsuario; // Salvar o ID do usuário na sessão
-        req.session.idPerfil = usuario.idPerfil;
+        // Salvar o usuário na sessão
+        req.session.usuario = {
+            codUsuario: usuario.codUsuario,
+            idPerfil: usuario.idPerfil,
+            email: usuario.email,
+        };
 
-        // Redirecionar com base no perfil do usuário
-        if (usuario.idPerfil === 1) { // Supondo que o idPerfil do admin seja 1
-            return res.redirect('/api/admin/dashboard'); // Redirecionar para o dashboard
-        }
+        // Garantir que a sessão foi salva antes do redirecionamento
+        req.session.save((err) => {
+            if (err) {
+                console.error('Erro ao salvar a sessão:', err);
+                return res.status(500).json({ message: 'Erro ao iniciar sessão.' });
+            }
 
-        res.status(200).json({ message: 'Login bem-sucedido!' }); // Para outros perfis
+            if (usuario.idPerfil === 1) {
+                return res.redirect('/api/admin/dashboard');
+            } else if (usuario.idPerfil === 2) {
+                return res.redirect('/api/clubes/dashboard');
+            }
+
+            res.status(200).json({ message: 'Login bem-sucedido!' });
+        });
     } catch (error) {
         console.error('Erro ao fazer login:', error);
         res.status(500).json({ message: 'Erro interno do servidor.' });
