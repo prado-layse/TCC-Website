@@ -29,6 +29,9 @@ const FederacaoModel = require('../src/models/Federacao');
 const EnderecoModel = require('../src/models/Endereco');
 const ContatoModel = require('../src/models/Contato');
 const ClubeModel = require('../src/models/Clube');
+const AtletaModel = require('../src/models/Atleta');
+const ResponsavelModel = require('../src/models/ResponsavelAtleta');
+const ContratoModel = require('../src/models/Contrato');
 
 // Definindo os modelos
 const Usuario = UsuarioModel(sequelize, Sequelize.DataTypes);
@@ -37,6 +40,9 @@ const Federacao = FederacaoModel(sequelize, Sequelize.DataTypes);
 const Endereco = EnderecoModel(sequelize, Sequelize.DataTypes);
 const Contato = ContatoModel(sequelize, Sequelize.DataTypes);
 const Clube = ClubeModel(sequelize, Sequelize.DataTypes);
+const Atleta = AtletaModel(sequelize, Sequelize.DataTypes);
+const ResponsavelAtleta = ResponsavelModel(sequelize, Sequelize.DataTypes);
+const Contrato = ContratoModel(sequelize, Sequelize.DataTypes);
 
 // Associando os modelos após a inicialização completa
 Federacao.hasMany(Endereco, { foreignKey: 'codFederacao', as: 'Enderecos' });
@@ -49,11 +55,16 @@ Endereco.belongsTo(Clube, { foreignKey: 'codClube' });
 Contato.belongsTo(Federacao, { foreignKey: 'codFederacao' });
 Contato.belongsTo(Clube, { foreignKey: 'codClube' });
 
-
 Clube.belongsTo(Federacao, { foreignKey: 'codFederacao'});
 Clube.hasMany(Endereco, { foreignKey: 'codClube', as: 'Enderecos' });
 Clube.hasMany(Contato, { foreignKey: 'codClube', as: 'Contatos' });
 
+Atleta.belongsTo(Clube, { foreignKey: 'codClube'});
+Atleta.belongsTo(ResponsavelAtleta, { foreignKey: 'codResponsavel'});
+Atleta.hasMany(Endereco, { foreignKey: 'codClube', as: 'Enderecos' });
+Atleta.hasMany(Contato, { foreignKey: 'codClube', as: 'Contatos' });
+
+Contrato.belongsTo(Atleta, { foreignKey: 'codAtleta'});
 
 // Associando modelos
 /*const models = {
