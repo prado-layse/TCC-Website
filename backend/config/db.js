@@ -1,4 +1,4 @@
-//backend/config/db.js
+// backend/config/db.js
 const Sequelize = require("sequelize");
 require('dotenv').config();
 
@@ -11,16 +11,6 @@ const sequelize = new Sequelize(
         dialect: process.env.DB_DIALECT,
     }
 );
-
-/*// Sincronizar o banco
-sequelize.sync({ alter: true })
-    .then(() => {
-        console.log('Banco de dados sincronizado.');
-    })
-    .catch((error) => {
-        console.error('Erro ao sincronizar banco de dados:', error);
-    });
-*/
 
 // Importando modelos
 const UsuarioModel = require('../src/models/Usuario');
@@ -44,10 +34,14 @@ const Atleta = AtletaModel(sequelize, Sequelize.DataTypes);
 const ResponsavelAtleta = ResponsavelModel(sequelize, Sequelize.DataTypes);
 const Contrato = ContratoModel(sequelize, Sequelize.DataTypes);
 
-// Associando os modelos após a inicialização completa
-Federacao.hasMany(Endereco, { foreignKey: 'codFederacao', as: 'Enderecos' });
-Federacao.hasMany(Contato, { foreignKey: 'codFederacao', as: 'Contatos' });
-Federacao.hasMany(Clube, { foreignKey: 'codFederacao', as: 'Clubes'});
+// Associando os modelos
+Perfil.hasMany(Usuario, { foreignKey: 'idPerfil', as: 'usuarios' });
+Usuario.hasMany(Clube, { foreignKey: 'codUsuario', as: 'clubes' });
+Usuario.belongsTo(Perfil, { foreignKey: 'idPerfil' });
+
+Federacao.hasMany(Endereco, { foreignKey: 'codFederacao', as: 'enderecos' });
+Federacao.hasMany(Contato, { foreignKey: 'codFederacao', as: 'contatos' });
+Federacao.hasMany(Clube, { foreignKey: 'codFederacao', as: 'clubes' });
 
 Endereco.belongsTo(Federacao, { foreignKey: 'codFederacao' });
 Endereco.belongsTo(Clube, { foreignKey: 'codClube' });
@@ -55,31 +49,27 @@ Endereco.belongsTo(Clube, { foreignKey: 'codClube' });
 Contato.belongsTo(Federacao, { foreignKey: 'codFederacao' });
 Contato.belongsTo(Clube, { foreignKey: 'codClube' });
 
-Clube.belongsTo(Federacao, { foreignKey: 'codFederacao'});
-Clube.hasMany(Endereco, { foreignKey: 'codClube', as: 'Enderecos' });
-Clube.hasMany(Contato, { foreignKey: 'codClube', as: 'Contatos' });
+Clube.belongsTo(Federacao, { foreignKey: 'codFederacao' });
+Clube.belongsTo(Usuario, { foreignKey: 'codUsuario', as: 'usuario' });
+Clube.hasMany(Endereco, { foreignKey: 'codClube', as: 'enderecos' });
+Clube.hasMany(Contato, { foreignKey: 'codClube', as: 'contatos' });
 
-Atleta.belongsTo(Clube, { foreignKey: 'codClube'});
-Atleta.belongsTo(ResponsavelAtleta, { foreignKey: 'codResponsavel'});
-Atleta.hasMany(Endereco, { foreignKey: 'codClube', as: 'Enderecos' });
-Atleta.hasMany(Contato, { foreignKey: 'codClube', as: 'Contatos' });
+Atleta.belongsTo(Clube, { foreignKey: 'codClube' });
+Atleta.belongsTo(ResponsavelAtleta, { foreignKey: 'codResponsavel' });
+Atleta.hasMany(Endereco, { foreignKey: 'codClube', as: 'enderecos' });
+Atleta.hasMany(Contato, { foreignKey: 'codClube', as: 'contatos' });
 
-Contrato.belongsTo(Atleta, { foreignKey: 'codAtleta'});
+Contrato.belongsTo(Atleta, { foreignKey: 'codAtleta' });
 
-// Associando modelos
-/*const models = {
-    Usuario,
-    Perfil,
-    Federacao,
-    Endereco,
-    Clube
-};
-
-Object.keys(models).forEach((modelName) => {
-    if (models[modelName].associate) {
-        models[modelName].associate(models);
-    }
-});
+// Se preferir, pode comentar ou remover a sincronização do banco de dados
+/*
+sequelize.sync({ alter: true })
+    .then(() => {
+        console.log('Banco de dados sincronizado.');
+    })
+    .catch((error) => {
+        console.error('Erro ao sincronizar banco de dados:', error);
+    });
 */
 
 module.exports = {
@@ -90,5 +80,8 @@ module.exports = {
     Federacao,
     Endereco,
     Contato,
-    Clube
+    Clube,
+    Atleta,
+    ResponsavelAtleta,
+    Contrato
 };

@@ -1,4 +1,3 @@
-// backend/src/models/Usuario.js
 module.exports = (sequelize, DataTypes) => {
     const Usuario = sequelize.define('Usuario', {
         codUsuario: {
@@ -24,11 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false, // Caso não tenha timestamps (createdAt, updatedAt)
     });
 
-    // Associações podem ser definidas aqui, se necessário
     Usuario.associate = (models) => {
-        // Define a associação com o modelo Perfil, se necessário
         Usuario.belongsTo(models.Perfil, { foreignKey: 'idPerfil' });
-        Usuario.hasMany(models.Clube, {foreignKey: 'codUsuario', as: 'Usuarios'});
+        // Esta linha já estava correta
+        Usuario.hasMany(models.Clube, { foreignKey: 'codUsuario', as: 'clubes' });
     };
 
     return Usuario;

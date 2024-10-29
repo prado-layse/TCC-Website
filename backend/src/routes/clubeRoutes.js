@@ -1,3 +1,4 @@
+// src/routes/clubeRoutes.js
 const express = require('express');
 const router = express.Router();
 const clubeController = require('../controllers/clubeController');
@@ -16,6 +17,6 @@ router.get('/cadastrar/federacoes', auth(1), clubeController.obterFederacoesPara
 router.post('/adicionar', auth([1, 2]), clubeController.adicionarClube);
 
 // Rota: Acessar a página do clube
-router.get('/dashboard', auth(2), clubeController.dashboard);
+router.get('/dashboard/:sigla', auth(2), clubeController.dashboardClube); // Corrigido para usar `dashboardClube`
 
 module.exports = router;

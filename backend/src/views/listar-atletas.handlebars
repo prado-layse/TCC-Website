@@ -1,55 +1,27 @@
 <h1>LISTAR ATLETAS</h1>
-<button onclick="window.location.href='/api/clubes/mogianahc'">Novo Clube</button>
+<button onclick="window.location.href='/api/clubes/atletas'">Novo Atleta</button>
 <table>
     <thead>
         <tr>
-            <th>Código Federação</th>
-            <th>Código Clube</th>
-            <th>Razão Social</th>
-            <th>Nome Fantasia</th>
-            <th>Sigla</th>
-            <th>CNPJ</th>
-            <th>Presidente</th>
+            <th>Código Atleta</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Data de Nascimento</th>
+            <th>Sexo</th>
+            <th>Nascionalidade</th>
             <th>Situação</th>
-            <th>CEP</th>
-            <th>Endereço</th>
-            <th>Cidade</th>
-            <th>Estado</th>
-            <th>País</th>
-            <th>Telefone</th>
-            <th>Email</th>
-            <th>Facebook</th>
-            <th>Instagram</th>
-            <th>Site</th>
         </tr>
     </thead>
     <tbody>
-    {{#each clubes}}
+    {{#each atletas}}
     <tr>
-        <td>{{this.codFederacao}}</td>
-        <td>{{this.codClube}}</td>
-        <td>{{this.razaoSocial}}</td>
-        <td>{{this.nomeFantasia}}</td>
-        <td>{{this.sigla}}</td>
-        <td>{{this.cnpj}}</td>
-        <td>{{this.presidente}}</td>
+        <td>{{this.codAtleta}}</td>
+        <td>{{this.nome}}</td>
+        <td>{{this.sobrenome}}</td>
+        <td>{{this.nascimento}}</td>
+        <td>{{this.sexo}}</td>
+        <td>{{this.nascionalidade}}</td>
         <td>{{this.situacao}}</td>
-            {{#each this.Enderecos}} <!-- Abertura do loop para Enderecos -->
-                <td>{{this.cep}}</td>
-                <td>{{this.endereco}}</td>
-                <td>{{this.cidade}}</td>
-                <td>{{this.estado}}</td>
-                <td>{{this.pais}}</td>
-            {{/each}} <!-- Fechamento do loop para Enderecos -->
-        </td>
-        <td>
-            {{#each this.Contatos}} <!-- Abertura do loop para Contatos -->
-                <td>{{this.telefone}}</td>
-                <td>{{this.email}}</td>
-                <td>{{this.facebook}}</td>
-                <td>{{this.instagram}}</td>
-                <td>{{this.site}}</td>
-            {{/each}} <!-- Fechamento do loop para Contatos -->
         </td>
     </tr>
     {{/each}}

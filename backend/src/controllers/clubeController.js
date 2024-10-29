@@ -7,8 +7,8 @@ exports.listarClubes = async (req, res) => {
     try {
         const clubes = await Clube.findAll({
             include: [
-                { model: Endereco, as: 'Enderecos' }, // Altere aqui para 'enderecos'
-                { model: Contato, as: 'Contatos' }    // Altere aqui para 'contatos'
+                { model: Endereco, as: 'enderecos' }, // Altere aqui para 'enderecos'
+                { model: Contato, as: 'contatos' }    // Altere aqui para 'contatos'
             ]
         });
 
@@ -50,7 +50,7 @@ exports.adicionarClube = async (req, res) => {
         telefone, email, facebook, instagram, site, senha 
     } = req.body;
 
-    const codUsuario = req.session.userId;
+    const adminId = req.session.userId; // ID do usuário admin na sessão
     
     if (!razaoSocial || !nomeFantasia || !sigla || !cnpj || !presidente) {
         return res.status(400).json({ error: "Todos os campos do clube são obrigatórios." });
@@ -59,13 +59,21 @@ exports.adicionarClube = async (req, res) => {
     const t = await sequelize.transaction();
 
     try {
-        
-        const usuario = await Usuario.findOne({ where: { codUsuario } });
-        if (usuario.idPerfil !== 1) {
-            return res.status(403).json({ error: "Acesso negado. Apenas usuários admin podem cadastrar federações." });
+        // Verifica se o usuário logado é admin
+        const usuarioAdmin = await Usuario.findOne({ where: { codUsuario: adminId } });
+        if (usuarioAdmin.idPerfil !== 1) {
+            return res.status(403).json({ error: "Acesso negado. Apenas admin pode cadastrar clubes." });
         }
 
-        //1. Cadastrar na tabela clube
+        // 1. Cria o usuário para o clube
+        const hashSenha = await bcrypt.hash(senha, 10);
+        const usuarioClube = await Usuario.create({
+            idPerfil: 2,  // Perfil de clube
+            email,
+            senha: hashSenha
+        }, { transaction: t });
+
+        // 2. Cria o clube com o `codUsuario` recém-criado
         const novoClube = await Clube.create({ 
             codFederacao, 
             razaoSocial, 
@@ -73,11 +81,11 @@ exports.adicionarClube = async (req, res) => {
             sigla, 
             cnpj, 
             presidente,
-            codUsuario,
+            codUsuario: usuarioClube.codUsuario,  // Associa corretamente
             situacao: "ativo" 
         }, { transaction: t });
 
-        //2. Cadastrar na tabela endereco
+        // 3. Cadastrar endereço
         await Endereco.create({ 
             codClube: novoClube.codClube,
             cep,
@@ -87,7 +95,7 @@ exports.adicionarClube = async (req, res) => {
             pais
         }, { transaction: t });
         
-        //3. Cadastrrar na tabela contato
+        // 4. Cadastrar contato
         await Contato.create({  
             codClube: novoClube.codClube,
             telefone,
@@ -96,14 +104,6 @@ exports.adicionarClube = async (req, res) => {
             instagram,
             site 
         }, { transaction: t });
-
-        //4. criar perfil de acesso para o novo clube
-        const hashSenha = await bcrypt.hash(senha, 10);
-        await Usuario.create({
-            idPerfil: 2,
-            email,
-            senha: hashSenha
-        });
 
         await t.commit();
         res.status(201).json({ message: 'Clube cadastrado com sucesso!' });
@@ -121,19 +121,55 @@ exports.rdCadastroClube = (req, res) => {
 };
 
 // Acessar a Tela do Clube
-exports.dashboard = async (req, res) => {
+exports.loginClube = async (req, res) => {
     try {
-        const { email } = req.session.usuario;
+        // Obtém o usuário da sessão após login
+        const usuario = req.session.usuario;
 
-        const usuario = await Usuario.findOne({ where: { email } });
+        console.log('Usuário na sessão:', usuario); // Verificar se o usuário está na sessão
 
-        if (!usuario) {
+        // Verifica se é um usuário com perfil de clube (idPerfil = 2)
+        if (!usuario || usuario.idPerfil !== 2) {
+            return res.status(403).json({ message: 'Acesso negado. Perfil não autorizado.' });
+        }
+
+        // Busca o clube associado ao usuário logado
+        const clube = await Clube.findOne({
+            where: { codUsuario: usuario.codUsuario }
+        });
+
+        console.log('Clube encontrado:', clube); // Verificar se o clube foi encontrado
+
+        // Verifica se o clube foi encontrado
+        if (!clube) {
+            return res.status(404).json({ message: 'Clube não encontrado.' });
+        }
+
+        // Redireciona para a dashboard do clube
+        res.redirect(`/api/clubes/dashboard/${clube.sigla}`);
+    } catch (error) {
+        console.error('Erro ao acessar a tela do clube:', error);
+        res.status(500).json({ message: 'Erro ao acessar a tela do clube.' });
+    }
+};
+exports.dashboardClube = async (req, res) => {
+    try {
+        const { sigla } = req.params;
+
+        // Busca o clube associado à sigla
+        const clube = await Clube.findOne({ where: { sigla } });
+
+        if (!clube) {
             return res.status(404).send('Clube não encontrado.');
         }
 
-        res.render('clube-dashboard', { usuario });
+        // Supondo que o usuário esteja na sessão, obtenha os detalhes do usuário
+        const usuario = req.session.usuario;
+
+        // Renderizar a view da dashboard com os dados do clube e do usuário
+        res.render('clube-dashboard', { clube, usuario });
     } catch (error) {
-        console.error('Erro ao carregar a página do clube:', error);
-        res.status(500).send('Erro interno no servidor.');
+        console.error('Erro ao carregar a dashboard do clube:', error);
+        res.status(500).send('Erro interno do servidor.');
     }
 };

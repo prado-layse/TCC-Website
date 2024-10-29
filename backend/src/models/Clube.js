@@ -1,4 +1,3 @@
-//backend/src/models/Clube.js
 module.exports = (sequelize, DataTypes) => {
     const Clube = sequelize.define('Clube', {
         codClube: {
@@ -53,9 +52,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Clube.associate = (models) => {
-        Clube.belongsTo(models.Usuario, { foreignKey: 'codUsuario', as: 'Usuarios'});
-        Clube.hasMany(models.Endereco, { foreignKey: 'codClube', as: 'Enderecos' });
-        Clube.hasMany(models.Contato, { foreignKey: 'codClube', as: 'Contatos'});
+        // Mudamos o alias para 'usuario' em vez de 'Usuarios' para consistência
+        Clube.belongsTo(models.Usuario, { foreignKey: 'codUsuario', as: 'usuario' });
+        Clube.hasMany(models.Endereco, { foreignKey: 'codClube', as: 'enderecos' });
+        Clube.hasMany(models.Contato, { foreignKey: 'codClube', as: 'contatos' });
     };
 
     return Clube;
