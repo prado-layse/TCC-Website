@@ -71,10 +71,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Atleta.associate = (models) => {
-        Atleta.belongsTo(models.Clube, { foreignKey: 'codClube', as: 'Clubes'});
+        Atleta.belongsTo(models.Clube, { foreignKey: 'codClube', as: 'clubes'});
         Atleta.belongsTo(models.ResponsavelAtleta, { foreignKey: 'codResponsavel', as: 'Responsaveis'});
-        Atleta.hasMany(models.Endereco, { foreignKey: 'codAtleta', as: 'Enderecos' });
-        Atleta.hasMany(models.Contato, { foreignKey: 'codAtleta', as: 'Contatos'});
+        Atleta.hasMany(models.Endereco, { foreignKey: 'codAtleta', as: 'enderecos' });
+        Atleta.hasMany(models.Contato, { foreignKey: 'codAtleta', as: 'contatos'});
     };
 
     return Atleta;

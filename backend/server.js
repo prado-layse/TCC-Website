@@ -13,6 +13,7 @@ const federacaoRoutes = require('./src/routes/federacaoRoutes');
 const usuarioRoutes = require('./src/routes/usuarioRoutes');
 const clubeRoutes = require('./src/routes/clubeRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
+const atletaRoutes = require('./src/routes/atletaRoutes');
 
 const app = express();
 
@@ -37,6 +38,8 @@ app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/federacoes', federacaoRoutes);
 app.use('/api/clubes', clubeRoutes);
+app.use('/api/clubes/atletas', atletaRoutes);
+
 // Sincronizar o banco e iniciar o servidor
 const PORT = process.env.PORT || 3000;
 

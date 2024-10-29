@@ -1,13 +1,13 @@
 //src/controllers/atletaController.js
-const { Endereco, Contato, Clube, ResponsavelAtleta, Contrato} = require('../models');
+const { Endereco, Contato, Clube, Atleta, ResponsavelAtleta, Contrato} = require('../models');
 
 // Listar Atletas
 exports.listarAtletas = async (req, res) => {
     try {
         const atletas = await Atleta.findAll({
             include: [
-                { model: Endereco, as: 'Enderecos' }, // Altere aqui para 'enderecos'
-                { model: Contato, as: 'Contatos' }    // Altere aqui para 'contatos'
+                { model: Endereco, as: 'enderecos' }, // Altere aqui para 'enderecos'
+                { model: Contato, as: 'contatos' }    // Altere aqui para 'contatos'
             ]
         });
 
