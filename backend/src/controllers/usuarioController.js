@@ -1,5 +1,5 @@
 // src/controllers/usuarioController.js
-const { Usuario, Clube } = require('../../config/db');
+const { sequelize, Usuario, Clube } = require('../../config/db');
 const bcrypt = require('bcryptjs');
 
 // Acessar a Tela do Clube
@@ -44,9 +44,16 @@ exports.login = async (req, res) => {
 
                 if (clube) {
                     // Redirecionar para o dashboard do clube
-                    return res.redirect(`/api/clubes/dashboard/${clube.sigla}`);
+                    return res.redirect('/api/admin/dashboard');
                 } else {
                     return res.status(404).json({ message: 'Clube não encontrado.' });
+                }
+            } else if (usuario.idPerfil === 3) {
+                try{
+                    return res.redirect('/api/admin/dashboard');
+                } catch (error) {
+                    console.error('Erro no redirecionamento.', error);
+                    return res.status(404).json({ message: 'Erro no redirecionamento.' });
                 }
             }
 
@@ -57,4 +64,63 @@ exports.login = async (req, res) => {
         console.error('Erro ao fazer login:', error);
         res.status(500).json({ message: 'Erro interno do servidor.' });
     }
+};
+
+// Adicionar Novo Usuario
+exports.adicionarUsuario = async (req, res) => {
+    console.log('Corpo da requisição:', req.body);
+    
+    const { email, senha } = req.body;
+    
+    if (!email || !senha ) {
+        return res.status(400).json({ error: "Todos os campos do clube são obrigatórios." });
+    } 
+    
+    const emailIgual = await Usuario.findOne({ where: { email: email } });
+    if (emailIgual) {
+        return res.status(403).json({ error: "Cadastro negado. Este e-mail já foi cadastrado." });
+    }
+
+    const t = await sequelize.transaction();
+
+    try {
+        // 1. Cria o usuário
+        const hashSenha = await bcrypt.hash(senha, 10);
+        const NovoUsuario = await Usuario.create({
+            idPerfil: 3,  // Perfil de clube
+            email,
+            senha: hashSenha
+        }, { transaction: t });
+
+        await t.commit();
+        res.status(201).json({ message: 'Usuario cadastrado com sucesso!' });
+        res.redirect('/api/admin/dashboard');
+
+    } catch (erro) {
+        await t.rollback();
+        console.error(erro);
+        res.status(500).json({ error: "Erro ao cadastrar usuario", message: erro.message });
+    }
+};
+
+// Renderizar Tela de Cadastro
+exports.rdCadastroUsuario = (req, res) => {
+    res.render('cadastro-usuario');
+};
+
+// Renderizar Lista de Usuarios
+exports.rdListaUsuarios = async (req, res) => {
+
+    try{
+        const usuarios = await Usuario.findAll(); //puxa do banco todos os usuarios da tabela usuario
+        const usuariosData = usuarios.map( u => u.toJSON()); //pega esses dados e transforma num json pra burlar uma medida de segurança do handlebars que breca a ação de listar dados que ele considera sensível
+
+        res.render('listar-usuarios', { usuarios: usuariosData }); //renderiza o handlebars e passa os usuários junto
+    }
+    catch(error){
+        console.error('Erro ao buscar usuários:', error);
+        res.status(500).json({ message: 'Erro ao buscar usuários.' });
+    }
+
+    
 };
