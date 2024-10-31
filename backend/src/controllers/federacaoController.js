@@ -145,3 +145,24 @@ exports.atualizarFederacao = (req, res) => {
         res.status(500).send("Erro ao atualizar a federação");
     });
 };
+
+exports.alterarStatusFederacao = async (req, res) => {
+    const { codFederacao } = req.params;
+
+    try {
+        const federacao = await Federacao.findOne({ where: { codFederacao } });
+
+        if (!federacao) {
+            return res.status(404).json({ error: true, message: "Federação não encontrada" });
+        }
+
+        const novoStatus = federacao.status === 'Ativo' ? 'Inativo' : 'Ativo';
+        await federacao.update({ status: novoStatus });
+
+        res.status(200).json({ message: `Federação ${novoStatus.toLowerCase()} com sucesso!`, status: novoStatus });
+    } catch (erro) {
+        console.error(erro);
+        res.status(500).json({ error: true, message: "Erro ao alterar o status da federação" });
+    }
+};
+

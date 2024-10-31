@@ -29,6 +29,13 @@
         <input type="text" name="presidente" value="{{presidente}}" required>
         <br>
 
+        <form action="/api/federacoes/{{codFederacao}}/status" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit">
+                {{ status === 'Ativo' ? 'Inativar' : 'Ativar' }}
+            </button>
+        </form>
+
         <button type="submit">Atualizar</button>
     </form>
     <a href="/federacoes">Voltar</a>

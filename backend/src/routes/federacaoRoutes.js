@@ -11,5 +11,6 @@ router.get('/', federacaoController.listarFederacoes);
 // Rota para cadastrar federação
 router.get('/cadastrar', federacaoController.renderizarCadastro);
 router.post('/adicionar', federacaoController.adicionarFederacao);
+router.put('/federacoes/ :codFederacao/inativar', federacaoController.alterarStatusFederacao);
 
 module.exports = router;
