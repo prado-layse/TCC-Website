@@ -156,18 +156,15 @@ exports.dashboardClube = async (req, res) => {
     try {
         const { sigla } = req.params;
 
-        // Busca o clube associado à sigla
+        // Aqui você pode buscar mais dados do clube se necessário
         const clube = await Clube.findOne({ where: { sigla } });
 
         if (!clube) {
             return res.status(404).send('Clube não encontrado.');
         }
 
-        // Supondo que o usuário esteja na sessão, obtenha os detalhes do usuário
-        const usuario = req.session.usuario;
-
-        // Renderizar a view da dashboard com os dados do clube e do usuário
-        res.render('clube-dashboard', { clube, usuario });
+        // Renderizar a view da dashboard
+        res.render('clube-dashboard', { clube });
     } catch (error) {
         console.error('Erro ao carregar a dashboard do clube:', error);
         res.status(500).send('Erro interno do servidor.');

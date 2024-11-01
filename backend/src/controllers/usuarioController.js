@@ -42,15 +42,15 @@ exports.login = async (req, res) => {
                 // Busca o clube associado ao usuário
                 const clube = await Clube.findOne({ where: { codUsuario: usuario.codUsuario } });
 
-                if (clube) {
+                if (clube && clube.sigla) {
                     // Redirecionar para o dashboard do clube
-                    return res.redirect('/api/admin/dashboard');
+                    return res.redirect(`/api/clubes/dashboard/${clube.sigla}`);
                 } else {
                     return res.status(404).json({ message: 'Clube não encontrado.' });
                 }
             } else if (usuario.idPerfil === 3) {
                 try{
-                    return res.redirect('/api/admin/dashboard');
+                    return res.redirect('/api/cbhp');
                 } catch (error) {
                     console.error('Erro no redirecionamento.', error);
                     return res.status(404).json({ message: 'Erro no redirecionamento.' });
@@ -94,7 +94,7 @@ exports.adicionarUsuario = async (req, res) => {
 
         await t.commit();
         res.status(201).json({ message: 'Usuario cadastrado com sucesso!' });
-        res.redirect('/api/admin/dashboard');
+        res.redirect('/api/cbhp');
 
     } catch (erro) {
         await t.rollback();
