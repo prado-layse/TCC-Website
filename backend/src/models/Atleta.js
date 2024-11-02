@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.ENUM('F', 'M'),
             allowNull: false,
         },
-        nascionalidade: {
+        nacionalidade: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
         },
         validadePassaporte: {
-            type: DataTypes.DATE(8),
+            type: DataTypes.DATE,
             allowNull: true,
         },
         situacao: {

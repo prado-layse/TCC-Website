@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Responsável</title>
+</head>
+<body>
+    <h1>Cadastro de Responsável</h1>
+    <form id="formResponsavel" action="/api/clubes/atletas/adicionar-responsavel" method="POST">
+        <input type="hidden" name="nomeAtleta" value="{{atleta.nome}}">
+        <input type="hidden" name="sobrenomeAtleta" value="{{atleta.sobrenome}}">
+        <input type="hidden" name="nascimentoAtleta" value="{{atleta.nascimento}}">
+
+        <label for="nomeResponsavel">Nome do Responsável:</label>
+        <input type="text" name="nomeResponsavel" required>
+
+        <label for="sobrenomeResponsavel">Sobrenome do Responsável:</label>
+        <input type="text" name="sobrenomeResponsavel" required>
+
+        <label for="rgResponsavel">RG do Responsável:</label>
+        <input type="text" name="rgResponsavel" required>
+
+        <label for="cpfResponsavel">CPF do Responsável:</label>
+        <input type="text" name="cpfResponsavel" required>
+
+        <button type="submit">Cadastrar Responsável</button>
+    </form>
+</body>
+</html>

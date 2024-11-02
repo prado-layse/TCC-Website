@@ -2,7 +2,7 @@
 const { sequelize, Usuario, Clube } = require('../../config/db');
 const bcrypt = require('bcryptjs');
 
-// Acessar a Tela do Clube
+// Acessar as Telas com base no Perfil
 exports.login = async (req, res) => {
     const { email, senha } = req.body;
 
@@ -42,8 +42,10 @@ exports.login = async (req, res) => {
                 // Busca o clube associado ao usuário
                 const clube = await Clube.findOne({ where: { codUsuario: usuario.codUsuario } });
 
-                if (clube && clube.sigla) {
+                if (clube) {
                     // Redirecionar para o dashboard do clube
+                    req.session.usuario.codClube = clube.codClube;
+                    req.session.usuario.sigla = clube.sigla;
                     return res.redirect(`/api/clubes/dashboard/${clube.sigla}`);
                 } else {
                     return res.status(404).json({ message: 'Clube não encontrado.' });
