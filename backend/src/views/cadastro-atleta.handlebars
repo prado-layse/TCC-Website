@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Atleta</title>
+    <script>
+        function verificarIdade() {
+            const dataNascimento = new Date(document.querySelector('input[name="nascimento"]').value);
+            const idade = new Date().getFullYear() - dataNascimento.getFullYear();
+            const m = new Date().getMonth() - dataNascimento.getMonth();
+            if (m < 0 || (m === 0 && new Date().getDate() < dataNascimento.getDate())) {
+                idade--;
+            }
+
+            const contatoAtletaSection = document.getElementById('contatoAtletaSection');
+            const responsavelSection = document.getElementById('responsavelSection');
+
+            if (idade < 18) {
+                contatoAtletaSection.style.display = 'none';
+                responsavelSection.style.display = 'block';
+            } else {
+                contatoAtletaSection.style.display = 'block';
+                responsavelSection.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Cadastro de Atleta</h1>
-    <form id="formAtleta" action="/api/clubes/atletas/adicionar" method="POST">
+    <form id="formAtleta" action="/api/clubes/atletas/adicionar" method="POST" oninput="verificarIdade()">
         <label for="nome">Nome:</label>
         <input type="text" name="nome" required>
 
@@ -47,21 +68,8 @@
             <option value="Emprestado">Emprestado</option>
         </select>
 
-        <label for="telefone">Telefone:</label>
-        <input type="text" name="telefone" required>
-
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
-
-        <label for="facebook">Facebook:</label>
-        <input type="text" name="facebook">
-
-        <label for="instagram">Instagram:</label>
-        <input type="text" name="instagram">
-
-        <label for="site">Site:</label>
-        <input type="text" name="site">
-
+        <!-- Seção para Endereço -->
+        <h2>Endereço do Atleta</h2>
         <label for="cep">CEP:</label>
         <input type="text" name="cep" required>
 
@@ -76,6 +84,47 @@
 
         <label for="pais">País:</label>
         <input type="text" name="pais" required>
+
+        <!-- Seção de Contato para Atleta Maior de Idade -->
+        <div id="contatoAtletaSection" style="display: none;">
+            <h2>Contato do Atleta</h2>
+            <label for="telefone">Telefone:</label>
+            <input type="text" name="telefone">
+
+            <label for="email">Email:</label>
+            <input type="email" name="email">
+
+            <label for="facebook">Facebook:</label>
+            <input type="text" name="facebook">
+
+            <label for="instagram">Instagram:</label>
+            <input type="text" name="instagram">
+
+            <label for="site">Site:</label>
+            <input type="text" name="site">
+        </div>
+
+        <!-- Seção para Responsável e Contato se Atleta for Menor de Idade -->
+        <div id="responsavelSection" style="display: none;">
+            <h2>Informações do Responsável (para atletas menores de idade)</h2>
+            <label for="responsavelNome">Nome do Responsável:</label>
+            <input type="text" name="responsavelNome">
+
+            <label for="responsavelSobrenome">Sobrenome do Responsável:</label>
+            <input type="text" name="responsavelSobrenome">
+
+            <label for="responsavelRg">RG do Responsável:</label>
+            <input type="text" name="responsavelRg">
+
+            <label for="responsavelCpf">CPF do Responsável:</label>
+            <input type="text" name="responsavelCpf">
+
+            <label for="responsavelTelefone">Telefone do Responsável:</label>
+            <input type="text" name="responsavelTelefone">
+
+            <label for="responsavelEmail">Email do Responsável:</label>
+            <input type="email" name="responsavelEmail">
+        </div>
 
         <button type="submit">Cadastrar Atleta</button>
     </form>
