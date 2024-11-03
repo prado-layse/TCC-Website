@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Atleta</title>
+    <script>
+        function verificarIdade() {
+            const dataNascimento = new Date(document.querySelector('input[name="nascimento"]').value);
+            const idade = new Date().getFullYear() - dataNascimento.getFullYear();
+            const m = new Date().getMonth() - dataNascimento.getMonth();
+            if (m < 0 || (m === 0 && new Date().getDate() < dataNascimento.getDate())) {
+                idade--;
+            }
+
+            const contatoAtletaSection = document.getElementById('contatoAtletaSection');
+            const responsavelSection = document.getElementById('responsavelSection');
+
+            if (idade < 18) {
+                contatoAtletaSection.style.display = 'none';
+                responsavelSection.style.display = 'block';
+            } else {
+                contatoAtletaSection.style.display = 'block';
+                responsavelSection.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Cadastro de Atleta</h1>
+    <form id="formAtleta" action="/api/clubes/atletas/adicionar" method="POST" oninput="verificarIdade()">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" required>
+
+        <label for="sobrenome">Sobrenome:</label>
+        <input type="text" name="sobrenome" required>
+
+        <label for="nascimento">Data de Nascimento:</label>
+        <input type="date" name="nascimento" required>
+
+        <label for="sexo">Sexo:</label>
+        <select name="sexo" required>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+        </select>
+
+        <label for="nacionalidade">Nacionalidade:</label>
+        <input type="text" name="nacionalidade" required>
+
+        <label for="rg">RG:</label>
+        <input type="text" name="rg">
+
+        <label for="cpf">CPF:</label>
+        <input type="text" name="cpf">
+
+        <label for="passaporte">Passaporte:</label>
+        <input type="text" name="passaporte">
+
+        <label for="validadePassaporte">Validade do Passaporte:</label>
+        <input type="date" name="validadePassaporte">
+
+        <label for="situacao">Situação:</label>
+        <select name="situacao" required>
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+            <option value="Pendente">Pendente</option>
+            <option value="Suspenso">Suspenso</option>
+            <option value="Emprestado">Emprestado</option>
+        </select>
+
+        <!-- Seção para Endereço -->
+        <h2>Endereço do Atleta</h2>
+        <label for="cep">CEP:</label>
+        <input type="text" name="cep" required>
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" name="endereco" required>
+
+        <label for="cidade">Cidade:</label>
+        <input type="text" name="cidade" required>
+
+        <label for="estado">Estado:</label>
+        <input type="text" name="estado" required>
+
+        <label for="pais">País:</label>
+        <input type="text" name="pais" required>
+
+        <!-- Seção de Contato para Atleta Maior de Idade -->
+        <div id="contatoAtletaSection" style="display: none;">
+            <h2>Contato do Atleta</h2>
+            <label for="telefone">Telefone:</label>
+            <input type="text" name="telefone">
+
+            <label for="email">Email:</label>
+            <input type="email" name="email">
+
+            <label for="facebook">Facebook:</label>
+            <input type="text" name="facebook">
+
+            <label for="instagram">Instagram:</label>
+            <input type="text" name="instagram">
+
+            <label for="site">Site:</label>
+            <input type="text" name="site">
+        </div>
+
+        <!-- Seção para Responsável e Contato se Atleta for Menor de Idade -->
+        <div id="responsavelSection" style="display: none;">
+            <h2>Informações do Responsável (para atletas menores de idade)</h2>
+            <label for="responsavelNome">Nome do Responsável:</label>
+            <input type="text" name="responsavelNome">
+
+            <label for="responsavelSobrenome">Sobrenome do Responsável:</label>
+            <input type="text" name="responsavelSobrenome">
+
+            <label for="responsavelRg">RG do Responsável:</label>
+            <input type="text" name="responsavelRg">
+
+            <label for="responsavelCpf">CPF do Responsável:</label>
+            <input type="text" name="responsavelCpf">
+
+            <label for="responsavelTelefone">Telefone do Responsável:</label>
+            <input type="text" name="responsavelTelefone">
+
+            <label for="responsavelEmail">Email do Responsável:</label>
+            <input type="email" name="responsavelEmail">
+        </div>
+
+        <button type="submit">Cadastrar Atleta</button>
+    </form>
+</body>
+</html>

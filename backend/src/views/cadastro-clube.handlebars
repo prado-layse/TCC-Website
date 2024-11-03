@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Clube</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastrar Clube</h1>
+        <form action="/api/clubes/adicionar" method="POST">
+            <fieldset>
+                <legend>Dados do Clube</legend>
+                
+                <label for="razaoSocial">Razão Social:</label>
+                <input type="text" name="razaoSocial" required class="form-control"><br>
+
+                <label for="nomeFantasia">Nome Fantasia:</label>
+                <input type="text" name="nomeFantasia" required class="form-control"><br>
+
+                <label for="sigla">Sigla:</label>
+                <input type="text" name="sigla" required class="form-control"><br>
+
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" name="cnpj" required class="form-control"><br>
+
+                <label for="presidente">Presidente:</label>
+                <input type="text" name="presidente" required class="form-control"><br>
+
+                <label for="codFederacao">Federação:</label>
+                <input type="text" id="codFederacaoInput" name="codFederacao" required class="form-control" readonly>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#federacaoModal">
+                    Selecionar Federação
+                </button>
+            </fieldset>
+
+            <fieldset>
+                <legend>Dados de Endereço</legend>
+                <label for="cep">CEP:</label>
+                <input type="text" name="cep" required class="form-control"><br>
+
+                <label for="endereco">Endereço:</label>
+                <input type="text" name="endereco" required class="form-control"><br>
+
+                <label for="cidade">Cidade:</label>
+                <input type="text" name="cidade" required class="form-control"><br>
+
+                <label for="estado">Estado:</label>
+                <input type="text" name="estado" required class="form-control"><br>
+
+                <label for="pais">País:</label>
+                <input type="text" name="pais" required class="form-control"><br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Dados de Contato</legend>
+                <label for="telefone">Telefone:</label>
+                <input type="text" name="telefone" required class="form-control"><br>
+
+                <label for="email">Email:</label>
+                <input type="email" name="email" required class="form-control"><br>
+
+                <label for="facebook">Facebook:</label>
+                <input type="text" name="facebook" class="form-control"><br>
+
+                <label for="instagram">Instagram:</label>
+                <input type="text" name="instagram" class="form-control"><br>
+
+                <label for="site">Site:</label>
+                <input type="text" name="site" class="form-control"><br>
+
+                <label for="senha">Senha:</label>
+                <input type="text" name="senha" class="form-control"><br>
+
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary">Cadastrar Clube</button>
+        </form>
+    </div>
+
+    <!-- Modal de Seleção da Federação -->
+    <div class="modal fade" id="federacaoModal" tabindex="-1" role="dialog" aria-labelledby="federacaoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="federacaoModalLabel">Selecionar Federação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="federacaoList" class="list-group">
+                        <!-- As federações serão carregadas aqui -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Carregar federações ao abrir o modal
+        $('#federacaoModal').on('show.bs.modal', carregarFederacoes);
+
+        async function carregarFederacoes() {
+            try {
+                const response = await fetch('/api/clubes/cadastrar/federacoes');
+                console.log("Resposta da requisição:", response); // Adicione este log
+                const federacoes = await response.json();
+                console.log("Federações obtidas:", federacoes); // Adicione este log
+
+                const federacaoList = document.getElementById('federacaoList');
+                federacaoList.innerHTML = ''; // Limpa a lista
+
+                federacoes.forEach(federacao => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item list-group-item-action';
+                    listItem.textContent = `${federacao.razaoSocial} (ID: ${federacao.codFederacao})`;
+
+                    listItem.onclick = () => {
+                        document.getElementById('codFederacaoInput').value = federacao.codFederacao;
+                        $('#federacaoModal').modal('hide');
+                    };
+                    federacaoList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar federações:", error);
+            }
+        }
+    </script>
+</body>
+</html>

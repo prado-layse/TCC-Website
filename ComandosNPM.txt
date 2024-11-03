@@ -4,10 +4,18 @@ Obs: não sei se colar todos eles juntos funciona. Por precaução, instale um p
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 npm i express-handlebars
 
+npm i express-session
+
+npm i bcryptjs
+
+npm i express-mysql-session
+
 npm i moment
 
 npm i cors
 
 npm i sequelize
+
+npm i dotenv
 
 npm install mysql2

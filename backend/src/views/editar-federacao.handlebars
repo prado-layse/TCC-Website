@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Federação</title>
+</head>
+<body>
+    <h1>Editar Federação</h1>
+    <form action="/api/federacoes/{{codFederacao}}" method="PUT">
+        <input type="hidden" name="_method" value="PUT">
+        
+        <label for="razaoSocial">Razão Social:</label>
+        <input type="text" name="razaoSocial" value="{{razaoSocial}}" required>
+        <br>
+
+        <label for="nomeFantasia">Nome Fantasia:</label>
+        <input type="text" name="nomeFantasia" value="{{nomeFantasia}}" required>
+        <br>
+
+        <label for="sigla">Sigla:</label>
+        <input type="text" name="sigla" value="{{sigla}}" required>
+        <br>
+
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" name="cnpj" value="{{cnpj}}" required>
+        <br>
+
+        <label for="presidente">Presidente:</label>
+        <input type="text" name="presidente" value="{{presidente}}" required>
+        <br>
+
+        <form action="/api/federacoes/{{codFederacao}}/status" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit">
+                {{ status === 'Ativo' ? 'Inativar' : 'Ativar' }}
+            </button>
+        </form>
+
+        <button type="submit">Atualizar</button>
+    </form>
+    <a href="/federacoes">Voltar</a>
+</body>
+</html>

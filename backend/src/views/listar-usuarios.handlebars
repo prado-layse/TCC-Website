@@ -1,0 +1,18 @@
+<h1>LISTAR USUÁRIOS</h1>
+<button onclick="window.location.href='/api/usuarios/cadastrar'">Cadastrar Usuario</button>
+<table>
+    <thead>
+        <tr>
+            <th>E-mail</th>
+            <th>Senha</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each usuarios}}
+    <tr>
+        <td>{{this.email}}</td>
+        <td>{{this.senha}}</td>
+    </tr>
+    {{/each}}
+</tbody>
+</table>

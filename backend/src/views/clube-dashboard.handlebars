@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard do Clube</title>
+</head>
+<body>
+    <h1>Dashboard do Clube</h1>
+    <button onclick="window.location.href='/api/clubes/atletas/cadastrar'">Novo Atleta</button>
+    <h2>Lista de Atletas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Código Atleta</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Data de Nascimento</th>
+                <th>Sexo</th>
+                <th>Nacionalidade</th>
+                <th>Situação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#if atletas.length}}
+                {{#each atletas}}
+                    <tr>
+                        <td>{{codAtleta}}</td>
+                        <td>{{nome}}</td>
+                        <td>{{sobrenome}}</td>
+                        <td>{{nascimento}}</td>
+                        <td>{{sexo}}</td>
+                        <td>{{nacionalidade}}</td>
+                        <td>{{situacao}}</td>
+                    </tr>
+                {{/each}}
+            {{else}}
+                <tr>
+                    <td colspan="7">Nenhum atleta cadastrado.</td>
+                </tr>
+            {{/if}}
+        </tbody>
+    </table>
+</body>
+</html>

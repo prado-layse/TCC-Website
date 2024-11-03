@@ -1,0 +1,3 @@
+Iniciar Servidor: Inicie o servidor back-end e front-end separadamente:
+Para o back-end: npm run dev
+Para o front-end: npm start
