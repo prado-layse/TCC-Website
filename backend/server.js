@@ -14,6 +14,7 @@ const usuarioRoutes = require('./src/routes/usuarioRoutes');
 const clubeRoutes = require('./src/routes/clubeRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
 const atletaRoutes = require('./src/routes/atletaRoutes');
+const indexRoutes = require('./src/routes/indexRoutes');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(sessionMiddleware); // Middleware de sessão
 
 // Rotas
+app.use('/api/', indexRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/federacoes', federacaoRoutes);
