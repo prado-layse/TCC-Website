@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         cnpj: {
-            type: DataTypes.CHAR(14),
+            type: DataTypes.CHAR(18),
             allowNull: false,
             unique: true,
         },
