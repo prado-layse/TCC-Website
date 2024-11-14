@@ -112,21 +112,25 @@ exports.consultarFederacao = (req, res) => {
         });
 };
 
-// Renderizar Tela de Edição
-exports.renderizarEdicao = (req, res) => {
-    Federacao.findOne({ where: { codFederacao: req.params.codFederacao } })
-        .then(federacao => {
-            if (federacao) {
-                res.render('editar-federacao', { federacao: federacao.dataValues });
-            } else {
-                res.status(404).send("Federação não encontrada");
-            }
-        })
-        .catch(erro => {
-            console.error(erro);
-            res.status(500).send("Erro ao buscar a federação");
+// Renderizar a página de edição de uma federação
+exports.renderizarEdicao = async (req, res) => {
+    try {
+        const federacao = await Federacao.findOne({
+            where: { codFederacao: req.params.codFederacao },
+            include: [{ model: Endereco, as: 'Enderecos' }, { model: Contato, as: 'Contatos' }]
         });
+
+        if (federacao) {
+            res.render('editar-federacao', { federacao: federacao.dataValues });
+        } else {
+            res.status(404).send("Federação não encontrada");
+        }
+    } catch (erro) {
+        console.error("Erro ao buscar a federação:", erro);
+        res.status(500).send("Erro ao buscar a federação");
+    }
 };
+
 
 // Atualizar Federação
 exports.atualizarFederacao = (req, res) => {
@@ -146,23 +150,43 @@ exports.atualizarFederacao = (req, res) => {
     });
 };
 
-exports.alterarStatusFederacao = async (req, res) => {
+// Atualizar Federação
+exports.atualizarFederacao = async (req, res) => {
     const { codFederacao } = req.params;
+    const { razaoSocial, nomeFantasia, sigla, cnpj, presidente, 
+        cep, endereco, cidade, estado, pais, telefone, email, 
+        facebook, instagram, site } = req.body;
+
+    const t = await sequelize.transaction();
 
     try {
-        const federacao = await Federacao.findOne({ where: { codFederacao } });
+        // Atualizar dados da federação
+        await Federacao.update(
+            { razaoSocial, nomeFantasia, sigla, cnpj, presidente },
+            { where: { codFederacao }, transaction: t }
+        );
 
-        if (!federacao) {
-            return res.status(404).json({ error: true, message: "Federação não encontrada" });
-        }
+        // Atualizar dados de endereço
+        await Endereco.update(
+            { cep, endereco, cidade, estado, pais },
+            { where: { codFederacao }, transaction: t }
+        );
 
-        const novoStatus = federacao.status === 'Ativo' ? 'Inativo' : 'Ativo';
-        await federacao.update({ status: novoStatus });
+        // Atualizar dados de contato
+        await Contato.update(
+            { telefone, email, facebook, instagram, site },
+            { where: { codFederacao }, transaction: t }
+        );
 
-        res.status(200).json({ message: `Federação ${novoStatus.toLowerCase()} com sucesso!`, status: novoStatus });
+        // Confirma a transação
+        await t.commit();
+
+        res.redirect('/federacoes');
     } catch (erro) {
-        console.error(erro);
-        res.status(500).json({ error: true, message: "Erro ao alterar o status da federação" });
+        await t.rollback();
+        console.error("Erro ao atualizar a federação:", erro);
+        res.status(500).send("Erro ao atualizar a federação");
     }
 };
+
 

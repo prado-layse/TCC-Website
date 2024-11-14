@@ -1,43 +1,49 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Federação</title>
-</head>
-<body>
-    <h1>Editar Federação</h1>
-    <form action="/api/federacoes/{{codFederacao}}" method="PUT">
-        <input type="hidden" name="_method" value="PUT">
-        
-        <label for="razaoSocial">Razão Social:</label>
-        <input type="text" name="razaoSocial" value="{{razaoSocial}}" required>
-        <br>
+<form action="/federacoes/{{federacao.codFederacao}}/editar" method="POST">
+    <input type="hidden" name="_method" value="PUT">
 
-        <label for="nomeFantasia">Nome Fantasia:</label>
-        <input type="text" name="nomeFantasia" value="{{nomeFantasia}}" required>
-        <br>
+    <label for="nomeFantasia">Nome Fantasia:</label>
+    <input type="text" name="nomeFantasia" value="{{federacao.nomeFantasia}}" required>
+    <br>
 
-        <label for="sigla">Sigla:</label>
-        <input type="text" name="sigla" value="{{sigla}}" required>
-        <br>
+    <label for="cep">CEP:</label>
+    <input type="text" name="cep" value="{{federacao.Enderecos.0.cep}}" required>
+    <br>
 
-        <label for="cnpj">CNPJ:</label>
-        <input type="text" name="cnpj" value="{{cnpj}}" required>
-        <br>
+    <label for="endereco">Endereço:</label>
+    <input type="text" name="endereco" value="{{federacao.Enderecos.0.endereco}}" required>
+    <br>
 
-        <label for="presidente">Presidente:</label>
-        <input type="text" name="presidente" value="{{presidente}}" required>
-        <br>
+    <label for="cidade">Cidade:</label>
+    <input type="text" name="cidade" value="{{federacao.Enderecos.0.cidade}}" required>
+    <br>
 
-        <form action="/api/federacoes/{{codFederacao}}/status" method="POST">
-            <input type="hidden" name="_method" value="PUT">
-            <button type="submit">
-                {{ status === 'Ativo' ? 'Inativar' : 'Ativar' }}
-            </button>
-        </form>
+    <label for="estado">Estado:</label>
+    <input type="text" name="estado" value="{{federacao.Enderecos.0.estado}}" required>
+    <br>
 
-        <button type="submit">Atualizar</button>
-    </form>
-    <a href="/federacoes">Voltar</a>
-</body>
-</html>
+    <label for="pais">País:</label>
+    <input type="text" name="pais" value="{{federacao.Enderecos.0.pais}}" required>
+    <br>
+
+    <label for="telefone">Telefone:</label>
+    <input type="text" name="telefone" value="{{federacao.Contatos.0.telefone}}" required>
+    <br>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" value="{{federacao.Contatos.0.email}}" required>
+    <br>
+
+    <label for="facebook">Facebook:</label>
+    <input type="text" name="facebook" value="{{federacao.Contatos.0.facebook}}">
+    <br>
+
+    <label for="instagram">Instagram:</label>
+    <input type="text" name="instagram" value="{{federacao.Contatos.0.instagram}}">
+    <br>
+
+    <label for="site">Site:</label>
+    <input type="text" name="site" value="{{federacao.Contatos.0.site}}">
+    <br>
+
+    <button type="submit">Salvar Alterações</button>
+</form>
