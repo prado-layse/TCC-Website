@@ -22,6 +22,7 @@ const ClubeModel = require('../src/models/Clube');
 const AtletaModel = require('../src/models/Atleta');
 const ResponsavelModel = require('../src/models/ResponsavelAtleta');
 const ContratoModel = require('../src/models/Contrato');
+const SolicitacaoModel = require('../src/models/Solicitacao');
 
 // Definindo os modelos
 const Usuario = UsuarioModel(sequelize, Sequelize.DataTypes);
@@ -33,6 +34,7 @@ const Clube = ClubeModel(sequelize, Sequelize.DataTypes);
 const Atleta = AtletaModel(sequelize, Sequelize.DataTypes);
 const ResponsavelAtleta = ResponsavelModel(sequelize, Sequelize.DataTypes);
 const Contrato = ContratoModel(sequelize, Sequelize.DataTypes);
+const Solicitacao = SolicitacaoModel(sequelize, Sequelize.DataTypes);
 
 // Associando os modelos
 Perfil.hasMany(Usuario, { foreignKey: 'idPerfil', as: 'usuarios' });
@@ -61,6 +63,13 @@ Atleta.hasMany(Contato, { foreignKey: 'codClube', as: 'contatos' });
 
 Contrato.belongsTo(Atleta, { foreignKey: 'codAtleta' });
 
+Solicitacao.belongsTo(Clube, { foreignKey: 'codClube'});
+Solicitacao.belongsTo(Atleta, { foreignKey: 'codAtleta'});
+Solicitacao.belongsTo(ResponsavelAtleta, { foreignKey: 'codResponsavel'});
+Solicitacao.belongsTo(Contato, { foreignKey: 'codContato'});
+Solicitacao.belongsTo(Endereco, {foreignKey: 'codEndereco'});
+Solicitacao.belongsTo(Contrato, {foreignKey: 'codContrato'});
+
 // Se preferir, pode comentar ou remover a sincronização do banco de dados
 /*
 sequelize.sync({ alter: true })
@@ -83,5 +92,6 @@ module.exports = {
     Clube,
     Atleta,
     ResponsavelAtleta,
-    Contrato
+    Contrato,
+    Solicitacao
 };

@@ -97,6 +97,22 @@ CREATE TABLE Sessions (
     expires INT UNIQUE,
     data mediumtext
 );
+CREATE TABLE Solicitacao (
+    codSolicitacao INT PRIMARY KEY AUTO_INCREMENT,
+    codClube INT,
+    codAtleta INT,
+    codResponsavel INT,
+    codContato INT,
+    codEndereco INT,
+    status ENUM('Aguardando', 'Aprovado', 'Rejeitado') DEFAULT 'Aguardando',
+    dataSolicitacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (codClube) REFERENCES clube(codClube) ON DELETE CASCADE,
+    FOREIGN KEY (codAtleta) REFERENCES atleta(codAtleta) ON DELETE SET NULL,
+    FOREIGN KEY (codResponsavel) REFERENCES responsavelatleta(codResponsavel) ON DELETE SET NULL,
+    FOREIGN KEY (codContato) REFERENCES contato(codContato) ON DELETE SET NULL,
+    FOREIGN KEY (codEndereco) REFERENCES endereco(codEndereco) ON DELETE SET NULL
+);
 #-------------------------------------------------
 # RELAÇÕES ENTRE TABELAS 
 #-------------------------------------------------
