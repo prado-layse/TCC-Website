@@ -13,8 +13,13 @@
       <img src="" alt="Logo CSB" width="100">
     </div>
     <nav>
-      <a href="/api/usuarios/cadastrar">Cadastrar</a>
-      <a href="/api/usuarios/login">Entrar</a>
+      {{#if isUsuarioLogado}}
+        <a href="/api/usuarios/perfil">Perfil</a>
+        <a href="/api/usuarios/perfil">Sair da conta</a>
+      {{else}}
+        <a href="/api/usuarios/cadastrar">Cadastrar</a>
+        <a href="/api/usuarios/login">Entrar</a>
+      {{/if}}
     </nav>
   </header>
 

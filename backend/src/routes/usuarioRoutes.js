@@ -21,4 +21,7 @@ router.post('/adicionar', usuarioController.adicionarUsuario);
 // Rota para processar o login
 router.post('/login', usuarioController.login);
 
+// Rota para acessar o perfil
+router.get('/perfil', usuarioController.rdPerfil);
+
 module.exports = router;

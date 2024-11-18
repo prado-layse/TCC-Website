@@ -95,14 +95,14 @@ exports.adicionarUsuario = async (req, res) => {
         }, { transaction: t });
 
         await t.commit();
-        res.status(201).json({ message: 'Usuario cadastrado com sucesso!' });
-        res.redirect('/api/cbhp');
-
+        //res.status(201).json({ message: 'Usuario cadastrado com sucesso!' });
     } catch (erro) {
         await t.rollback();
         console.error(erro);
         res.status(500).json({ error: "Erro ao cadastrar usuario", message: erro.message });
     }
+
+    res.redirect('/api/cbhp');
 };
 
 // Renderizar Tela de Cadastro
@@ -124,5 +124,24 @@ exports.rdListaUsuarios = async (req, res) => {
         res.status(500).json({ message: 'Erro ao buscar usuários.' });
     }
 
+    
+};
+
+// Renderizar Perfil
+exports.rdPerfil = async (req, res) => {
+    //req.session.userId = usuario.codUsuario; // Salvar userId na sessão
+    //    req.session.usuario = {
+    //        codUsuario: usuario.codUsuario,
+    //        idPerfil: usuario.idPerfil,
+    //        email: usuario.email,
+    //    };
+    const usuario = req.session.usuario;
+
+    if (!usuario){
+        return res.redirect('/api/usuarios/login')
+    }
+    else{
+        res.render('perfil');
+    }
     
 };
