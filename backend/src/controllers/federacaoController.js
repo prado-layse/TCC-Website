@@ -115,45 +115,38 @@ exports.consultarFederacao = (req, res) => {
 // Renderizar a página de edição de uma federação
 exports.renderizarEdicao = async (req, res) => {
     try {
+        const { codFederacao } = req.params;
         const federacao = await Federacao.findOne({
-            where: { codFederacao: req.params.codFederacao },
-            include: [{ model: Endereco, as: 'Enderecos' }, { model: Contato, as: 'Contatos' }]
+            where: { codFederacao },
+            include: [
+                { model: Endereco, as: 'Enderecos' },
+                { model: Contato, as: 'Contatos' }
+            ]
         });
 
-        if (federacao) {
-            res.render('editar-federacao', { federacao: federacao.dataValues });
-        } else {
-            res.status(404).send("Federação não encontrada");
+        if (!federacao) {
+            return res.status(404).send("Federação não encontrada");
         }
+
+        // Extrair o primeiro endereço e contato, ou usar valores padrão
+        const endereco = federacao.Enderecos[0] || {};
+        const contato = federacao.Contatos[0] || {};
+
+        res.render('editar-federacao', {
+            federacao: federacao.toJSON(),
+            endereco,
+            contato,
+        });
     } catch (erro) {
-        console.error("Erro ao buscar a federação:", erro);
-        res.status(500).send("Erro ao buscar a federação");
+        console.error("Erro ao carregar página de edição:", erro);
+        res.status(500).send("Erro ao renderizar a página de edição");
     }
-};
-
-
-// Atualizar Federação
-exports.atualizarFederacao = (req, res) => {
-    Federacao.update(req.body, {
-        where: { codFederacao: req.params.codFederacao }
-    })
-    .then(([rowsUpdated]) => {
-        if (rowsUpdated > 0) {
-            res.redirect('/federacoes');
-        } else {
-            res.status(404).send("Federação não encontrada");
-        }
-    })
-    .catch(erro => {
-        console.error(erro);
-        res.status(500).send("Erro ao atualizar a federação");
-    });
 };
 
 // Atualizar Federação
 exports.atualizarFederacao = async (req, res) => {
     const { codFederacao } = req.params;
-    const { razaoSocial, nomeFantasia, sigla, cnpj, presidente, 
+    const { razaoSocial, nomeFantasia, sigla, presidente, situacao,//Adicao de situacao nas constantes para alteração
         cep, endereco, cidade, estado, pais, telefone, email, 
         facebook, instagram, site } = req.body;
 
@@ -162,7 +155,7 @@ exports.atualizarFederacao = async (req, res) => {
     try {
         // Atualizar dados da federação
         await Federacao.update(
-            { razaoSocial, nomeFantasia, sigla, cnpj, presidente },
+            { razaoSocial, nomeFantasia, sigla, presidente, situacao },//Adicionei a possibilidade de alterar situacao e retirei CNPJ
             { where: { codFederacao }, transaction: t }
         );
 
@@ -181,7 +174,7 @@ exports.atualizarFederacao = async (req, res) => {
         // Confirma a transação
         await t.commit();
 
-        res.redirect('/federacoes');
+        res.redirect('/api/federacoes');
     } catch (erro) {
         await t.rollback();
         console.error("Erro ao atualizar a federação:", erro);

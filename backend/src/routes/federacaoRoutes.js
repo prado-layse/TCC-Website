@@ -8,11 +8,9 @@ const auth = require('../middleware/auth');
 router.use(auth(1));
 // Rota para listar federações
 router.get('/', federacaoController.listarFederacoes);
-router.get('/:codFederacao/editar', (req, res) => {
-    res.render('editar-federacao'); // Renderiza a página de login
-});
 // Rota para cadastrar federação
 router.get('/cadastrar', federacaoController.renderizarCadastro);
 router.post('/adicionar', federacaoController.adicionarFederacao);
-router.put('/:codFederacao', federacaoController.atualizarFederacao);
+router.get('/:codFederacao/editar', federacaoController.renderizarEdicao); // Rota para renderizar Tela de editar federação
+router.post('/:codFederacao/atualizar', federacaoController.atualizarFederacao); //Rota para atualizar a federação
 module.exports = router;

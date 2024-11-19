@@ -3,6 +3,7 @@ const path = require('path');
 const cors = require('cors');
 const { engine } = require('express-handlebars');
 const moment = require('moment');
+const methodOverride = require('method-override');
 require('dotenv').config({ path: path.join(__dirname, 'config', '.env') });
 
 const { sequelize, Usuario, Perfil, Federacao, Contato, Endereco, Clube } = require('./config/db'); // Use db.js para obter modelos e conexão
@@ -33,6 +34,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(sessionMiddleware); // Middleware de sessão
+app.use(methodOverride('_method'));
 
 // Rotas
 app.use('/api/', indexRoutes);

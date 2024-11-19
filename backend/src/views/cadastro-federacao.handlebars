@@ -16,12 +16,6 @@
 
         <label for="presidente">Presidente:</label>
         <input type="text" name="presidente" required>
-
-        <label for="situacao">Situação:</label>
-        <select name="situacao">
-            <option value="situacao">Ativo</option required>
-            <option value="situacao">Inativo</option required>
-        </select><br>
     </fieldset>
 
     <fieldset>
@@ -96,7 +90,7 @@ $(document).ready(function() {
     // Aplicando a máscara de CNPJ
     $('#cnpj').mask('00.000.000/0000-00');
     $('#cep').mask('00000-000');
-    $('#telefone').mask('(000) 00000-0000');
+    $('#telefone').mask('(00) 00000-0000');
 });
 </script>
 
