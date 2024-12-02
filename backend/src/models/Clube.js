@@ -54,8 +54,8 @@ module.exports = (sequelize, DataTypes) => {
     Clube.associate = (models) => {
         // Mudamos o alias para 'usuario' em vez de 'Usuarios' para consistência
         Clube.belongsTo(models.Usuario, { foreignKey: 'codUsuario', as: 'usuario' });
-        Clube.hasMany(models.Endereco, { foreignKey: 'codClube', as: 'enderecos' });
-        Clube.hasMany(models.Contato, { foreignKey: 'codClube', as: 'contatos' });
+        Clube.hasMany(models.Endereco, { foreignKey: 'codClube', as: 'Enderecos' });
+        Clube.hasMany(models.Contato, { foreignKey: 'codClube', as: 'Contatos' });
     };
 
     return Clube;
