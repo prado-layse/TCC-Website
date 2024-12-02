@@ -48,10 +48,10 @@
         <input type="text" name="nacionalidade" required>
 
         <label for="rg">RG:</label>
-        <input type="text" name="rg">
+        <input type="text" id="rg" name="rg">
 
         <label for="cpf">CPF:</label>
-        <input type="text" name="cpf">
+        <input type="text" id="cpf" name="cpf">
 
         <label for="passaporte">Passaporte:</label>
         <input type="text" name="passaporte">
@@ -71,7 +71,7 @@
         <!-- Seção para Endereço -->
         <h2>Endereço do Atleta</h2>
         <label for="cep">CEP:</label>
-        <input type="text" name="cep" required>
+        <input type="text" id="cep" name="cep" required>
 
         <label for="endereco">Endereço:</label>
         <input type="text" name="endereco" required>
@@ -89,7 +89,7 @@
         <div id="contatoAtletaSection" style="display: none;">
             <h2>Contato do Atleta</h2>
             <label for="telefone">Telefone:</label>
-            <input type="text" name="telefone">
+            <input type="text" id="telefone" name="telefone">
 
             <label for="email">Email:</label>
             <input type="email" name="email">
@@ -114,13 +114,13 @@
             <input type="text" name="responsavelSobrenome">
 
             <label for="responsavelRg">RG do Responsável:</label>
-            <input type="text" name="responsavelRg">
+            <input type="text" id="responsavelRg" name="responsavelRg">
 
             <label for="responsavelCpf">CPF do Responsável:</label>
-            <input type="text" name="responsavelCpf">
+            <input type="text" id="responsavelCpf" name="responsavelCpf">
 
             <label for="responsavelTelefone">Telefone do Responsável:</label>
-            <input type="text" name="responsavelTelefone">
+            <input type="text" id="responsavelTelefone" name="responsavelTelefone">
 
             <label for="responsavelEmail">Email do Responsável:</label>
             <input type="email" name="responsavelEmail">
@@ -128,5 +128,24 @@
 
         <button type="submit">Cadastrar Atleta</button>
     </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
+    <script>
+    $(document).ready(function() {
+        // Aplicando a máscara de CNPJ
+        $('#cnpj').mask('00.000.000/0000-00');
+        $('#cep').mask('00000-000');
+        $('#telefone').mask('(00) 00000-0000');
+        $('#cpf').mask('000000000/00');
+        $('#rg').mask('00.000.000-0');
+        $('#responsavelTelefone').mask('(00) 00000-0000');
+        $('#responsavelCpf').mask('000000000/00');
+        $('#responsavelRg').mask('00.000.000-0');
+    });
+    </script>
+
 </body>
 </html>

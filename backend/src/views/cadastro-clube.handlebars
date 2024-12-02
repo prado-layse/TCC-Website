@@ -23,7 +23,7 @@
                 <input type="text" name="sigla" required class="form-control"><br>
 
                 <label for="cnpj">CNPJ:</label>
-                <input type="text" name="cnpj" required class="form-control"><br>
+                <input type="text" id="cnpj" name="cnpj" required class="form-control"><br>
 
                 <label for="presidente">Presidente:</label>
                 <input type="text" name="presidente" required class="form-control"><br>
@@ -38,7 +38,7 @@
             <fieldset>
                 <legend>Dados de Endereço</legend>
                 <label for="cep">CEP:</label>
-                <input type="text" name="cep" required class="form-control"><br>
+                <input type="text" id="cep" name="cep" required class="form-control"><br>
 
                 <label for="endereco">Endereço:</label>
                 <input type="text" name="endereco" required class="form-control"><br>
@@ -56,7 +56,7 @@
             <fieldset>
                 <legend>Dados de Contato</legend>
                 <label for="telefone">Telefone:</label>
-                <input type="text" name="telefone" required class="form-control"><br>
+                <input type="text" id="telefone" name="telefone" required class="form-control"><br>
 
                 <label for="email">Email:</label>
                 <input type="email" name="email" required class="form-control"><br>
@@ -131,6 +131,18 @@
                 console.error("Erro ao carregar federações:", error);
             }
         }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Aplicando a máscara de CNPJ
+            $('#cnpj').mask('00.000.000/0000-00');
+            $('#cep').mask('00000-000');
+            $('#telefone').mask('(00) 00000-0000');
+        });
     </script>
 </body>
 </html>
