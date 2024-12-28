@@ -1,0 +1,176 @@
+/* Ajustes gerais */
+body {
+    -webkit-text-size-adjust: none; /* Ajuste para webkit */
+    text-size-adjust: none; /* Ajuste genérico */
+    -ms-text-size-adjust: none; /* Ajuste para IE */
+    margin: 0; /* Remover margens padrão */
+    padding: 0; /* Remover padding padrão */
+    height: 100vh; /* Garantir que o corpo ocupe toda a altura da tela */
+    min-height: 100vh; /* Fallback de altura */
+    font-family: 'Muli', sans-serif; /* Fonte padrão */
+}
+
+/*----------------------------------------------------------*/
+/* Estilizando o lado direito com a imagem */
+/*----------------------------------------------------------*/
+.right-side {
+    height: 100vh; /* Altura total da tela */
+    padding: 0; /* Remover padding */
+    overflow: hidden; /* Garantir que a imagem não transborde */
+}
+
+.login-image {
+    width: 100%; /* Largura total da coluna */
+    height: 100%; /* Altura total da coluna */
+    object-fit: cover; /* Manter a proporção da imagem enquanto cobre toda a área */
+    display: block;
+}
+
+/*----------------------------------------------------------*/
+/* Estilizando o lado esquerdo */
+/*----------------------------------------------------------*/
+.left-side {
+    display: flex; /* Define o tipo de layout como Flexbox */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 100vh; /* Define a altura como 100% da tela */
+    padding: 30px; /* Espaçamento interno */
+    background-color: white; /* Fundo branco */
+}
+
+/* Estilizando o formulário */
+.register-form {
+    width: 100%; /* Largura total do container pai */
+    max-width: 400px; /* Largura máxima de 400px */
+    background-color: white; /* Fundo branco */
+    padding: 60px 50px; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    text-align: center; /* Centralização de texto */
+}
+
+/* Título */
+.register-form h1 {
+    font-family: 'Muli';
+    font-weight: bolder;
+    font-size: 30px; /* Tamanho da fonte */
+    color: #292929; /* Cor cinza escuro */
+    margin-bottom: 20px; /* Espaçamento inferior */
+}
+
+/* Campos de texto */
+.register-form .form-control {
+    margin-bottom: 10px; /* Espaçamento inferior */
+    padding: 12px; /* Preenchimento interno */
+    font-size: 13px; /* Tamanho da fonte */
+    border: 1px solid #292929; /* Borda */
+    border-radius: 11px; /* Bordas arredondadas */
+    width: 100%; /* Largura total */
+    height: 45px; /* Altura do campo */
+    box-sizing: border-box; /* Inclui padding e borda */
+    transition: all 0.3s ease; /* Transição suave */
+}
+
+.register-form .form-control:focus {
+    border-color: #303030; /* Cor da borda em foco */
+    outline: none; /* Remove contorno padrão */
+    box-shadow: 0 0 7px #868686; /* Sombra em foco */
+}
+
+/* Rótulos */
+.register-form .form-label {
+    font-weight: lighter; /* Fonte leve */
+    margin-bottom: 0px; /* Espaçamento inferior */
+    display: block; /* Ocupa largura total */
+    text-align: left; /* Alinhamento à esquerda */
+}
+
+/* Botão */
+.register-form .btn {
+    background-color: #292929; /* Fundo escuro */
+    color: white; /* Texto branco */
+    border: none; /* Remove borda */
+    padding: 12px; /* Preenchimento interno */
+    margin-top: 10px; /* Espaçamento superior */
+    border-radius: 11px; /* Bordas arredondadas */
+    width: 100%; /* Largura total */
+    font-size: 14px; /* Tamanho da fonte */
+    transition: background-color 0.3s ease; /* Transição suave */
+}
+
+.register-form .btn:hover {
+    background-color: #646464; /* Fundo mais claro em hover */
+}
+
+/* Links */
+.register-form a {
+    color: #292929; /* Cor padrão */
+    text-decoration: none; /* Sem sublinhado */
+    font-size: 13px; /* Tamanho da fonte */
+}
+
+.register-form a:hover {
+    color: #868686; /* Cor em hover */
+}
+
+/* Checkbox */
+.checkbox {
+    font-size: 13px; /* Tamanho da fonte */
+}
+
+/* Mensagem de cadastro */
+.cadastrar {
+    font-size: 14px; /* Tamanho da fonte */
+    margin-top: 10px; /* Espaçamento superior */
+}
+
+/* Acesso rápido */
+.fast-access {
+    position: relative; /* Contexto para elementos absolutos */
+    width: 100%; /* Largura total */
+    margin-top: 40px; /* Espaçamento superior */
+    display: flex; /* Layout flexível */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    font-size: 14px; /* Tamanho da fonte */
+}
+
+.text-overlay {
+    background-color: white; /* Fundo branco */
+    padding: 0 5px; /* Espaçamento interno */
+    position: relative; /* Posicionamento relativo */
+}
+
+.line {
+    flex-grow: 1; /* Linha ocupa o espaço restante */
+    height: 1px; /* Altura da linha */
+    background-color: #292929; /* Cor da linha */
+}
+
+/* Ícones sociais */
+.social-icon {
+    width: 30px; /* Tamanho do ícone */
+    height: 30px; /* Tamanho do ícone */
+    object-fit: contain; /* Ajusta proporção */
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Transição suave */
+    margin: 0 10px; /* Espaçamento horizontal */
+}
+
+.social-icon:hover {
+    transform: scale(1.1); /* Ampliação em hover */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .login-form {
+        width: 90%; /* Ajusta largura */
+        padding: 20px; /* Reduz padding */
+    }
+    .left-side {
+        height: auto; /* Altura ajustável */
+    }
+    .right-side {
+        display: none; /* Oculta lado direito */
+    }
+}
