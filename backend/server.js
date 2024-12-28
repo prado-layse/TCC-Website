@@ -1,3 +1,4 @@
+// backend/server.js
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -5,8 +6,7 @@ const { engine } = require('express-handlebars');
 const moment = require('moment');
 const methodOverride = require('method-override');
 require('dotenv').config({ path: path.join(__dirname, 'config', '.env') });
-
-const { sequelize, Usuario, Perfil, Federacao, Contato, Endereco, Clube } = require('./config/db'); // Use db.js para obter modelos e conexão
+const { sequelize } = require('./config/db'); // Apenas a conexão com o banco é necessária
 const sessionMiddleware = require('./config/session');
 
 // Importando rotas
@@ -17,9 +17,19 @@ const adminRoutes = require('./src/routes/adminRoutes');
 const atletaRoutes = require('./src/routes/atletaRoutes');
 const indexRoutes = require('./src/routes/indexRoutes');
 
+// Instância do aplicativo Express
 const app = express();
 
-// Configuração do motor de visualização Handlebars
+// Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(sessionMiddleware); // Middleware de sessão
+app.use(methodOverride('_method')); 
+
+// Configuração para servir arquivos estáticos
+app.use('/backend/public', express.static(path.join(__dirname, 'public')));
+
+// Configuração do Handlebars
 app.engine('handlebars', engine({
     defaultLayout: 'main',
     helpers: {
@@ -29,14 +39,7 @@ app.engine('handlebars', engine({
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'src', 'views'));
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(sessionMiddleware); // Middleware de sessão
-app.use(methodOverride('_method'));
-
-// Rotas
+// Rotas da API
 app.use('/api/', indexRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/admin', adminRoutes);
@@ -44,11 +47,9 @@ app.use('/api/federacoes', federacaoRoutes);
 app.use('/api/clubes', clubeRoutes);
 app.use('/api/clubes/atletas', atletaRoutes);
 
-// Sincronizar o banco e iniciar o servidor
+// Inicializar o servidor
 const PORT = process.env.PORT || 3000;
-
-sequelize
-    .authenticate()
+sequelize.authenticate()
     .then(() => {
         console.log('Conexão com o banco de dados estabelecida com sucesso.');
         return sequelize.sync(); // Sincroniza os modelos com o banco
