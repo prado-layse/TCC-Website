@@ -1,24 +1,22 @@
-/* Ajustes gerais */
+/* Adicionando ajustes para compatibilidade */
 body {
     -webkit-text-size-adjust: none; /* Ajuste para webkit */
     text-size-adjust: none; /* Ajuste genérico */
-    -ms-text-size-adjust: none; /* Ajuste para IE */
     margin: 0; /* Remover margens padrão */
     padding: 0; /* Remover padding padrão */
     height: 100vh; /* Garantir que o corpo ocupe toda a altura da tela */
-    min-height: 100vh; /* Fallback de altura */
     font-family: 'Muli', sans-serif; /* Fonte padrão */
 }
-
 /*----------------------------------------------------------*/
-/* Estilizando o lado direito com a imagem */
+/* Estilizando o lado esquerdo com a imagem */
 /*----------------------------------------------------------*/
-.right-side {
+.left-side {
     height: 100vh; /* Altura total da tela */
     padding: 0; /* Remover padding */
     overflow: hidden; /* Garantir que a imagem não transborde */
 }
 
+/* Ajustando a imagem para ser proporcional ao tamanho da tela */
 .login-image {
     width: 100%; /* Largura total da coluna */
     height: 100%; /* Altura total da coluna */
@@ -27,150 +25,173 @@ body {
 }
 
 /*----------------------------------------------------------*/
-/* Estilizando o lado esquerdo */
+/* Estilizando o lado direito */
 /*----------------------------------------------------------*/
-.left-side {
+.right-side {
     display: flex; /* Define o tipo de layout como Flexbox */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    height: 100vh; /* Define a altura como 100% da tela */
-    padding: 30px; /* Espaçamento interno */
-    background-color: white; /* Fundo branco */
+    justify-content: center; /* Alinha os itens ao centro horizontalmente */
+    align-items: center; /* Alinha os itens ao centro verticalmente */
+    height: 100vh; /* Define a altura do container como 100% da altura da tela */
+    padding: 40px; /* Adiciona 40px de espaço interno (padding) ao redor do conteúdo */
+    background-color: white; /* Define a cor de fundo como branco */
 }
 
-/* Estilizando o formulário */
-.register-form {
-    width: 100%; /* Largura total do container pai */
-    max-width: 400px; /* Largura máxima de 400px */
-    background-color: white; /* Fundo branco */
-    padding: 60px 50px; /* Espaçamento interno */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
-    text-align: center; /* Centralização de texto */
-}
-
-/* Título */
-.register-form h1 {
+/* Estilizando o título */
+.login-form h1 {
     font-family: 'Muli';
     font-weight: bolder;
-    font-size: 30px; /* Tamanho da fonte */
-    color: #292929; /* Cor cinza escuro */
-    margin-bottom: 20px; /* Espaçamento inferior */
+    font-size: 30px; /* Define o tamanho da fonte como 1.5rem */
+    color: #292929; /* Define a cor do texto como cinza escuro */
+    margin-bottom: 20px; /* Adiciona uma margem inferior de 20px */
 }
 
-/* Campos de texto */
-.register-form .form-control {
-    margin-bottom: 10px; /* Espaçamento inferior */
-    padding: 12px; /* Preenchimento interno */
-    font-size: 13px; /* Tamanho da fonte */
-    border: 1px solid #292929; /* Borda */
-    border-radius: 11px; /* Bordas arredondadas */
-    width: 100%; /* Largura total */
-    height: 45px; /* Altura do campo */
-    box-sizing: border-box; /* Inclui padding e borda */
-    transition: all 0.3s ease; /* Transição suave */
+/* Estilizando os campos de texto */
+.email-senha {
+    font-family: 'Muli';
+    font-size: 12px;
 }
 
-.register-form .form-control:focus {
-    border-color: #303030; /* Cor da borda em foco */
-    outline: none; /* Remove contorno padrão */
-    box-shadow: 0 0 7px #868686; /* Sombra em foco */
+/* Estilizando o formulário de login */
+.login-form {
+    width: 100%; /* O formulário ocupa toda a largura disponível do seu contêiner pai */
+    max-width: 400px; /* A largura máxima do formulário é 400px */
+    background-color: white; /* Define a cor de fundo do formulário como branco */
+    padding: 60px 50px; /* Aplica 40px de preenchimento interno */
+    border-radius: 8px; /* Cria bordas arredondadas com raio de 8px */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aplica uma sombra suave ao redor do formulário */
+    text-align: center; /* Centraliza o conteúdo textual dentro do formulário */
 }
 
-/* Rótulos */
-.register-form .form-label {
-    font-weight: lighter; /* Fonte leve */
-    margin-bottom: 0px; /* Espaçamento inferior */
-    display: block; /* Ocupa largura total */
-    text-align: left; /* Alinhamento à esquerda */
+/* Estilizando os rótulos */
+.login-form .form-label {
+    font-weight: lighter; /* Define o peso da fonte como mais leve */
+    margin-bottom: 0px; /* Adiciona uma margem de 8px abaixo do rótulo */
+    display: block; /* Faz o rótulo ocupar toda a largura disponível */
+    text-align: left; /* Alinha o texto do rótulo à esquerda */
 }
 
-/* Botão */
-.register-form .btn {
-    background-color: #292929; /* Fundo escuro */
-    color: white; /* Texto branco */
-    border: none; /* Remove borda */
-    padding: 12px; /* Preenchimento interno */
-    margin-top: 10px; /* Espaçamento superior */
-    border-radius: 11px; /* Bordas arredondadas */
-    width: 100%; /* Largura total */
-    font-size: 14px; /* Tamanho da fonte */
-    transition: background-color 0.3s ease; /* Transição suave */
+/* Ajusta a caixa de texto */
+.login-form .form-control {
+    margin-bottom: 10px; /* Adiciona uma margem inferior de 20px entre os campos */
+    padding: 12px; /* Adiciona preenchimento interno de 12px */
+    font-family: 'Muli';
+    font-size: 13px; /* Define o tamanho da fonte como 14px */
+    border: 1px solid #292929; /* Define uma borda de 1px */
+    border-radius: 11px; /* Define bordas arredondadas com raio de 11px */
+    width: 100%; /* Faz o campo ocupar toda a largura disponível */
+    height: 45px; /* Define a altura da caixa de texto */
+    box-sizing: border-box; /* Faz com que o padding e a borda sejam incluídos nas dimensões do elemento */
 }
 
-.register-form .btn:hover {
-    background-color: #646464; /* Fundo mais claro em hover */
+/* Foca na caixa de texto */
+.login-form .form-control:focus {
+    border-color: #303030; /* Altera a cor da borda quando o campo está em foco */
+    outline: 0; /* Remove o contorno padrão do navegador */
+    box-shadow: 0 0 7px #868686; /* Aplica uma sombra ao redor do campo quando em foco */
 }
 
-/* Links */
-.register-form a {
-    color: #292929; /* Cor padrão */
-    text-decoration: none; /* Sem sublinhado */
-    font-size: 13px; /* Tamanho da fonte */
+/* Estilizando o botão */
+.login-form .btn {
+    background-color: #292929; /* Define a cor de fundo do botão */
+    color: white; /* Define a cor do texto dentro do botão */
+    border: none; /* Remove a borda do botão */
+    padding: 12px; /* Adiciona preenchimento interno de 12px */
+    margin-top: 10px; /* Adiciona uma margem de 20px no topo do botão */
+    border-radius: 11px; /* Define bordas arredondadas com raio de 11px */
+    width: 100%; /* Faz o botão ocupar toda a largura disponível */
+    font-size: 14px; /* Ajusta o tamanho da fonte do botão */
 }
 
-.register-form a:hover {
-    color: #868686; /* Cor em hover */
+/* Estilizando o botão ao passar o mouse */
+.login-form .btn:hover {
+    background-color: #646464; /* Altera a cor de fundo do botão quando o mouse passa sobre ele */
 }
 
-/* Checkbox */
+/* Estilizando os links */
+.login-form a {
+    color: #292929; /* Define a cor do link */
+    text-decoration: none; /* Remove o sublinhado dos links */
+    font-size: 13px; /* Ajusta o tamanho da fonte */
+    font-family: 'Muli';
+}
+
+.login-form a:hover {
+    color: #868686; /* Altera a cor do link quando o mouse passa sobre ele */
+}
+
+/* Estilizando a caixa de seleção "Lembre-se de mim" */
 .checkbox {
-    font-size: 13px; /* Tamanho da fonte */
+    font-family: 'Muli';
+    font-size: 13px; /* Ajusta o tamanho da fonte */
 }
 
-/* Mensagem de cadastro */
 .cadastrar {
-    font-size: 14px; /* Tamanho da fonte */
-    margin-top: 10px; /* Espaçamento superior */
+    font-family: 'Muli';
+    font-size: 14px;
+    margin-top: 10px;
 }
 
-/* Acesso rápido */
-.fast-access {
-    position: relative; /* Contexto para elementos absolutos */
-    width: 100%; /* Largura total */
-    margin-top: 40px; /* Espaçamento superior */
-    display: flex; /* Layout flexível */
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
-    font-size: 14px; /* Tamanho da fonte */
-}
-
-.text-overlay {
-    background-color: white; /* Fundo branco */
-    padding: 0 5px; /* Espaçamento interno */
-    position: relative; /* Posicionamento relativo */
-}
-
-.line {
-    flex-grow: 1; /* Linha ocupa o espaço restante */
-    height: 1px; /* Altura da linha */
-    background-color: #292929; /* Cor da linha */
-}
-
-/* Ícones sociais */
-.social-icon {
-    width: 30px; /* Tamanho do ícone */
-    height: 30px; /* Tamanho do ícone */
-    object-fit: contain; /* Ajusta proporção */
-    cursor: pointer;
-    transition: transform 0.3s ease; /* Transição suave */
-    margin: 0 10px; /* Espaçamento horizontal */
-}
-
-.social-icon:hover {
-    transform: scale(1.1); /* Ampliação em hover */
-}
-
-/* Responsividade */
+/* Estilizando o formulário para manter a responsividade */
 @media (max-width: 768px) {
     .login-form {
-        width: 90%; /* Ajusta largura */
-        padding: 20px; /* Reduz padding */
+        width: 90%; /* Ajusta a largura do formulário em telas menores */
+        padding: 20px; /* Reduz o padding em telas menores */
+    }
+}
+
+/* Contêiner para acesso rápido */ 
+.fast-access { 
+    position: relative; /* Define o contexto para o posicionamento absoluto */ 
+    width: 100%; /* Faz o contêiner ocupar toda a largura disponível */ 
+    margin-top: 40px; 
+    display: flex; /* Garante que o texto e a linha estejam no mesmo nível */ 
+    align-items: center; /* Centraliza verticalmente */ 
+    justify-content: center; /* Centraliza horizontalmente */ 
+    font-family: 'Muli', sans-serif; 
+    font-size: 14px; 
+} 
+
+/* Texto sobreposto */    
+.text-overlay { 
+    background-color: white; /* Fundo branco para destacar o texto */ 
+    padding: 0 5px; /* Adiciona espaço em volta do texto */ 
+    z-index: 1; /* Coloca o texto acima da linha */ 
+    text-align: center; 
+    position: relative; /* Mantém o contexto de posicionamento */ 
+} 
+
+/* Linha */ 
+.line { 
+    flex-grow: 1; /* Faz com que a linha preencha o espaço restante */ 
+    height: 1px; /* Espessura da linha */ 
+    background-color: #292929; /* Cor da linha */ 
+    z-index: 0; /* Garante que a linha fique atrás do texto */ 
+}
+
+/* Imagens como botões */
+.social-icon {
+    width: 30px; /* Ajuste o tamanho conforme necessário */
+    height: 30px; /* Ajuste o tamanho conforme necessário */
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin: 0 10px;
+}
+
+/* Efeito de hover para as imagens */
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Ajustes para tornar o formulário responsivo */
+@media (max-width: 768px) {
+    .login-form {
+        padding: 20px;
     }
     .left-side {
-        height: auto; /* Altura ajustável */
+        height: auto; /* Permitir que o lado esquerdo se ajuste ao conteúdo em telas pequenas */
     }
     .right-side {
-        display: none; /* Oculta lado direito */
+        padding: 20px;
     }
 }

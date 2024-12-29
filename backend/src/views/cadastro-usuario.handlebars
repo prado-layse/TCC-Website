@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Conta</title>
-    
+    <title>Logar</title>
     <!-- Link para os arquivos CSS -->
     <link rel="stylesheet" href="/backend/public/css/cadastro-usuario.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
@@ -13,9 +12,13 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Lado esquerdo com formulário de cadastro -->
-            <div class="col-md-6 p-5 d-flex justify-content-center align-items-center left-side">
-                <div class="register-form">
+            <!-- Lado esquerdo com imagem -->
+            <div class="col-md-6 p-0 left-side">
+                <img src="/backend/public/imagens/cadastro-usuario.jpg" alt="Imagem de Login" class="login-image">
+            </div>
+            <!-- Lado direito com o formulário de login -->
+            <div class="col-md-6 p-5 d-flex justify-content-center align-items-center right-side">
+                <div class="login-form">
                     <h1 class="mb-4 text-center">Nova Conta</h1>
 
                     <!-- Barra de mensagens de erro -->
@@ -23,54 +26,39 @@
                         <div class="alert alert-danger">{{error}}</div>
                     {{/if}}
 
-                    <form action="/api/usuarios/adicionar" method="POST">
-                        <div class="mb-3 text">
-                            <label for="nome" class="form-label">Nome</label>
-                            <input type="nome" class="form-control" id="nome" name="nome" placeholder="Primeiro nome" required autocomplete="nome">
-
-                            <label for="sobrenome" class="form-label">Sobrenome</label>
-                            <input type="sobrenome" class="form-control" id="sobrenome" name="sobrenome" placeholder="Sobrenome completo" required autocomplete="nome">
-                            
+                    <form action="/api/usuarios/login" method="POST">
+                        <div class="mb-3 email-senha">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required autocomplete="email">
-                            
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite o seu e-mail" required autocomplete="email">
                             <label for="senha" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
-
-                            <label for="senha" class="form-label">Confirme sua senha</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Mínimo de 8 caracteres" required autocomplete="email">
+                            <label for="senha" class="form-label">Confirmar Senha</label>
                             <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite novamente a sua senha" required autocomplete="current-password">
                         </div>
-                    
+    
                         <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
                     </form>
-
-                    <div class="d-flex justify-content-center cadastrar mt-3">
-                        <a href="/api/usuarios/login">Já possui uma conta? Faça login</a>
-                    </div>
-
-                    <div class="d-flex justify-content-center align-items-center fast-access mt-4">
-                        <p class="line"></p>
-                        <p class="text-overlay">Ou registre-se com</p>
-                        <p class="line"></p>
-                    </div>
-
-                    <div class="d-flex justify-content-center mt-3">
-                        <a href="/auth/apple">
-                            <img src="/backend/public/imagens/apple.png" alt="Apple" class="social-icon">
-                        </a>
-                        <a href="/auth/google">
-                            <img src="/backend/public/imagens/google.png" alt="Google" class="social-icon">
-                        </a>
-                        <a href="/auth/facebook">
-                            <img src="/backend/public/imagens/facebook.png" alt="Facebook" class="social-icon">
-                        </a>
+                        <div class="d-flex justify-content-center cadastrar">
+                            <a href="/api/usuarios/login">Já possui conta? Faça login</a>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center fast-access">
+                            <p class="line"></p>
+                            <p class="text-overlay">Ou registre-se com</p>
+                            <p class="line"></p>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="/auth/apple">
+                                <img src="/backend/public/imagens/apple.png" alt="Apple" class="social-icon">
+                            </a>
+                            <a href="/auth/google">
+                                <img src="/backend/public/imagens/google.png" alt="Google" class="social-icon">
+                            </a>
+                            <a href="/auth/facebook">
+                                <img src="/backend/public/imagens/facebook.png" alt="Facebook" class="social-icon">
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Lado direito com imagem -->
-            <div class="col-md-6 p-5 right-side">
-                <img src="/backend/public/imagens/cadastro-usuario.jpg" alt="Imagem de Cadastro" class="cadastro-image">
             </div>
         </div>
     </div>
