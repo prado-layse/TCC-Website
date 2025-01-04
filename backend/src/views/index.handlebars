@@ -13,22 +13,32 @@
 
   <!-- Cabeçalho com Logo e Navegação -->
   <header>
-    <div>
-      <img src="/backend/public/imagens/cbs.png" alt="Logo CSB" width="100">
+    <div class="logo">
+      <img src="/backend/public/imagens/cbs.png" alt="Logo CSB" >
     </div>
     <nav>
       {{#if isUsuarioLogado}}
         <a href="/api/usuarios/perfil">Perfil</a>
         <a href="/api/usuarios/perfil">Sair da conta</a>
       {{else}}
-        <a href="/api/usuarios/cadastrar">Cadastrar</a>
-        <a href="/api/usuarios/login">Entrar</a>
+        <a href="/api/institucional" class="other">Institucional</a>
+        <a href="/api/selecao" class="other">Seleção</a>
+        <a href="/api/clubes" class="other">Clubes</a>
+        <a href="/api/usuarios/cadastrar" class="register">Cadastrar</a>
+        <a href="/api/usuarios/login" class="login">Entrar</a>        
       {{/if}}
     </nav>
+    <button id="toggle-header">☰</button>
   </header>
 
   <!-- Banner Principal com Contagem Regressiva -->
-  <section>
+  <section class="highlight">
+    <div class="highlight-logo"> 
+      <img src="/backend/public/imagens/cbs.png" alt="Logo CSB">
+    </div>
+    <div>
+      <img src="/backend/public/imagens/Alternativo.jpg" alt="Imagem Destaque" class="highlight-image">
+    </div>
     <h1>Seleção Brasileira de Hóquei Tradicional é Convocada para o World Skate Games 2024</h1>
     <p>As equipes masculina e feminina representarão o Brasil na competição internacional em Novara, Itália, com a expectativa de brilhar no evento global de esportes sobre rodas.</p>
     <div>
@@ -113,6 +123,19 @@
       <a href="#"><img src="/images/twitter_icon.png" alt="Twitter" width="20"></a>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var header = document.querySelector('header');
+      var toggleButton = document.getElementById('toggle-header');
+
+      toggleButton.addEventListener('click', function() {
+        header.classList.toggle('hidden');
+        toggleButton.classList.toggle('rotated');
+        logoButton.classList.toggle('show');
+      });
+    });
+  </script>
 
 </body>
 </html>

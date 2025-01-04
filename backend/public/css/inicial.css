@@ -1,14 +1,72 @@
 /* Estilo Geral */
 body {
   margin: 0;
-  font-family: 'Muli', Arial, sans-serif;
+  font-family: 'Muli';
   background-color: #f8f8f8;
+}
+
+.other {
+  font-family: 'Muli';
+  font-size: 16px;
+  color: #dbd9d9;
+  transition: background-color 0.3s, color 0.3s;
+  display: inline-block; 
+  text-align: center;
+  margin-left: 15px;
+
+}
+
+.other:hover {
+  color: #808080;
+
+}
+
+.login {
+  background-color: #666666;
+  font-family: 'Muli';
+  font-size: 13px;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 60px;
+  transition: background-color 0.3s, color 0.3s;
+  width: 120px; /* Definindo a largura do botão */
+  height: 30px; /* Definindo a altura do botão */
+  display: inline-block; /* Para garantir que o link se comporte como um botão */
+  text-align: center; /* Centraliza o texto dentro do botão */
+  line-height: 6px; /* Alinha verticalmente o texto dentro do botão */
+  margin-right: 30px;
+  margin-left: 5px;
+}
+
+.login:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+.register {
+  font-family: 'Muli';
+  font-size: 13px;
+  color: white;
+  padding: 12px;
+  border: 1px solid #666666;
+  border-radius: 60px;
+  transition: background-color 0.3s, color 0.3s;
+  width: 120px; /* Definindo a largura do botão */
+  height: 30px; /* Definindo a altura do botão */
+  display: inline-block; /* Para garantir que o link se comporte como um botão */
+  text-align: center; /* Centraliza o texto dentro do botão */
+  line-height: 6px; /* Alinha verticalmente o texto dentro do botão */
+  margin-left: 30px;
+}
+
+.register:hover {
+  background-color: #fff;
+  color: #333;
 }
 
 /* Cabeçalho */
 header {
-  background-color: #333;
-  color: #fff;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -18,10 +76,17 @@ header {
   width: 100%;
   z-index: 1000;
   transition: top 0.3s ease-in-out;
+  background-color: #333; /* Adicione um fundo para o cabeçalho */
 }
 
+header.hidden {
+  top: -100px;
+}
+
+/* Tamanho do logo */
 header .logo img {
-  max-height: 50px;
+  z-index: 1100;
+  width: 50px;
 }
 
 header nav a {
@@ -31,13 +96,60 @@ header nav a {
   font-weight: bold;
 }
 
-header nav a:hover {
-  text-decoration: underline;
+/* Botão de alternância do cabeçalho */
+button#toggle-header {
+  color: #fff;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  top: 13px;
+  right: 10px;
+  z-index: 1100; /* Certifique-se de que o botão esteja acima do cabeçalho */
+  transform: rotate(-90deg);
+}
+
+button#toggle-header.rotated {
+  transform: rotate(0deg);
+}
+
+/* Banner Principal */
+.highlight {
+  position: relative;
+  text-align: center;
+  color: white;
+  height: 100vh; /* Define a altura da seção como 100% da altura da viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.highlight img.highlight-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Faz com que a imagem cubra a área da seção */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Logo na seção de destaque */
+.highlight-logo {
+  position: absolute;
+  margin-top: 18px;
+  left: 21px;
+}
+
+.highlight-logo img {
+  max-height: 45px; /* Ajuste conforme necessário */
 }
 
 /* Banner Principal */
 .banner {
-  background: url('/images/banner_image.jpg') no-repeat center center;
   background-size: cover;
   color: #fff;
   padding: 80px 20px;
