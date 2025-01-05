@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;600&display=swap">
 </head>
 <body>
-
   <!-- Cabeçalho com Logo e Navegação -->
   <header>
     <div class="logo">
@@ -20,6 +19,9 @@
       {{#if isUsuarioLogado}}
         <a href="/api/usuarios/perfil">Perfil</a>
         <a href="/api/usuarios/perfil">Sair da conta</a>
+        <a href="/api/institucional" class="other">Institucional</a>
+        <a href="/api/selecao" class="other">Seleção</a>
+        <a href="/api/clubes" class="other">Clubes</a>
       {{else}}
         <a href="/api/institucional" class="other">Institucional</a>
         <a href="/api/selecao" class="other">Seleção</a>
@@ -31,25 +33,27 @@
     <button id="toggle-header">☰</button>
   </header>
 
-  <!-- Banner Principal com Contagem Regressiva -->
+  <!-- Destaque Principal -->
   <section class="highlight">
     <div class="highlight-logo"> 
       <img src="/backend/public/imagens/cbs.png" alt="Logo CSB">
     </div>
-    <div>
-      <img src="/backend/public/imagens/Alternativo.jpg" alt="Imagem Destaque" class="highlight-image">
+    <div class="highlight-image">
+      <img src="/backend/public/imagens/Alternativo.jpg" alt="Imagem Destaque">
     </div>
-    <h1>Seleção Brasileira de Hóquei Tradicional é Convocada para o World Skate Games 2024</h1>
-    <p>As equipes masculina e feminina representarão o Brasil na competição internacional em Novara, Itália, com a expectativa de brilhar no evento global de esportes sobre rodas.</p>
-    <div>
-      <h2>World Skate Games 2024</h2>
-      <p>Contagem Regressiva</p>
-      <div>
-        <span>01</span> Dias
-        <span>23</span> Horas
-        <span>23</span> Minutos
-        <span>52</span> Segundos
-      </div>
+    <div class="highlight-content">
+      {{#if isAdmin}}
+        <!-- Conteúdo editável para o user-admin -->
+        <h2>Destaque</h2>
+        <div class="editable" contenteditable="true" id="texto-editavel">
+          Destaque.
+        </div>
+        <button onclick="salvarTexto()">Salvar</button>
+      {{else}}
+        <div class="editable" contenteditable="false" id="texto-editavel">
+          Destaque.
+        </div>
+      {{/if}} 
     </div>
   </section>
 
@@ -125,6 +129,7 @@
   </footer>
 
   <script>
+    // Botão para esconder o cabeçalho
     document.addEventListener('DOMContentLoaded', function() {
       var header = document.querySelector('header');
       var toggleButton = document.getElementById('toggle-header');
@@ -132,9 +137,22 @@
       toggleButton.addEventListener('click', function() {
         header.classList.toggle('hidden');
         toggleButton.classList.toggle('rotated');
-        logoButton.classList.toggle('show');
       });
     });
+
+    // Função para alterar o destaque
+    function salvarTexto() {
+      const texto = document.querySelector('.editable').innerText;
+      localStorage.setItem('textoEditavel', texto);
+      alert('Texto salvo com sucesso!');
+    }
+    function carregarTexto() {
+      const textoSalvo = localStorage.getItem('textoEditavel');
+      if (textoSalvo) {
+        document.querySelector('.editable').innerText = textoSalvo;
+      }
+    }
+    window.onload = carregarTexto();
   </script>
 
 </body>

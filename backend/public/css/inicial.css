@@ -5,6 +5,7 @@ body {
   background-color: #f8f8f8;
 }
 
+/* Links do Cabeçalho */
 .other {
   font-family: 'Muli';
   font-size: 16px;
@@ -13,14 +14,11 @@ body {
   display: inline-block; 
   text-align: center;
   margin-left: 15px;
-
 }
-
 .other:hover {
   color: #808080;
 
 }
-
 .login {
   background-color: #666666;
   font-family: 'Muli';
@@ -38,12 +36,10 @@ body {
   margin-right: 30px;
   margin-left: 5px;
 }
-
 .login:hover {
   background-color: #fff;
   color: #333;
 }
-
 .register {
   font-family: 'Muli';
   font-size: 13px;
@@ -59,7 +55,6 @@ body {
   line-height: 6px; /* Alinha verticalmente o texto dentro do botão */
   margin-left: 30px;
 }
-
 .register:hover {
   background-color: #fff;
   color: #333;
@@ -78,17 +73,13 @@ header {
   transition: top 0.3s ease-in-out;
   background-color: #333; /* Adicione um fundo para o cabeçalho */
 }
-
 header.hidden {
   top: -100px;
 }
-
-/* Tamanho do logo */
 header .logo img {
   z-index: 1100;
   width: 50px;
 }
-
 header nav a {
   color: #fff;
   margin-left: 15px;
@@ -110,7 +101,6 @@ button#toggle-header {
   z-index: 1100; /* Certifique-se de que o botão esteja acima do cabeçalho */
   transform: rotate(-90deg);
 }
-
 button#toggle-header.rotated {
   transform: rotate(0deg);
 }
@@ -122,12 +112,8 @@ button#toggle-header.rotated {
   color: white;
   height: 100vh; /* Define a altura da seção como 100% da altura da viewport */
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
-
-.highlight img.highlight-image {
+.highlight-image img {
   height: 100%;
   width: 100%;
   object-fit: cover; /* Faz com que a imagem cubra a área da seção */
@@ -136,17 +122,57 @@ button#toggle-header.rotated {
   left: 0;
   z-index: -1;
 }
-
-/* Logo na seção de destaque */
-.highlight-logo {
+.highlight-logo img{
   position: absolute;
-  margin-top: 18px;
+  margin-top: 11.5px;
   left: 21px;
+  max-height: 45px;
+}
+.highlight-content {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 300px;
+  height: 100px;
+  overflow: auto;
+}
+.editable {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 50px;
+  width: 300px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
 }
 
-.highlight-logo img {
-  max-height: 45px; /* Ajuste conforme necessário */
+.editable:focus {
+  outline: 2px solid #007bff;
 }
+
+.highlight-news input,
+.highlight-news textarea {
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.highlight-news .highlight-link {
+  text-decoration: none;
+  color: #000;
+}
+
+.highlight-news .highlight-link h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.highlight-news .highlight-link p {
+  font-size: 16px;
+  color: #555;
+}
+
 
 /* Banner Principal */
 .banner {
