@@ -109,9 +109,11 @@ button#toggle-header.rotated {
 .highlight {
   position: relative;
   text-align: center;
-  color: white;
+  color: #f8f8f8;
   height: 100vh; /* Define a altura da seção como 100% da altura da viewport */
   display: flex;
+  flex-direction: column; /* Alinha os itens em coluna */
+  justify-content: flex-end; /* Alinha o conteúdo ao final da seção */
 }
 .highlight-image img {
   height: 100%;
@@ -129,49 +131,63 @@ button#toggle-header.rotated {
   max-height: 45px;
 }
 .highlight-content {
-  border: 1px solid #ccc;
   padding: 10px;
-  width: 300px;
-  height: 100px;
   overflow: auto;
+  margin-top: auto;
+  margin-left: 40px;
+  margin-bottom: 30px;
+  border: 2px solid transparent; /* Borda padrão transparente */
 }
-.editable {
-  border: 1px solid #ccc;
+.editable-title {
   padding: 10px;
-  min-height: 50px;
-  width: 300px;
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
+  width: 680px;
+  font-family: 'Muli';
+  font-size: 26px;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-align: left;
 }
-
-.editable:focus {
+.editable-title.editable{
+  border: 2px solid #292929;
+  border-radius: 11px;
+  
+}
+.editable-title:focus {
+  border-color: #303030;
+  outline: 0;
+  box-shadow: 0 0 7px #868686;
+}
+.editable-subtitle {
+  padding: 10px;
+  width:680px;
+  font-family: 'Muli';
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-align: justify;
+}
+.editable-subtitle:focus {
   outline: 2px solid #007bff;
 }
-
-.highlight-news input,
-.highlight-news textarea {
-  width: 100%;
-  margin: 10px 0;
-  padding: 8px;
+.highlight-button {
+  background-color: #292929;
+  color: white;
+  border: none;
+  border-radius: 21px;
+  padding: 12px;
+  font-family: 'Muli';
   font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 90px;
+  cursor: pointer;
+  text-align: center;
+  float: left;
+}
+.highlight-button:hover {
+  background-color: #646464;
 }
 
-.highlight-news .highlight-link {
-  text-decoration: none;
-  color: #000;
-}
-
-.highlight-news .highlight-link h2 {
-  font-size: 20px;
-  margin-bottom: 5px;
-}
-
-.highlight-news .highlight-link p {
-  font-size: 16px;
-  color: #555;
-}
 
 
 /* Banner Principal */

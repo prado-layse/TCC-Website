@@ -39,20 +39,28 @@
       <img src="/backend/public/imagens/cbs.png" alt="Logo CSB">
     </div>
     <div class="highlight-image">
-      <img src="/backend/public/imagens/Alternativo.jpg" alt="Imagem Destaque">
+      <img src="/backend/public/imagens/destaque.jpg" alt="Imagem Destaque">
     </div>
     <div class="highlight-content">
       {{#if isAdmin}}
         <!-- Conteúdo editável para o user-admin -->
-        <h2>Destaque</h2>
-        <div class="editable" contenteditable="true" id="texto-editavel">
-          Destaque.
+        <div class="editable-title editable" contenteditable="true" id="titulo-editavel">
+          Título da notícia em destaque.
         </div>
-        <button onclick="salvarTexto()">Salvar</button>
+        <div class="editable-subtitle editable" contenteditable="true" id="subtitulo-editavel">
+          Subtítulo da notícia.
+        </div>
+        <button class="highlight-button" id="botao-editar" onclick="alternarEdicao()" style="visibility:visible">Editar</button>
+        <button class="highlight-button" id="botao-cancelar" onclick="cancelarEdicao()" style="display: none;">Cancelar</button>
+        <button class="highlight-button" id="botao-salvar" onclick="salvarTexto()" style="display: none;">Salvar</button>
       {{else}}
-        <div class="editable" contenteditable="false" id="texto-editavel">
-          Destaque.
+        <div class="editable-title" contenteditable="false" id="titulo-editavel">
+          Título da notícia em destaque.
         </div>
+        <div class="editable-subtitle" contenteditable="false" id="subtitulo-editavel">
+          Subtítulo da notícia.
+        </div>
+        <button class="highlight-button" id="botao-editar" onclick="alternarEdicao()" style="visibility:hidden">Editar</button>
       {{/if}} 
     </div>
   </section>
@@ -140,16 +148,77 @@
       });
     });
 
-    // Função para alterar o destaque
+    // Funções para alterar o destaque
+    let tituloOriginal = '';
+    let subtituloOriginal = '';
+
+    function alternarEdicao() {
+      const titulo = document.getElementById('titulo-editavel');
+      const subtitulo = document.getElementById('subtitulo-editavel');
+      const botaoEditar = document.getElementById('botao-editar');  
+      const botaoSalvar = document.getElementById('botao-salvar');  
+      const botaoCancelar = document.getElementById('botao-cancelar');
+      
+      tituloOriginal = titulo.textContent;
+      subtituloOriginal = subtitulo.textContent;
+
+      if (titulo.contentEditable === 'false') {
+        titulo.contentEditable = 'true';
+        titulo.focus();
+        botaoEditar.style.display = 'none';
+        botaoSalvar.style.display = 'inline';
+        botaoCancelar.style.display = 'inline';
+      }
+
+      if (subtitulo.contentEditable === 'false') {
+        subtitulo.contentEditable = 'true';
+        subtitulo.focus();
+        botaoEditar.style.display = 'none';
+        botaoSalvar.style.display = 'inline';
+        botaoCancelar.style.display = 'inline';
+      }
+    }
     function salvarTexto() {
-      const texto = document.querySelector('.editable').innerText;
-      localStorage.setItem('textoEditavel', texto);
+      const titulo = document.getElementById('titulo-editavel');
+      const subtitulo = document.getElementById('subtitulo-editavel');
+      const botaoEditar = document.getElementById('botao-editar');  
+      const botaoSalvar = document.getElementById('botao-salvar');  
+      const botaoCancelar = document.getElementById('botao-cancelar');
+      
+      localStorage.setItem('tituloEditavel', titulo.textContent);
+      localStorage.setItem('subtituloEditavel', subtitulo.textContent);
       alert('Texto salvo com sucesso!');
+      
+      titulo.contentEditable = 'false';
+      subtitulo.contentEditable = 'false';
+      botaoEditar.style.display = 'inline';
+      botaoSalvar.style.display = 'none';
+      botaoCancelar.style.display = 'none';
+    }
+    function cancelarEdicao() {
+      const titulo = document.getElementById('titulo-editavel');
+      const subtitulo = document.getElementById('subtitulo-editavel');
+      const botaoEditar = document.getElementById('botao-editar');  
+      const botaoSalvar = document.getElementById('botao-salvar');  
+      const botaoCancelar = document.getElementById('botao-cancelar');
+      
+      titulo.textContent = tituloOriginal;
+      subtitulo.textContent = subtituloOriginal;  
+
+      titulo.contentEditable = 'false';
+      subtitulo.contentEditable = 'false';  
+      botaoEditar.style.display = 'inline';
+      botaoSalvar.style.display = 'none';
+      botaoCancelar.style.display = 'none';
     }
     function carregarTexto() {
-      const textoSalvo = localStorage.getItem('textoEditavel');
-      if (textoSalvo) {
-        document.querySelector('.editable').innerText = textoSalvo;
+      const tituloSalvo = localStorage.getItem('tituloEditavel');
+      const subtituloSalvo = localStorage.getItem('subtituloEditavel'); 
+      if (tituloSalvo) {
+        document.querySelector('.editable-title').innerText = tituloSalvo;
+      }
+      if (subtituloSalvo) {
+        document.querySelector('.editable-subtitle').innerText = subtituloSalvo;
       }
     }
     window.onload = carregarTexto();
