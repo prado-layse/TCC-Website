@@ -13,7 +13,7 @@
   <!-- Cabeçalho com Logo e Navegação -->
   <header>
     <div class="logo">
-      <img src="/backend/public/imagens/cbs.png" alt="Logo CSB" >
+      <img src="/backend/public/imagens/cbs.png" alt="Logo CSB">
     </div>
     <nav>
       {{#if isUsuarioLogado}}
@@ -44,10 +44,10 @@
     <div class="highlight-content">
       {{#if isAdmin}}
         <!-- Conteúdo editável para o user-admin -->
-        <div class="editable-title editable" contenteditable="true" id="titulo-editavel">
+        <div class="editable-title editable" contenteditable="false" id="titulo-editavel">
           Título da notícia em destaque.
         </div>
-        <div class="editable-subtitle editable" contenteditable="true" id="subtitulo-editavel">
+        <div class="editable-subtitle editable" contenteditable="false" id="subtitulo-editavel">
           Subtítulo da notícia.
         </div>
         <button class="highlight-button" id="botao-editar" onclick="alternarEdicao()" style="visibility:visible">Editar</button>
@@ -178,6 +178,7 @@
         botaoCancelar.style.display = 'inline';
       }
     }
+
     function salvarTexto() {
       const titulo = document.getElementById('titulo-editavel');
       const subtitulo = document.getElementById('subtitulo-editavel');
@@ -195,6 +196,7 @@
       botaoSalvar.style.display = 'none';
       botaoCancelar.style.display = 'none';
     }
+
     function cancelarEdicao() {
       const titulo = document.getElementById('titulo-editavel');
       const subtitulo = document.getElementById('subtitulo-editavel');
@@ -211,6 +213,7 @@
       botaoSalvar.style.display = 'none';
       botaoCancelar.style.display = 'none';
     }
+
     function carregarTexto() {
       const tituloSalvo = localStorage.getItem('tituloEditavel');
       const subtituloSalvo = localStorage.getItem('subtituloEditavel'); 
@@ -221,7 +224,7 @@
         document.querySelector('.editable-subtitle').innerText = subtituloSalvo;
       }
     }
-    window.onload = carregarTexto();
+    window.onload = carregarTexto;
   </script>
 
 </body>

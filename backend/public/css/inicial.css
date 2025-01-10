@@ -166,6 +166,10 @@ button#toggle-header.rotated {
   overflow: hidden;
   text-align: justify;
 }
+.editable-subtitle.editable{
+  border: 2px solid #292929;
+  border-radius: 11px;
+}
 .editable-subtitle:focus {
   outline: 2px solid #007bff;
 }
@@ -178,7 +182,6 @@ button#toggle-header.rotated {
   font-family: 'Muli';
   font-size: 14px;
   margin-top: 10px;
-  margin-left: 10px;
   width: 90px;
   cursor: pointer;
   text-align: center;

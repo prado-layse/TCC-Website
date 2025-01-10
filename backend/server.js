@@ -47,6 +47,11 @@ app.use('/api/federacoes', federacaoRoutes);
 app.use('/api/clubes', clubeRoutes);
 app.use('/api/clubes/atletas', atletaRoutes);
 
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
+
 // Inicializar o servidor
 const PORT = process.env.PORT || 3000;
 sequelize.authenticate()

@@ -37,7 +37,8 @@ exports.login = async (req, res) => {
             // Redirecionar baseado no perfil
             if (usuario.idPerfil === 1) {
                 // Redirecionar para o dashboard do admin
-                return res.redirect('/api/admin/dashboard');
+                req.session.usuario.isAdmin = true;
+                return res.redirect('/api/admin/cbhp');
             } else if (usuario.idPerfil === 2) {
                 // Busca o clube associado ao usuário
                 const clube = await Clube.findOne({ where: { codUsuario: usuario.codUsuario } });
