@@ -65,52 +65,87 @@
     </div>
   </section>
 
-  <!-- Próximos Eventos -->
-  <section>
-    <h2>Próximos Eventos</h2>
+  <!-- Container de Destaque dos Proximos Eventos -->
+  <div class="calendar-container">
+    <!-- Próximos Eventos -->
+    <section class="calendar">
+      <h2>PRÓXIMOS EVENTOS</h2>
+      <div class="calendar-events">
+        <div class="event">
+          <div class="event-color blue"></div>
+          <div class="event-date">
+            <strong>24 - 28</strong>
+            <span>AGO</span>
+          </div>
+          <div class="event-info">
+            <p class="event-name">Treino Aberto</p>
+            <p class="event-location">Local: Petrópolis, RJ</p>
+          </div>
+          <div class="event-arrow">➤</div>
+        </div>
+        <div class="event">
+          <div class="event-color yellow"></div>
+          <div class="event-date">
+            <strong>06 - 22</strong>
+            <span>SET</span>
+          </div>
+          <div class="event-info">
+            <p class="event-name">World Skate Games 2024</p>
+            <p class="event-location">Local: Novara, Itália</p>
+          </div>
+          <div class="event-arrow">➤</div>
+        </div>
+        <div class="event">
+          <div class="event-color green"></div>
+          <div class="event-date">
+            <strong>22 - 26</strong>
+            <span>OUT</span>
+          </div>
+          <div class="event-info">
+            <p class="event-name">Campeonato Brasileiro</p>
+            <p class="event-location">Local: Teresópolis, RJ</p>
+          </div>
+          <div class="event-arrow">➤</div>
+        </div>
+      </div>
+    </section>
+    <!-- Highlights -->
+    <section class="calendar-highlight">
+      <h3>4ª edição do Word Skate Games</h3>
+      <div class="calendar-highlight-content">
+        <p>
+          Um evento único: o campeonato mundial de 12 esportes em 9 cidades italianas, de 6 a 22 de setembro, levará para a Itália o espetáculo dos esportes de patins no coração das ruas urbanas.
+        </p>
+      </div>
+      <button class="highlight-button">Onde acompanhar</button>
+    </section>
+  </div>
+
+  <!-- Próximos Jogos -->
+  <section class="next-games">
     <ul>
       <li>
-        <strong>24 - 28 AGO</strong> - Treino Aberto <br>
-        <em>Local: Petrópolis, RJ</em>
-      </li>
-      <li>
-        <strong>06 - 22 SET</strong> - World Skate Games 2024 <br>
-        <em>Local: Novara, Itália</em>
-      </li>
-      <li>
-        <strong>22 - 26 OUT</strong> - Campeonato Brasileiro <br>
-        <em>Local: Teresópolis, RJ</em>
+        <div class="game-info">
+          <strong>Grupo A - Sênior Feminino</strong><br>
+          <em>Local: Novara, Piemont</em><br>
+          <span>16/09 - AO VIVO NO YOUTUBE</span>
+        </div>
+        <div class="game-teams">
+          <div class="team">
+            <img src="/backend/public/imagens/brasil.png" alt="Brasil" class="flag">
+            <span>Brasil</span>
+          </div>
+          <span class="vs">X</span>
+            <div class="team">
+              <img src="/backend/public/imagens/india.png" alt="India" class="flag">
+              <span>Itália</span>
+            </div>
+        </div>
+        <div class="game-action">
+          <button class="game-button">Estreia</button>
+        </div>
       </li>
     </ul>
-  </section>
-
-  <!-- Tabela de Jogos -->
-  <section>
-    <div>
-      <h3>Grupo A – Sênior Feminino</h3>
-      <p>16/09 – AO VIVO NO YOUTUBE</p>
-      <div>
-        <span>Brasil</span>
-        <img src="/images/brasil_flag.png" alt="Bandeira do Brasil" width="50">
-        x
-        <img src="/images/india_flag.png" alt="Bandeira da Índia" width="50">
-        <span>Índia</span>
-        <button>Estreia</button>
-      </div>
-    </div>
-
-    <div>
-      <h3>Grupo B – Sênior Masculino</h3>
-      <p>16/09 – AO VIVO NO YOUTUBE</p>
-      <div>
-        <span>Brasil</span>
-        <img src="/images/brasil_flag.png" alt="Bandeira do Brasil" width="50">
-        x
-        <img src="/images/england_flag.png" alt="Bandeira da Inglaterra" width="50">
-        <span>Inglaterra</span>
-        <button>Estreia</button>
-      </div>
-    </div>
   </section>
 
   <!-- Rodapé -->

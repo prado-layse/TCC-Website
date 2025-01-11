@@ -191,85 +191,199 @@ button#toggle-header.rotated {
   background-color: #646464;
 }
 
-
-
-/* Banner Principal */
-.banner {
-  background-size: cover;
-  color: #fff;
-  padding: 80px 20px;
-  text-align: center;
-  margin-top: 70px; /* Ajuste para o header fixo */
-}
-
-.banner h1 {
-  font-size: 2.5rem;
-}
-
-.banner p {
-  font-size: 1.2rem;
-}
-
-.banner .countdown {
-  margin-top: 20px;
-}
-
-.banner .countdown .timer {
+/* Contêiner para Highlights e Próximos Eventos */
+.calendar-container {
   display: flex;
-  justify-content: center;
-  font-size: 1.5rem;
+  gap: 20px; /* Espaçamento entre as colunas */
+  align-items: flex-start; /* Alinha os itens no topo */
+  margin-top: 40px;
+  margin-bottom: 40px;
+  max-width: auto; /* Limita a largura total */
 }
-
-.banner .countdown .timer span {
-  margin: 0 10px;
+/* Próximos Eventos */
+.calendar {
+  margin-left: 40px;
+  margin-right: 40px;
+  font-family: 'Muli';
+  width: 550px;
+  max-width: 800px;
 }
-
-/* Eventos */
-.eventos, .jogos {
-  background-color: #fff;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.eventos h2, .jogos h3 {
-  font-size: 1.8rem;
+.calendar h2 {
+  font-size: 1rem;
+  font-weight: bold;
   margin-bottom: 15px;
+  color: #333;
+}
+.calendar-events {
+  border-top: 1.5px solid #ddd;
+}
+.event {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1.5px solid #ddd;
+}
+.event-color {
+  width: 5px;
+  height: 40px;
+  margin-bottom: 0px;
+}
+.event-color.blue {
+  background-color: #0161B1;
+}
+.event-color.yellow {
+  background-color: #FECA0A;
+}
+.event-color.green {
+  background-color: #00A851;
+}
+.event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  text-align: center;
+  margin-right: 20px;
+}
+.event-date strong {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.event-date span {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #777;
+}
+.event-info {
+  flex: 1;
+}
+.event-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+.event-location {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #777;
+}
+.event-arrow {
+  font-size: 1.3rem;
+  color: #999;
+  margin-left: 5px;
+  transform: translateY(2px);
+}
+/* Destaque do Calendário */
+.calendar-highlight {
+  width: 50%;
+  margin-right: 40px;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 11px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.calendar-highlight h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+.calendar-highlight-content {
+  font-size: 15px;
+  color: #646464;
+  margin-right: 50px;
+  text-align: justify ;
+}
+.highlight-button {
+  font-family: 'Muli';
+  font-size: 12px;
+  background-color: #292929;
+  color: white;
+  border: none;
+  border-radius: 21px;
+  padding: 12px;
+  font-family: 'Muli';
+  font-size: 14px;
+  margin-top: 10px;
+  width: 180px;
+  cursor: pointer;
+  text-align: center;
+  float: left;
+}
+.highlight-button:hover {
+  background-color: #646464;
 }
 
-.eventos ul {
+/* Próximos Jogos */
+.next-games {
+  margin: 2em 0;
+  padding: 1em;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
+.next-games h2 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+.next-games ul {
   list-style: none;
   padding: 0;
 }
-
-.eventos li {
-  margin-bottom: 10px;
+.next-games li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
 }
-
-/* Jogos */
-.jogos .match {
+.game-info {
+  flex: 1;
+}
+.game-info strong {
+  font-size: 1.2em;
+  display: block;
+}
+.game-info em {
+  font-style: italic;
+  color: #666;
+}
+.game-teams {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #eaeaea;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 10px;
+  gap: 1em;
 }
-
-.jogos .match button {
-  padding: 8px 12px;
+.team {
+  text-align: center;
+}
+.team img.flag {
+  width: 50px;
+  height: auto;
+}
+.vs {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.game-action {
+  margin-left: auto;
+}
+.game-button {
   background-color: #007bff;
   color: #fff;
   border: none;
+  padding: 0.5em 1em;
   border-radius: 4px;
   cursor: pointer;
 }
-
-.jogos .match button:hover {
+.game-button:hover {
   background-color: #0056b3;
 }
+
+
 
 /* Rodapé */
 footer {
