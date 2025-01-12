@@ -62,12 +62,12 @@ body {
 
 /* Cabeçalho */
 header {
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
+  padding: 15px 30px; 
+  display: flex; 
+  justify-content: space-between; 
   align-items: center;
   position: fixed;
-  top: 0;
+  top: 0; 
   width: 100%;
   z-index: 1000;
   transition: top 0.3s ease-in-out;
@@ -85,6 +85,29 @@ header nav a {
   margin-left: 15px;
   text-decoration: none;
   font-weight: bold;
+}
+
+/* Rodapé */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+footer nav a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+footer nav a:hover {
+  text-decoration: underline;
+}
+
+footer .social-icons img {
+  width: 20px;
+  height: 20px;
 }
 
 /* Botão de alternância do cabeçalho */
@@ -127,7 +150,7 @@ button#toggle-header.rotated {
 .highlight-logo img{
   position: absolute;
   margin-top: 11.5px;
-  left: 21px;
+  left: 31px;
   max-height: 45px;
 }
 .highlight-content {
@@ -194,19 +217,19 @@ button#toggle-header.rotated {
 /* Contêiner para Highlights e Próximos Eventos */
 .calendar-container {
   display: flex;
-  gap: 20px; /* Espaçamento entre as colunas */
+  width: 100%; 
   align-items: flex-start; /* Alinha os itens no topo */
   margin-top: 40px;
   margin-bottom: 40px;
-  max-width: auto; /* Limita a largura total */
+  padding: 10px;
 }
+
 /* Próximos Eventos */
 .calendar {
-  margin-left: 40px;
-  margin-right: 70px;
+  align-items: left;
   font-family: 'Muli';
+  margin-left: 40px;
   width: 50%;
-  max-width: 800px;
 }
 .calendar h2 {
   font-size: 1rem;
@@ -278,9 +301,10 @@ button#toggle-header.rotated {
 .calendar-highlight {
   width: 50%;
   height: 230px;
+  margin-left: 70px;
   margin-right: 40px;
-  background: #f8f8f8;
-  padding: 20px;
+  align-items: center;
+  padding: 30px;
   border-radius: 11px;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -316,95 +340,192 @@ button#toggle-header.rotated {
   background-color: #646464;
 }
 
-/* Próximos Jogos */
+/* Estilo dos Próximos Jogos */
+.games-container {
+  display: flex;
+  width: 100%; 
+  align-items: flex-start; /* Alinha os itens no topo */
+  margin-bottom: 40px;
+  padding: 10px;
+}
+
 .next-games {
-  margin: 2em 0;
-  padding: 1em;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-}
-.next-games h2 {
-  font-size: 1.8em;
-  margin-bottom: 1em;
-  text-align: center;
-}
-.next-games ul {
-  list-style: none;
-  padding: 0;
-}
-.next-games li {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  padding: 1em;
-  margin-bottom: 1em;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
 }
-.game-info {
-  flex: 1;
-}
-.game-info strong {
-  font-size: 1.2em;
-  display: block;
-}
-.game-info em {
-  font-style: italic;
-  color: #666;
-}
-.game-teams {
+
+.next-games ul {
   display: flex;
-  align-items: center;
-  gap: 1em;
+  flex-wrap: wrap;
+  width: 100%;
+  list-style: none;
+  justify-content: space-between;
+  gap: 10px;
 }
-.team {
+
+.next-games li {
+  background-color: #f0f0f0;
+  border-radius: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
   text-align: center;
-}
-.team img.flag {
-  width: 50px;
-  height: auto;
-}
-.vs {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-.game-action {
-  margin-left: auto;
-}
-.game-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 0.5em 1em;
-  border-radius: 4px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 300px;
+  min-width: 350px;
   cursor: pointer;
 }
-.game-button:hover {
-  background-color: #0056b3;
+
+.next-games li:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-
-
-/* Rodapé */
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
+.next-games li a {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Faz o link ocupar toda a área do item */
+  height: 100%;
 }
 
-footer nav a {
-  color: #fff;
-  margin: 0 10px;
+.next-games li a:hover {
   text-decoration: none;
 }
 
-footer nav a:hover {
-  text-decoration: underline;
+/* Conteúdo do Jogo */
+.game-info {
+  font-family: 'Muli', sans-serif;
+  color: #333;
 }
 
-footer .social-icons img {
-  width: 20px;
-  height: 20px;
+.editable-info {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.editable-info-local {
+  font-size: 1rem;
+  color: #777;
+}
+
+.game-teams {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.team {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team img.flag {
+  width: 75px;
+  height: 55px;
+  border-radius: 50%;
+  border: 3px solid #f8f8f8;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team span {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.vs {
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+}
+
+.game-action {
+  display: flex;
+  justify-content: center;
+}
+
+.game-button {
+  font-family: 'Muli';
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #292929;
+  color: #f8f8f8;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  width: 80%;
+}
+
+.game-button:hover {
+  background-color: #646464;
+  transform: scale(1.05);
+}
+
+.next-game-button {
+  background-color: #FECA0A;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.next-game-button:hover {
+  background-color: #f8a800;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #3C3C3C;
+  border-radius: 25px;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .next-games li {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Para telas menores, mostrar 1 item por linha */
+  }
+
+  .game-teams {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .game-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .next-game-button {
+    width: 100%;
+    margin-top: 10px;
+  }
 }

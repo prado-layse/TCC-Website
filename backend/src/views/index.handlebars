@@ -122,39 +122,88 @@
   </div>
 
   <!-- Próximos Jogos -->
-  <section class="next-games">
-    <ul>
-      <li>
-        <div class="game-info">
-          <div class="editable-info editable" contenteditable="false" id="titulo-jogo-editavel">
-            Grupo A - Sênior Feminino
-          </div>
-          <div class="editable-info-local editable" contenteditable="false" id="subtitulo-jogo-editavel">
-            Local: Novara, Piemont
-          </div>
-          <button>16/09 - AO VIVO NO YOUTUBE</button>
-          <button class="next-game-button" id="botao-editar-jogo" onclick="alternarEdicaoJogo()" style="visibility:visible">Editar</button>
-          <button class="next-game-button" id="botao-cancelar-jogo" onclick="cancelarEdicaoJogo()" style="display: none;">Cancelar</button>
-          <button class="next-game-button" id="botao-salvar-jogo" onclick="salvarTextoJogo()" style="display: none;">Salvar</button>
-        </div>
-        <div class="game-teams">
-          <div class="team">
-            <img src="/backend/public/imagens/brasil.png" alt="Brasil" class="flag">
-            <span>Brasil</span>
-          </div>
-          <span class="vs">X</span>
-            <div class="team">
-              <img src="/backend/public/imagens/india.png" alt="India" class="flag">
-              <span>Itália</span>
+  <div class="games-container">
+    <section class="next-games">
+      <ul>
+        <!-- Primeiro Jogo -->
+        <li>
+          <div class="game-info">
+            <div class="editable-info editable" contenteditable="false" id="titulo-jogo-editavel">
+              Evento: Insira o destaque
             </div>
-        </div>
-        <div class="game-action">
-          <button class="game-button">Estreia</button>
-        </div>
-      </li>
-    </ul>
-  </section>
-
+            <div class="editable-info-local editable" contenteditable="false" id="subtitulo-jogo-editavel">
+              Local: Insira o local
+            </div>
+            <div class="game-teams">
+              <div class="team">
+                <img src="/backend/public/imagens/brasil.png" alt="Brasil" class="flag">
+                <span>Brasil</span>
+              </div>
+              <span class="vs">X</span>
+              <div class="team">
+                <img src="/backend/public/imagens/india.png" alt="India" class="flag">
+                <span>Índia</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-action">
+            <button class="game-button">16/09 - Assista no Youtube</button>
+          </div>
+        </li>
+        <!-- Segundo Jogo -->
+        <li>
+          <div class="game-info">
+            <div class="editable-info editable" contenteditable="false" id="titulo-jogo-editavel">
+              Evento: Insira o destaque
+            </div>
+            <div class="editable-info-local editable" contenteditable="false" id="subtitulo-jogo-editavel">
+              Local: Insira o local
+            </div>
+            <div class="game-teams">
+              <div class="team">
+                <img src="/backend/public/imagens/brasil.png" alt="Brasil" class="flag">
+                <span>Brasil</span>
+              </div>
+              <span class="vs">X</span>
+              <div class="team">
+                <img src="/backend/public/imagens/india.png" alt="India" class="flag">
+                <span>Índia</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-action">
+            <button class="game-button">16/09 - Assista no Youtube</button>
+          </div>
+        </li>
+        <!-- Terceiro Jogo -->
+        <li>
+          <div class="game-info">
+            <div class="editable-info editable" contenteditable="false" id="titulo-jogo-editavel">
+              Evento: Insira o destaque
+            </div>
+            <div class="editable-info-local editable" contenteditable="false" id="subtitulo-jogo-editavel">
+              Local: Insira o local
+            </div>
+            <div class="game-teams">
+              <div class="team">
+                <img src="/backend/public/imagens/brasil.png" alt="Brasil" class="flag">
+                <span>Brasil</span>
+              </div>
+              <span class="vs">X</span>
+              <div class="team">
+                <img src="/backend/public/imagens/india.png" alt="India" class="flag">
+                <span>Índia</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-action">
+            <button class="game-button">16/09 - Assista no Youtube</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div>
+  
   <!-- Rodapé -->
   <footer>
     <div>
@@ -191,122 +240,130 @@
     });
 
     // Função para alternar edição do destaque
-let tituloOriginal = '';
-let subtituloOriginal = '';
-function alternarEdicao() {
-  const titulo = document.getElementById('titulo-editavel');
-  const subtitulo = document.getElementById('subtitulo-editavel');
-  const botaoEditar = document.getElementById('botao-editar');  
-  const botaoSalvar = document.getElementById('botao-salvar');  
-  const botaoCancelar = document.getElementById('botao-cancelar');
-  
-  tituloOriginal = titulo.textContent;
-  subtituloOriginal = subtitulo.textContent;
+    let tituloOriginal = '';
+    let subtituloOriginal = '';
+    function alternarEdicao() {
+      const titulo = document.getElementById('titulo-editavel');
+      const subtitulo = document.getElementById('subtitulo-editavel');
+      const botaoEditar = document.getElementById('botao-editar');  
+      const botaoSalvar = document.getElementById('botao-salvar');  
+      const botaoCancelar = document.getElementById('botao-cancelar');
+      
+      tituloOriginal = titulo.textContent;
+      subtituloOriginal = subtitulo.textContent;
 
-  titulo.contentEditable = 'true';
-  subtitulo.contentEditable = 'true';
-  titulo.focus();
+      titulo.contentEditable = 'true';
+      subtitulo.contentEditable = 'true';
+      titulo.focus();
 
-  botaoEditar.style.display = 'none';
-  botaoSalvar.style.display = 'inline';
-  botaoCancelar.style.display = 'inline';
-}
+      botaoEditar.style.display = 'none';
+      botaoSalvar.style.display = 'inline';
+      botaoCancelar.style.display = 'inline';
+    }
 
-function salvarTexto() {
-  const titulo = document.getElementById('titulo-editavel');
-  const subtitulo = document.getElementById('subtitulo-editavel');
-  
-  // Salvar no LocalStorage
-  localStorage.setItem('tituloDestaque', titulo.textContent);
-  localStorage.setItem('subtituloDestaque', subtitulo.textContent);
-  alert('Texto do destaque salvo com sucesso!');
+    function salvarTexto() {
+        const titulo = document.getElementById('titulo-editavel');
+        const subtitulo = document.getElementById('subtitulo-editavel');
+        
+        // Salvar no LocalStorage
+        localStorage.setItem('tituloDestaque', titulo.textContent);
+        localStorage.setItem('subtituloDestaque', subtitulo.textContent);
+        alert('Texto do destaque salvo com sucesso!');
 
-  titulo.contentEditable = 'false';
-  subtitulo.contentEditable = 'false';
+        titulo.contentEditable = 'false';
+        subtitulo.contentEditable = 'false';
 
-  document.getElementById('botao-editar').style.display = 'inline';
-  document.getElementById('botao-salvar').style.display = 'none';
-  document.getElementById('botao-cancelar').style.display = 'none';
-}
+        document.getElementById('botao-editar').style.display = 'inline';
+        document.getElementById('botao-salvar').style.display = 'none';
+        document.getElementById('botao-cancelar').style.display = 'none';
+      }
 
-function cancelarEdicao() {
-  const titulo = document.getElementById('titulo-editavel');
-  const subtitulo = document.getElementById('subtitulo-editavel');
-  
-  titulo.textContent = tituloOriginal;
-  subtitulo.textContent = subtituloOriginal;
+    function cancelarEdicao() {
+      const titulo = document.getElementById('titulo-editavel');
+      const subtitulo = document.getElementById('subtitulo-editavel');
+      
+      titulo.textContent = tituloOriginal;
+      subtitulo.textContent = subtituloOriginal;
 
-  titulo.contentEditable = 'false';
-  subtitulo.contentEditable = 'false';
+      titulo.contentEditable = 'false';
+      subtitulo.contentEditable = 'false';
 
-  document.getElementById('botao-editar').style.display = 'inline';
-  document.getElementById('botao-salvar').style.display = 'none';
-  document.getElementById('botao-cancelar').style.display = 'none';
-}
+      document.getElementById('botao-editar').style.display = 'inline';
+      document.getElementById('botao-salvar').style.display = 'none';
+      document.getElementById('botao-cancelar').style.display = 'none';
+    }
 
-// Funções para jogos
-let tituloJogoOriginal = '';
-let subtituloJogoOriginal = '';
-function alternarEdicaoJogo() {
-  const tituloJogo = document.getElementById('titulo-jogo-editavel');
-  const subtituloJogo = document.getElementById('subtitulo-jogo-editavel');
-  
-  tituloJogoOriginal = tituloJogo.textContent;
-  subtituloJogoOriginal = subtituloJogo.textContent;
+    // Funções para jogos
+    let tituloJogoOriginal = '';
+    let subtituloJogoOriginal = '';
+    function alternarEdicaoJogo() {
+      const tituloJogo = document.getElementById('titulo-jogo-editavel');
+      const subtituloJogo = document.getElementById('subtitulo-jogo-editavel');
+      
+      tituloJogoOriginal = tituloJogo.textContent;
+      subtituloJogoOriginal = subtituloJogo.textContent;
 
-  tituloJogo.contentEditable = 'true';
-  subtituloJogo.contentEditable = 'true';
-  tituloJogo.focus();
+      tituloJogo.contentEditable = 'true';
+      subtituloJogo.contentEditable = 'true';
+      tituloJogo.focus();
 
-  document.getElementById('botao-editar-jogo').style.display = 'none';
-  document.getElementById('botao-salvar-jogo').style.display = 'inline';
-  document.getElementById('botao-cancelar-jogo').style.display = 'inline';
-}
+      document.getElementById('botao-editar-jogo').style.display = 'none';
+      document.getElementById('botao-salvar-jogo').style.display = 'inline';
+      document.getElementById('botao-cancelar-jogo').style.display = 'inline';
+    }
 
-function salvarTextoJogo() {
-  const tituloJogo = document.getElementById('titulo-jogo-editavel');
-  const subtituloJogo = document.getElementById('subtitulo-jogo-editavel');
-  
-  // Salvar no LocalStorage
-  localStorage.setItem('tituloJogo', tituloJogo.textContent);
-  localStorage.setItem('subtituloJogo', subtituloJogo.textContent);
-  alert('Texto do jogo salvo com sucesso!');
+    function salvarTextoJogo() {
+      const tituloJogo = document.getElementById('titulo-jogo-editavel');
+      const subtituloJogo = document.getElementById('subtitulo-jogo-editavel');
+      
+      // Salvar no LocalStorage
+      localStorage.setItem('tituloJogo', tituloJogo.textContent);
+      localStorage.setItem('subtituloJogo', subtituloJogo.textContent);
+      alert('Texto do jogo salvo com sucesso!');
 
-  tituloJogo.contentEditable = 'false';
-  subtituloJogo.contentEditable = 'false';
+      tituloJogo.contentEditable = 'false';
+      subtituloJogo.contentEditable = 'false';
 
-  document.getElementById('botao-editar-jogo').style.display = 'inline';
-  document.getElementById('botao-salvar-jogo').style.display = 'none';
-  document.getElementById('botao-cancelar-jogo').style.display = 'none';
-}
+      document.getElementById('botao-editar-jogo').style.display = 'inline';
+      document.getElementById('botao-salvar-jogo').style.display = 'none';
+      document.getElementById('botao-cancelar-jogo').style.display = 'none';
+    }
 
-function cancelarEdicaoJogo() {
-  const tituloJogo = document.getElementById('titulo-jogo-editavel');
-  const subtituloJogo = document.getElementById('subtitulo-jogo-editavel');
-  
-  tituloJogo.textContent = tituloJogoOriginal;
-  subtituloJogo.textContent = subtituloJogoOriginal;
+    function cancelarEdicaoJogo() {
+      const tituloJogo = document.getElementById('titulo-jogo-editavel');
+      const subtituloJogo = document.getElementById('subtitulo-jogo-editavel');
+      
+      tituloJogo.textContent = tituloJogoOriginal;
+      subtituloJogo.textContent = subtituloJogoOriginal;
 
-  tituloJogo.contentEditable = 'false';
-  subtituloJogo.contentEditable = 'false';
+      tituloJogo.contentEditable = 'false';
+      subtituloJogo.contentEditable = 'false';
 
-  document.getElementById('botao-editar-jogo').style.display = 'inline';
-  document.getElementById('botao-salvar-jogo').style.display = 'none';
-  document.getElementById('botao-cancelar-jogo').style.display = 'none';
-}
+      document.getElementById('botao-editar-jogo').style.display = 'inline';
+      document.getElementById('botao-salvar-jogo').style.display = 'none';
+      document.getElementById('botao-cancelar-jogo').style.display = 'none';
+    }
 
-// Carregar textos salvos ao abrir a página
-document.addEventListener('DOMContentLoaded', function() {
-  const tituloDestaque = localStorage.getItem('tituloDestaque');
-  const subtituloDestaque = localStorage.getItem('subtituloDestaque');
-  const tituloJogo = localStorage.getItem('tituloJogo');
-  const subtituloJogo = localStorage.getItem('subtituloJogo');
+    // Carregar textos salvos ao abrir a página
+    document.addEventListener('DOMContentLoaded', function() {
+      const tituloDestaque = localStorage.getItem('tituloDestaque');
+      const subtituloDestaque = localStorage.getItem('subtituloDestaque');
+      const tituloJogo = localStorage.getItem('tituloJogo');
+      const subtituloJogo = localStorage.getItem('subtituloJogo');
 
-  if (tituloDestaque) document.getElementById('titulo-editavel').textContent = tituloDestaque;
-  if (subtituloDestaque) document.getElementById('subtitulo-editavel').textContent = subtituloDestaque;
-  if (tituloJogo) document.getElementById('titulo-jogo-editavel').textContent = tituloJogo;
-  if (subtituloJogo) document.getElementById('subtitulo-jogo-editavel').textContent = subtituloJogo;
-});
+      if (tituloDestaque) {
+        document.getElementById('titulo-editavel').textContent = tituloDestaque;
+      }
+      if (subtituloDestaque) {
+        document.getElementById('subtitulo-editavel').textContent = subtituloDestaque;
+      }
+      if (tituloJogo) {
+        document.getElementById('titulo-jogo-editavel').textContent = tituloJogo;
+      }
+      if (subtituloJogo) {
+        document.getElementById('subtitulo-jogo-editavel').textContent = subtituloJogo;
+      }
+    });
   </script>
 
 </body>
