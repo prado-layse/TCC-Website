@@ -203,9 +203,9 @@ button#toggle-header.rotated {
 /* Próximos Eventos */
 .calendar {
   margin-left: 40px;
-  margin-right: 40px;
+  margin-right: 70px;
   font-family: 'Muli';
-  width: 550px;
+  width: 50%;
   max-width: 800px;
 }
 .calendar h2 {
@@ -277,6 +277,7 @@ button#toggle-header.rotated {
 /* Destaque do Calendário */
 .calendar-highlight {
   width: 50%;
+  height: 230px;
   margin-right: 40px;
   background: #f8f8f8;
   padding: 20px;
@@ -292,7 +293,7 @@ button#toggle-header.rotated {
 .calendar-highlight-content {
   font-size: 15px;
   color: #646464;
-  margin-right: 50px;
+  margin-right: 10px;
   text-align: justify ;
 }
 .highlight-button {
