@@ -7,9 +7,4 @@ const auth = require('../middleware/auth');
 router.get('/cadastrar', auth(2), atletaController.rdCadastroAtleta);
 router.post('/adicionar', auth(2), atletaController.adicionarAtletas);
 
-// Rota: Cadastrar Responsável
-/*
-router.get('/cadastrar-responsavel', auth(2), atletaController.rdCadastroResponsavel);
-router.post('/adicionar-responsavel', auth(2), atletaController.adicionarResponsavel);
-*/
 module.exports = router;

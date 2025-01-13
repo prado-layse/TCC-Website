@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela Inicial - CSB</title>
+  <!-- Link para os arquivos CSS -->
+  <link rel="stylesheet" href="/backend/public/css/inicial.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;600&display=swap">
+</head>
+<body>
+  <!-- Cabeçalho com Logo e Navegação -->
+  <header>
+    <div class="logo">
+      <img src="/backend/public/imagens/cbs.png" alt="Logo CSB">
+    </div>
+    <nav>
+      {{#if isUsuarioLogado}}
+        <a href="/api/usuarios/perfil">Perfil</a>
+        <a href="/api/usuarios/perfil">Sair da conta</a>
+        <a href="/api/institucional" class="other">Institucional</a>
+        <a href="/api/selecao" class="other">Seleção</a>
+        <a href="/api/clubes" class="other">Clubes</a>
+      {{else}}
+        <a href="/api/institucional" class="other">Institucional</a>
+        <a href="/api/selecao" class="other">Seleção</a>
+        <a href="/api/clubes" class="other">Clubes</a>
+        <a href="/api/usuarios/cadastrar" class="register">Cadastrar</a>
+        <a href="/api/usuarios/login" class="login">Entrar</a>        
+      {{/if}}
+    </nav>
+    <button id="toggle-header">☰</button>
+  </header>
+
+  <!-- Destaque Principal -->
+  <section class="highlight">
+    <div class="highlight-logo"> 
+      <img src="/backend/public/imagens/cbs.png" alt="Logo CSB">
+    </div>
+    <div class="highlight-image">
+      <img src="/backend/public/imagens/destaque.jpg" alt="Imagem Destaque">
+    </div>
+    <div class="highlight-content">
+      {{#if isAdmin}}
+        <!-- Conteúdo editável para o user-admin -->
+        <div class="editable-title editable" contenteditable="false" id="titulo-editavel">
+          Título da notícia em destaque.
+        </div>
+        <div class="editable-subtitle editable" contenteditable="false" id="subtitulo-editavel">
+          Subtítulo da notícia.
+        </div>
+        <button class="highlight-button" id="botao-editar" onclick="alternarEdicao()" style="visibility:visible">Editar</button>
+        <button class="highlight-button" id="botao-cancelar" onclick="cancelarEdicao()" style="display: none;">Cancelar</button>
+        <button class="highlight-button" id="botao-salvar" onclick="salvarTexto()" style="display: none;">Salvar</button>
+      {{else}}
+        <div class="editable-title" contenteditable="false" id="titulo-editavel">
+          Título da notícia em destaque.
+        </div>
+        <div class="editable-subtitle" contenteditable="false" id="subtitulo-editavel">
+          Subtítulo da notícia.
+        </div>
+        <button class="highlight-button" id="botao-editar" onclick="alternarEdicao()" style="visibility:hidden">Editar</button>
+      {{/if}} 
+    </div>
+  </section>
+
+  <!-- Container de Destaque dos Proximos Eventos -->
+  <div class="calendar-container">
+    <!-- Próximos Eventos -->
+    <section class="calendar">
+      <h2>PRÓXIMOS EVENTOS</h2>
+      <div class="calendar-events">
+        <div class="event">
+          <div class="event-color blue"></div>
+          <div class="event-date">
+            <strong>24 - 28</strong>
+            <span>AGO</span>
+          </div>
+          <div class="event-info">
+            <p class="event-name">Treino Aberto</p>
+            <p class="event-location">Local: Petrópolis, RJ</p>
+          </div>
+          <div class="event-arrow">➤</div>
+        </div>
+        <div class="event">
+          <div class="event-color yellow"></div>
+          <div class="event-date">
+            <strong>06 - 22</strong>
+            <span>SET</span>
+          </div>
+          <div class="event-info">
+            <p class="event-name">World Skate Games 2024</p>
+            <p class="event-location">Local: Novara, Itália</p>
+          </div>
+          <div class="event-arrow">➤</div>
+        </div>
+        <div class="event">
+          <div class="event-color green"></div>
+          <div class="event-date">
+            <strong>22 - 26</strong>
+            <span>OUT</span>
+          </div>
+          <div class="event-info">
+            <p class="event-name">Campeonato Brasileiro</p>
+            <p class="event-location">Local: Teresópolis, RJ</p>
+          </div>
+          <div class="event-arrow">➤</div>
+        </div>
+      </div>
+    </section>
+    <!-- Highlights -->
+    <section class="calendar-highlight">
+      <h3>4ª edição do Word Skate Games</h3>
+      <div class="calendar-highlight-content">
+        <p>
+          Um evento único: o campeonato mundial de 12 esportes em 9 cidades italianas, de 6 a 22 de setembro, levará para a Itália o espetáculo dos esportes de patins no coração das ruas urbanas.
+        </p>
+      </div>
+      <button class="highlight-button">Onde acompanhar</button>
+    </section>
+  </div>
+
+  <!-- Próximos Jogos -->
+  <div class="games-container">
+    <section class="next-games">
+      <ul>
+        <!-- Primeiro Jogo -->
+        <li>
+          <div class="game-info">
+            <div class="editable-info editable" contenteditable="false" id="titulo-jogo-editavel">
+              Evento: Insira o destaque
+            </div>
+            <div class="editable-info-local editable" contenteditable="false" id="subtitulo-jogo-editavel">
+              Local: Insira o local
+            </div>
+            <div class="game-teams">
+              <div class="team">
+                <img src="/backend/public/imagens/brasil.png" alt="Brasil" class="flag">
+                <span>Brasil</span>
+              </div>
+              <span class="vs">X</span>
+              <div class="team">
+                <img src="/backend/public/imagens/india.png" alt="India" class="flag">
+                <span>Índia</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-action">
+            <button class="game-button">16/09 - Assista no Youtube</button>
+          </div>
+        </li>
+        <!-- Segundo Jogo -->
+        <li>
+          <div class="game-info">
+            <div class="editable-info editable" contenteditable="false" id="titulo-jogo-editavel">
+              Evento: Insira o destaque
+            </div>
+            <div class="editable-info-local editable" contenteditable="false" id="subtitulo-jogo-editavel">
+              Local: Insira o local
+            </div>
+            <div class="game-teams">
+              <div class="team">
+                <img src="/backend/public/imagens/brasil.png" alt="Brasil" class="flag">
+                <span>Brasil</span>
+              </div>
+              <span class="vs">X</span>
+              <div class="team">
+                <img src="/backend/public/imagens/india.png" alt="India" class="flag">
+                <span>Índia</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-action">
+            <button class="game-button">16/09 - Assista no Youtube</button>
+          </div>
+        </li>
+        <!-- Terceiro Jogo -->
+        <li>
+          <div class="game-info">
+            <div class="editable-info editable" contenteditable="false" id="titulo-jogo-editavel">
+              Evento: Insira o destaque
+            </div>
+            <div class="editable-info-local editable" contenteditable="false" id="subtitulo-jogo-editavel">
+              Local: Insira o local
+            </div>
+            <div class="game-teams">
+              <div class="team">
+                <img src="/backend/public/imagens/brasil.png" alt="Brasil" class="flag">
+                <span>Brasil</span>
+              </div>
+              <span class="vs">X</span>
+              <div class="team">
+                <img src="/backend/public/imagens/india.png" alt="India" class="flag">
+                <span>Índia</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-action">
+            <button class="game-button">16/09 - Assista no Youtube</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div>
+  
+  <!-- Rodapé -->
+  <footer>
+    <div>
+      <img src="/images/csb_logo.png" alt="Logo CSB" width="80">
+    </div>
+    <nav>
+      <a href="#">Sobre nós</a>
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">FAQ</a>
+    </nav>
+    <div>
+      <span>Afiliado a:</span>
+      <img src="/images/world_skate_logo.png" alt="Logo World Skate" width="50">
+      <img src="/images/csp_logo.png" alt="Logo CSP" width="50">
+    </div>
+    <div>
+      <a href="#"><img src="/images/facebook_icon.png" alt="Facebook" width="20"></a>
+      <a href="#"><img src="/images/instagram_icon.png" alt="Instagram" width="20"></a>
+      <a href="#"><img src="/images/twitter_icon.png" alt="Twitter" width="20"></a>
+    </div>
+  </footer>
+
+  <script>
+    // Botão para esconder o cabeçalho
+    document.addEventListener('DOMContentLoaded', function() {
+      var header = document.querySelector('header');
+      var toggleButton = document.getElementById('toggle-header');
+
+      toggleButton.addEventListener('click', function() {
+        header.classList.toggle('hidden');
+        toggleButton.classList.toggle('rotated');
+      });
+    });
+
+    // Função para alternar edição do destaque
+    let tituloOriginal = '';
+    let subtituloOriginal = '';
+    function alternarEdicao() {
+      const titulo = document.getElementById('titulo-editavel');
+      const subtitulo = document.getElementById('subtitulo-editavel');
+      const botaoEditar = document.getElementById('botao-editar');  
+      const botaoSalvar = document.getElementById('botao-salvar');  
+      const botaoCancelar = document.getElementById('botao-cancelar');
+      
+      tituloOriginal = titulo.textContent;
+      subtituloOriginal = subtitulo.textContent;
+
+      titulo.contentEditable = 'true';
+      subtitulo.contentEditable = 'true';
+      titulo.focus();
+
+      botaoEditar.style.display = 'none';
+      botaoSalvar.style.display = 'inline';
+      botaoCancelar.style.display = 'inline';
+    }
+    function salvarTexto() {
+        const titulo = document.getElementById('titulo-editavel');
+        const subtitulo = document.getElementById('subtitulo-editavel');
+        
+        // Salvar no LocalStorage
+        localStorage.setItem('tituloDestaque', titulo.textContent);
+        localStorage.setItem('subtituloDestaque', subtitulo.textContent);
+        alert('Texto do destaque salvo com sucesso!');
+
+        titulo.contentEditable = 'false';
+        subtitulo.contentEditable = 'false';
+
+        document.getElementById('botao-editar').style.display = 'inline';
+        document.getElementById('botao-salvar').style.display = 'none';
+        document.getElementById('botao-cancelar').style.display = 'none';
+      }
+    function cancelarEdicao() {
+      const titulo = document.getElementById('titulo-editavel');
+      const subtitulo = document.getElementById('subtitulo-editavel');
+      
+      titulo.textContent = tituloOriginal;
+      subtitulo.textContent = subtituloOriginal;
+
+      titulo.contentEditable = 'false';
+      subtitulo.contentEditable = 'false';
+
+      document.getElementById('botao-editar').style.display = 'inline';
+      document.getElementById('botao-salvar').style.display = 'none';
+      document.getElementById('botao-cancelar').style.display = 'none';
+    }
+
+    // Funções para jogos
+    let tituloJogoOriginal = '';
+    let subtituloJogoOriginal = '';
+    function alternarEdicaoJogo() {
+      const tituloJogo = document.getElementById('titulo-jogo-editavel');
+      const subtituloJogo = document.getElementById('subtitulo-jogo-editavel');
+      
+      tituloJogoOriginal = tituloJogo.textContent;
+      subtituloJogoOriginal = subtituloJogo.textContent;
+
+      tituloJogo.contentEditable = 'true';
+      subtituloJogo.contentEditable = 'true';
+      tituloJogo.focus();
+
+      document.getElementById('botao-editar-jogo').style.display = 'none';
+      document.getElementById('botao-salvar-jogo').style.display = 'inline';
+      document.getElementById('botao-cancelar-jogo').style.display = 'inline';
+    }
+    function salvarTextoJogo() {
+      const tituloJogo = document.getElementById('titulo-jogo-editavel');
+      const subtituloJogo = document.getElementById('subtitulo-jogo-editavel');
+      
+      // Salvar no LocalStorage
+      localStorage.setItem('tituloJogo', tituloJogo.textContent);
+      localStorage.setItem('subtituloJogo', subtituloJogo.textContent);
+      alert('Texto do jogo salvo com sucesso!');
+
+      tituloJogo.contentEditable = 'false';
+      subtituloJogo.contentEditable = 'false';
+
+      document.getElementById('botao-editar-jogo').style.display = 'inline';
+      document.getElementById('botao-salvar-jogo').style.display = 'none';
+      document.getElementById('botao-cancelar-jogo').style.display = 'none';
+    }
+    function cancelarEdicaoJogo() {
+      const tituloJogo = document.getElementById('titulo-jogo-editavel');
+      const subtituloJogo = document.getElementById('subtitulo-jogo-editavel');
+      
+      tituloJogo.textContent = tituloJogoOriginal;
+      subtituloJogo.textContent = subtituloJogoOriginal;
+
+      tituloJogo.contentEditable = 'false';
+      subtituloJogo.contentEditable = 'false';
+
+      document.getElementById('botao-editar-jogo').style.display = 'inline';
+      document.getElementById('botao-salvar-jogo').style.display = 'none';
+      document.getElementById('botao-cancelar-jogo').style.display = 'none';
+    }
+
+    // Carregar textos salvos ao abrir a página
+    document.addEventListener('DOMContentLoaded', function() {
+      const tituloDestaque = localStorage.getItem('tituloDestaque');
+      const subtituloDestaque = localStorage.getItem('subtituloDestaque');
+      const tituloJogo = localStorage.getItem('tituloJogo');
+      const subtituloJogo = localStorage.getItem('subtituloJogo');
+
+      if (tituloDestaque) {
+        document.getElementById('titulo-editavel').textContent = tituloDestaque;
+      }
+      if (subtituloDestaque) {
+        document.getElementById('subtitulo-editavel').textContent = subtituloDestaque;
+      }
+      if (tituloJogo) {
+        document.getElementById('titulo-jogo-editavel').textContent = tituloJogo;
+      }
+      if (subtituloJogo) {
+        document.getElementById('subtitulo-jogo-editavel').textContent = subtituloJogo;
+      }
+    });
+  </script>
+
+</body>
+</html>

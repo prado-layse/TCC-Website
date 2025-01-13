@@ -12,19 +12,16 @@
         <input type="text" name="sigla" required><br>
 
         <label for="cnpj">CNPJ:</label>
-        <input type="text" name="cnpj" required><br>
+        <input type="text" id="cnpj" name="cnpj" required><br>
 
         <label for="presidente">Presidente:</label>
         <input type="text" name="presidente" required>
-
-        <label for="situacao">Situação:</label>
-        <input type="text" name="situacao" required>
     </fieldset>
 
     <fieldset>
         <legend>Endereço da Sede</legend>
         <label for="cep">CEP:</label>
-        <input type="text" name="cep" required><br>
+        <input type="text" id="cep" name="cep" required><br>
 
         <label for="endereco">Endereço:</label>
         <input type="text" name="endereco" required><br>
@@ -33,7 +30,30 @@
         <input type="text" name="cidade" required><br>
 
         <label for="estado">Estado:</label>
-        <input type="text" name="estado" required><br>
+        <select name ="estado">
+            <option value="AC">AC</option required>
+            <option value="AL">AL</option required>
+            <option value="AP">AP</option required>
+            <option value="AM">AM</option required>
+            <option value="BA">BA</option required>
+            <option value="CE">CE</option required>
+            <option value="DF">DF</option required>
+            <option value="GO">GO</option required>
+            <option value="MA">MA</option required>
+            <option value="MT">MT</option required>
+            <option value="MS">MS</option required>
+            <option value="MG">MG</option required>
+            <option value="PA">PA</option required>
+            <option value="PI">PI</option required>
+            <option value="PB">PB</option required>
+            <option value="PE">PE</option required>
+            <option value="RN">RN</option required>
+            <option value="RO">RO</option required>
+            <option value="RR">RR</option required>
+            <option value="SE">SE</option required>
+            <option value="SP">SP</option required>
+            <option value="TO">TO</option required>
+        </select><br>
 
         <label for="pais">País:</label>
         <input type="text" name="pais" required>
@@ -42,7 +62,7 @@
     <fieldset>
         <legend>Contato</legend>
         <label for="telefone">Telefone:</label>
-        <input type="text" name="telefone" required><br>
+        <input type="text" id="telefone" name="telefone" required><br>
 
         <label for="email">Email:</label>
         <input type="text" name="email" required><br>
@@ -59,3 +79,19 @@
 
     <button type="submit">Cadastrar Federação</button>
 </form>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
+<script>
+$(document).ready(function() {
+    // Aplicando a máscara de CNPJ
+    $('#cnpj').mask('00.000.000/0000-00');
+    $('#cep').mask('00000-000');
+    $('#telefone').mask('(00) 00000-0000');
+});
+</script>
+
+

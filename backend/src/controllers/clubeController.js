@@ -33,8 +33,8 @@ exports.listarClubes = async (req, res) => {
     try {
         const clubes = await Clube.findAll({
             include: [
-                { model: Endereco, as: 'enderecos' },
-                { model: Contato, as: 'contatos' }
+                { model: Endereco, as: 'Enderecos' },
+                { model: Contato, as: 'Contatos' }
             ]
         });
 

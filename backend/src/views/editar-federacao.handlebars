@@ -1,43 +1,103 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Federação</title>
-</head>
-<body>
-    <h1>Editar Federação</h1>
-    <form action="/api/federacoes/{{codFederacao}}" method="PUT">
-        <input type="hidden" name="_method" value="PUT">
-        
+<form action="/api/federacoes/{{federacao.codFederacao}}/atualizar" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+
+    <fieldset>
         <label for="razaoSocial">Razão Social:</label>
-        <input type="text" name="razaoSocial" value="{{razaoSocial}}" required>
+        <input type="text" name="razaoSocial" value="{{federacao.razaoSocial}}" required>
+        <select name="situacao" id="situacao">
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+        </select>
         <br>
 
         <label for="nomeFantasia">Nome Fantasia:</label>
-        <input type="text" name="nomeFantasia" value="{{nomeFantasia}}" required>
+        <input type="text" name="nomeFantasia" value="{{federacao.nomeFantasia}}" required>
         <br>
 
         <label for="sigla">Sigla:</label>
-        <input type="text" name="sigla" value="{{sigla}}" required>
-        <br>
-
-        <label for="cnpj">CNPJ:</label>
-        <input type="text" name="cnpj" value="{{cnpj}}" required>
+        <input type="text" name="sigla" value="{{federacao.sigla}}" required>
         <br>
 
         <label for="presidente">Presidente:</label>
-        <input type="text" name="presidente" value="{{presidente}}" required>
+        <input type="text" name="presidente" value="{{federacao.presidente}}" required>
+    </fieldset>
+
+    <fieldset>
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep" value="{{federacao.Enderecos.0.cep}}" required>
         <br>
 
-        <form action="/api/federacoes/{{codFederacao}}/status" method="POST">
-            <input type="hidden" name="_method" value="PUT">
-            <button type="submit">
-                {{ status === 'Ativo' ? 'Inativar' : 'Ativar' }}
-            </button>
-        </form>
+        <label for="endereco">Endereço:</label>
+        <input type="text" name="endereco" value="{{federacao.Enderecos.0.endereco}}" required>
+        <br>
 
-        <button type="submit">Atualizar</button>
-    </form>
-    <a href="/federacoes">Voltar</a>
-</body>
-</html>
+        <label for="cidade">Cidade:</label>
+        <input type="text" name="cidade" value="{{federacao.Enderecos.0.cidade}}" required>
+        <br>
+
+        <label for="estado">Estado:</label>
+        <select name ="estado">
+            <option value="AC">AC</option required>
+            <option value="AL">AL</option required>
+            <option value="AP">AP</option required>
+            <option value="AM">AM</option required>
+            <option value="BA">BA</option required>
+            <option value="CE">CE</option required>
+            <option value="DF">DF</option required>
+            <option value="GO">GO</option required>
+            <option value="MA">MA</option required>
+            <option value="MT">MT</option required>
+            <option value="MS">MS</option required>
+            <option value="MG">MG</option required>
+            <option value="PA">PA</option required>
+            <option value="PI">PI</option required>
+            <option value="PB">PB</option required>
+            <option value="PE">PE</option required>
+            <option value="RN">RN</option required>
+            <option value="RO">RO</option required>
+            <option value="RR">RR</option required>
+            <option value="SE">SE</option required>
+            <option value="SP">SP</option required>
+            <option value="TO">TO</option required>
+        </select><br>
+
+        <label for="pais">País:</label>
+        <input type="text" name="pais" value="{{federacao.Enderecos.0.pais}}" required>
+        <br>
+    </fieldset>
+    <fieldset>
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" value="{{federacao.Contatos.0.telefone}}" required>
+        <br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{federacao.Contatos.0.email}}" required>
+        <br>
+
+        <label for="facebook">Facebook:</label>
+        <input type="text" name="facebook" value="{{federacao.Contatos.0.facebook}}">
+        <br>
+
+        <label for="instagram">Instagram:</label>
+        <input type="text" name="instagram" value="{{federacao.Contatos.0.instagram}}">
+        <br>
+
+        <label for="site">Site:</label>
+        <input type="text" name="site" value="{{federacao.Contatos.0.site}}">
+        <br>
+    </fieldset>
+    <button type="submit">Salvar Alterações</button>
+    <a href="/api/federacoes"><button type="button">Voltar</button></a>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
+<script>
+$(document).ready(function() {
+    // Aplicando a máscara de CNPJ
+    $('#cep').mask('00000-000');
+    $('#telefone').mask('(00) 00000-0000');
+});
+</script>

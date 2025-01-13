@@ -1,0 +1,524 @@
+/* Estilo Geral */
+body {
+  margin: 0;
+  font-family: 'Muli';
+  background-color: #f8f8f8;
+}
+
+/* Links do Cabeçalho */
+.other {
+  font-family: 'Muli';
+  font-size: 16px;
+  color: #dbd9d9;
+  transition: background-color 0.3s, color 0.3s;
+  display: inline-block; 
+  text-align: center;
+  margin-left: 15px;
+}
+.other:hover {
+  color: #808080;
+
+}
+.login {
+  background-color: #666666;
+  font-family: 'Muli';
+  font-size: 13px;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 60px;
+  transition: background-color 0.3s, color 0.3s;
+  width: 120px; /* Definindo a largura do botão */
+  height: 30px; /* Definindo a altura do botão */
+  display: inline-block; /* Para garantir que o link se comporte como um botão */
+  text-align: center; /* Centraliza o texto dentro do botão */
+  line-height: 6px; /* Alinha verticalmente o texto dentro do botão */
+  margin-right: 30px;
+  margin-left: 5px;
+}
+.login:hover {
+  background-color: #fff;
+  color: #333;
+}
+.register {
+  font-family: 'Muli';
+  font-size: 13px;
+  color: white;
+  padding: 12px;
+  border: 1px solid #666666;
+  border-radius: 60px;
+  transition: background-color 0.3s, color 0.3s;
+  width: 120px; /* Definindo a largura do botão */
+  height: 30px; /* Definindo a altura do botão */
+  display: inline-block; /* Para garantir que o link se comporte como um botão */
+  text-align: center; /* Centraliza o texto dentro do botão */
+  line-height: 6px; /* Alinha verticalmente o texto dentro do botão */
+  margin-left: 30px;
+}
+.register:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Cabeçalho */
+header {
+  padding: 15px 30px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  position: fixed;
+  top: 0; 
+  width: 100%;
+  z-index: 1000;
+  transition: top 0.3s ease-in-out;
+  background-color: #333; /* Adicione um fundo para o cabeçalho */
+}
+header.hidden {
+  top: -100px;
+}
+header .logo img {
+  z-index: 1100;
+  width: 50px;
+}
+header nav a {
+  color: #fff;
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Rodapé */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+footer nav a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+footer nav a:hover {
+  text-decoration: underline;
+}
+
+footer .social-icons img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Botão de alternância do cabeçalho */
+button#toggle-header {
+  color: #fff;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  top: 13px;
+  right: 10px;
+  z-index: 1100; /* Certifique-se de que o botão esteja acima do cabeçalho */
+  transform: rotate(-90deg);
+}
+button#toggle-header.rotated {
+  transform: rotate(0deg);
+}
+
+/* Banner Principal */
+.highlight {
+  position: relative;
+  text-align: center;
+  color: #f8f8f8;
+  height: 100vh; /* Define a altura da seção como 100% da altura da viewport */
+  display: flex;
+  flex-direction: column; /* Alinha os itens em coluna */
+  justify-content: flex-end; /* Alinha o conteúdo ao final da seção */
+}
+.highlight-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Faz com que a imagem cubra a área da seção */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.highlight-logo img{
+  position: absolute;
+  margin-top: 11.5px;
+  left: 31px;
+  max-height: 45px;
+}
+.highlight-content {
+  padding: 10px;
+  overflow: auto;
+  margin-top: auto;
+  margin-left: 40px;
+  margin-bottom: 30px;
+  border: 2px solid transparent; /* Borda padrão transparente */
+}
+.editable-title {
+  padding: 10px;
+  width: 680px;
+  font-family: 'Muli';
+  font-size: 26px;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-align: left;
+}
+.editable-title.editable{
+  border: 2px solid #292929;
+  border-radius: 11px;
+  
+}
+.editable-title:focus {
+  border-color: #303030;
+  outline: 0;
+  box-shadow: 0 0 7px #868686;
+}
+.editable-subtitle {
+  padding: 10px;
+  width:680px;
+  font-family: 'Muli';
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-align: justify;
+}
+.editable-subtitle.editable{
+  border: 2px solid #292929;
+  border-radius: 11px;
+}
+.editable-subtitle:focus {
+  outline: 2px solid #007bff;
+}
+.highlight-button {
+  background-color: #292929;
+  color: white;
+  border: none;
+  border-radius: 21px;
+  padding: 12px;
+  font-family: 'Muli';
+  font-size: 14px;
+  margin-top: 10px;
+  width: 90px;
+  cursor: pointer;
+  text-align: center;
+  float: left;
+}
+.highlight-button:hover {
+  background-color: #646464;
+}
+
+/* Contêiner para Highlights e Próximos Eventos */
+.calendar-container {
+  display: flex;
+  width: 100%; 
+  align-items: flex-start; /* Alinha os itens no topo */
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 10px;
+}
+
+/* Próximos Eventos */
+.calendar {
+  align-items: left;
+  font-family: 'Muli';
+  margin-left: 40px;
+  width: 50%;
+}
+.calendar h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+.calendar-events {
+  border-top: 1.5px solid #ddd;
+}
+.event {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1.5px solid #ddd;
+}
+.event-color {
+  width: 5px;
+  height: 40px;
+  margin-bottom: 0px;
+}
+.event-color.blue {
+  background-color: #0161B1;
+}
+.event-color.yellow {
+  background-color: #FECA0A;
+}
+.event-color.green {
+  background-color: #00A851;
+}
+.event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  text-align: center;
+  margin-right: 20px;
+}
+.event-date strong {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.event-date span {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #777;
+}
+.event-info {
+  flex: 1;
+}
+.event-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+.event-location {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #777;
+}
+.event-arrow {
+  font-size: 1.3rem;
+  color: #999;
+  margin-left: 5px;
+  transform: translateY(2px);
+}
+/* Destaque do Calendário */
+.calendar-highlight {
+  width: 50%;
+  height: 230px;
+  margin-left: 70px;
+  margin-right: 40px;
+  align-items: center;
+  padding: 30px;
+  border-radius: 11px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.calendar-highlight h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+.calendar-highlight-content {
+  font-size: 15px;
+  color: #646464;
+  margin-right: 10px;
+  text-align: justify ;
+}
+.highlight-button {
+  font-family: 'Muli';
+  font-size: 12px;
+  background-color: #292929;
+  color: white;
+  border: none;
+  border-radius: 21px;
+  padding: 12px;
+  font-family: 'Muli';
+  font-size: 14px;
+  margin-top: 10px;
+  width: 180px;
+  cursor: pointer;
+  text-align: center;
+  float: left;
+}
+.highlight-button:hover {
+  background-color: #646464;
+}
+
+/* Estilo dos Próximos Jogos */
+.games-container {
+  display: flex;
+  width: 100%; 
+  align-items: flex-start;
+  margin-bottom: 40px;
+  padding: 10px;
+}
+.next-games {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+.next-games ul {
+  display: flex;
+  margin-left: 40px;
+  margin-right: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+  list-style: none;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0;
+}
+.next-games li {
+  margin-left: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 320px;
+  min-width: 350px;
+  overflow: hidden;
+  position: relative;
+}
+.next-games li::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  transform: rotate(25deg);
+  pointer-events: none;
+}
+.next-games li:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+.next-games li a {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Faz o link ocupar toda a área do item */
+  height: 100%;
+}
+/* Conteúdo do Jogo */
+.game-info {
+  font-family: 'Muli', sans-serif;
+  color: #333;
+}
+.editable-info {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #303030;
+}
+.editable-info-local {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
+}
+.game-teams {
+  display: flex;
+  margin-top: 40px;
+  justify-content: center; 
+  align-items: center; 
+}
+.team {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.team img.flag {
+  width: 75px;
+  height: 55px;
+  border-radius: 10px;
+  border: 3px solid #f8f8f8;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.team span {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+.vs {
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+}
+.game-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+.game-button {
+  font-family: 'Muli';
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #292929;
+  color: #f8f8f8;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  width: 80%;
+}
+.game-button:hover {
+  background-color: #646464;
+  transform: scale(1.05);
+}
+.next-game-button {
+  background-color: #FECA0A;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+.next-game-button:hover {
+  background-color: #f8a800;
+}
+button {
+  padding: 8px 16px;
+  background-color: #3C3C3C;
+  border-radius: 25px;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #555;
+}
+/* Responsividade */
+@media (max-width: 768px) {
+  .next-games li {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Para telas menores, mostrar 1 item por linha */
+  }
+
+  .game-teams {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .game-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .next-game-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

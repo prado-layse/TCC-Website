@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         cnpj: {
-            type: DataTypes.CHAR(14),
+            type: DataTypes.CHAR(18),
             allowNull: false,
             unique: true,
         },
@@ -54,8 +54,8 @@ module.exports = (sequelize, DataTypes) => {
     Clube.associate = (models) => {
         // Mudamos o alias para 'usuario' em vez de 'Usuarios' para consistência
         Clube.belongsTo(models.Usuario, { foreignKey: 'codUsuario', as: 'usuario' });
-        Clube.hasMany(models.Endereco, { foreignKey: 'codClube', as: 'enderecos' });
-        Clube.hasMany(models.Contato, { foreignKey: 'codClube', as: 'contatos' });
+        Clube.hasMany(models.Endereco, { foreignKey: 'codClube', as: 'Enderecos' });
+        Clube.hasMany(models.Contato, { foreignKey: 'codClube', as: 'Contatos' });
     };
 
     return Clube;
