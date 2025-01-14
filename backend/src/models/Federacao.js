@@ -1,4 +1,3 @@
-// backend/src/models/Federacao.js
 module.exports = (sequelize, DataTypes) => {
     const Federacao = sequelize.define('Federacao', {
         codFederacao: {
@@ -19,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         cnpj: {
-            type: DataTypes.CHAR(18),
+            type: DataTypes.CHAR(14),
             allowNull: false,
             unique: true,
         },
@@ -37,76 +36,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Federacao.associate = (models) => {
-        Federacao.hasMany(models.Contato, { foreignKey: 'codFederacao', as: 'Contatos'});
-        Federacao.hasMany(models.Endereco, { foreignKey: 'codFederacao', as: 'Enderecos' });
-        Federacao.hasMany(models.Clube, { foreignKey: 'codFederacao', as: 'Clubes'});
+        Federacao.hasMany(models.Endereco, { foreignKey: 'codFederacao', as: 'enderecos' });
+        Federacao.hasMany(models.Contato, { foreignKey: 'codFederacao', as: 'contatos' });
+        Federacao.hasMany(models.Clube, { foreignKey: 'codFederacao', as: 'clubes' });
     };
 
     return Federacao;
 };
-
-
-/*const db = require('../../config/db');
-const validarCNPJ = require('../utils/validarCNPJ');
-
-const Federacao = db.sequelize.define('federacao', {
-    codFederacao: {
-        type: db.Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },    
-    razaoSocial: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            len: [3, 255]
-        }
-    },
-    nomeFantasia: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            len: [3, 255]
-        }
-    },
-    sigla: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            len: [2, 10]
-        }
-    },
-    cnpj: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            is: /^\d{14}$/, // Verifica se tem exatamente 14 dígitos
-            isValidCNPJ: (value) => {
-                if (!validarCNPJ(value)) {
-                    throw new Error('CNPJ deve ter exatamente 14 dígitos');
-                }
-            }
-        }
-    },
-    presidente: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            len: [3, 255]
-        }
-    }
-}, {
-    tableName: 'federacao',
-    timestamps: false
-});
-
-// Adiciona a validação personalizada ao Sequelize
-db.Sequelize.addHook('beforeValidate', (federacao) => {
-    if (federacao.cnpj) {
-        federacao.cnpj = federacao.cnpj.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
-    }
-});
-
-module.exports = Federacao;
-*/

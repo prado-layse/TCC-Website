@@ -1,4 +1,3 @@
-//backend/src/models/Atleta.js
 module.exports = (sequelize, DataTypes) => {
     const Atleta = sequelize.define('Atleta', {
         codAtleta: {
@@ -18,9 +17,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: true,
             references: {
-                model: 'responsavelatleta',
-                key: 'codUsuario',
+                model: 'responsavel_atleta',
+                key: 'codResponsavel',
             },
+        },
+        situacao: {
+            type: DataTypes.ENUM('Ativo', 'Inativo', 'Pendente', 'Suspenso', 'Emprestado'),
+            defaultValue: 'Ativo',
         },
         nome: {
             type: DataTypes.STRING(100),
@@ -31,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         nascimento: {
-            type: DataTypes.DATE(8),
+            type: DataTypes.DATE,
             allowNull: false,
         },
         sexo: {
@@ -48,12 +51,12 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
         },
         cpf: {
-            type: DataTypes.CHAR(20),
+            type: DataTypes.CHAR(11),
             allowNull: true,
             unique: true,
         },
         passaporte: {
-            type: DataTypes.CHAR(20),
+            type: DataTypes.STRING(20),
             allowNull: true,
             unique: true,
         },
@@ -61,20 +64,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: true,
         },
-        situacao: {
-            type: DataTypes.ENUM('Ativo','Inativo', 'Pendente', 'Suspenso', 'Emprestado'),
-            defaultValue: 'Ativo',
-        },
     }, {
         tableName: 'atleta',
         timestamps: false,
     });
 
     Atleta.associate = (models) => {
-        Atleta.belongsTo(models.Clube, { foreignKey: 'codClube', as: 'clubes'});
-        Atleta.belongsTo(models.ResponsavelAtleta, { foreignKey: 'codResponsavel', as: 'Responsaveis'});
+        Atleta.belongsTo(models.Clube, { foreignKey: 'codClube', as: 'clube' });
+        Atleta.belongsTo(models.ResponsavelAtleta, { foreignKey: 'codResponsavel', as: 'responsavel' });
         Atleta.hasMany(models.Endereco, { foreignKey: 'codAtleta', as: 'enderecos' });
-        Atleta.hasMany(models.Contato, { foreignKey: 'codAtleta', as: 'contatos'});
+        Atleta.hasMany(models.Contato, { foreignKey: 'codAtleta', as: 'contatos' });
     };
 
     return Atleta;

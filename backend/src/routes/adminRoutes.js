@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 // Aplicando o middleware de autenticação
-router.use(auth(1)); // Apenas usuários admin podem acessar essas rotas
+router.use(auth('user-admin')); // Apenas usuários admin podem acessar essas rotas
 
 // Rota do painel do admin
 router.get('/cbhp', (req, res) => { // Mudei aqui

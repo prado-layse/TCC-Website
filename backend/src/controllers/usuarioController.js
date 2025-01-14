@@ -2,7 +2,40 @@
 const { sequelize, Usuario, Clube } = require('../../config/db');
 const bcrypt = require('bcryptjs');
 
-// Acessar as Telas com base no Perfil
+// Função para criar um usuário admin
+exports.criarAdmin = async (req, res) => {
+    const { nome, perfil, email, senha } = req.body;
+    console.log('Recebendo requisição para criar admin:', req.body);
+    
+    try {
+        // Verifica se o usuário admin já existe
+        const existingAdmin = await Usuario.findOne({ where: { email: email, perfil: 'user-admin' } });
+        console.log('Verificando se o usuário admin já existe:', existingAdmin);
+
+        if (existingAdmin) {
+            console.log('Usuário admin já existe.');
+            return res.status(400).json({ message: 'Usuário admin já existe.' });
+        }
+
+        const hashSenha = await bcrypt.hash(senha, 10);
+        console.log('Senha hash gerada:', hashSenha);
+
+        const usuario = await Usuario.create({
+            nome: nome,
+            perfil: perfil,
+            email: email,
+            senha: hashSenha,
+        });
+        console.log('Usuário admin criado com sucesso:', usuario);
+
+        res.status(201).json({ message: 'Usuário admin criado com sucesso!', usuario });
+    } catch (error) {
+        console.error('Erro ao criar usuário admin:', error);
+        res.status(500).json({ message: 'Erro ao criar usuário admin.' });
+    }
+};
+
+// Função de login existente
 exports.login = async (req, res) => {
     const { email, senha } = req.body;
 
@@ -24,8 +57,9 @@ exports.login = async (req, res) => {
         req.session.userId = usuario.codUsuario; // Salvar userId na sessão
         req.session.usuario = {
             codUsuario: usuario.codUsuario,
-            idPerfil: usuario.idPerfil,
+            perfil: usuario.perfil,
             email: usuario.email,
+            isAdmin: usuario.perfil === 'user-admin'
         };
 
         req.session.save(async (err) => {
@@ -35,11 +69,10 @@ exports.login = async (req, res) => {
             }
 
             // Redirecionar baseado no perfil
-            if (usuario.idPerfil === 1) {
+            if (usuario.perfil === 'user-admin') {
                 // Redirecionar para o dashboard do admin
-                req.session.usuario.isAdmin = true;
                 return res.redirect('/api/admin/cbhp');
-            } else if (usuario.idPerfil === 2) {
+            } else if (usuario.perfil === 'user-clube') {
                 // Busca o clube associado ao usuário
                 const clube = await Clube.findOne({ where: { codUsuario: usuario.codUsuario } });
 
@@ -51,8 +84,8 @@ exports.login = async (req, res) => {
                 } else {
                     return res.status(404).json({ message: 'Clube não encontrado.' });
                 }
-            } else if (usuario.idPerfil === 3) {
-                try{
+            } else if (usuario.perfil === 'user-consulta') {
+                try {
                     return res.redirect('/api/cbhp');
                 } catch (error) {
                     console.error('Erro no redirecionamento.', error);
@@ -90,7 +123,8 @@ exports.adicionarUsuario = async (req, res) => {
         // 1. Cria o usuário
         const hashSenha = await bcrypt.hash(senha, 10);
         const NovoUsuario = await Usuario.create({
-            idPerfil: 3,  // Perfil de clube
+            nome,
+            perfil: 'user-consulta',  // Perfil de clube
             email,
             senha: hashSenha
         }, { transaction: t });

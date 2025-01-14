@@ -1,4 +1,3 @@
-// backend/src/models/Endereco.js
 module.exports = (sequelize, DataTypes) => {
     const Endereco = sequelize.define('Endereco', {
         codEndereco: {
@@ -17,29 +16,37 @@ module.exports = (sequelize, DataTypes) => {
         codAtleta: {
             type: DataTypes.INTEGER,
             allowNull: true,
+            references: {
+                model: 'atleta',
+                key: 'codAtleta',
+            },
         },
         codClube: {
             type: DataTypes.INTEGER,
             allowNull: true,
+            references: {
+                model: 'clube',
+                key: 'codClube',
+            },
         },
         cep: {
-            type: DataTypes.STRING,
+            type: DataTypes.CHAR(8),
             allowNull: false,
         },
         endereco: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         cidade: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
         estado: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM('AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'),
             allowNull: false,
         },
         pais: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
     }, {
@@ -47,10 +54,11 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
     });
 
-    //Endereco.associate = (models) => {
-    //    Endereco.belongsTo(models.Federacao, { foreignKey: 'codFederacao' });
-    //    Endereco.belongsTo(models.Clube, { foreignKey: 'codClube'});
-   // };
+    Endereco.associate = (models) => {
+        Endereco.belongsTo(models.Federacao, { foreignKey: 'codFederacao', as: 'federacao' });
+        Endereco.belongsTo(models.Atleta, { foreignKey: 'codAtleta', as: 'atleta' });
+        Endereco.belongsTo(models.Clube, { foreignKey: 'codClube', as: 'clube' });
+    };
 
     return Endereco;
 };
