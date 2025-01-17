@@ -106,11 +106,15 @@ exports.login = async (req, res) => {
 exports.adicionarUsuario = async (req, res) => {
     console.log('Corpo da requisição:', req.body);
     
-    const { email, senha } = req.body;
+    const { nome, email, senha, confirmarSenha } = req.body;
     
-    if (!email || !senha ) {
+    if (!nome || !email || !senha || !confirmarSenha) {
         return res.status(400).json({ error: "Todos os campos do clube são obrigatórios." });
-    } 
+    }
+
+    if (senha !== confirmarSenha){
+        return res.status(400).json({error: "As senhas não são diferentes."})
+    }
     
     const emailIgual = await Usuario.findOne({ where: { email: email } });
     if (emailIgual) {
