@@ -10,6 +10,7 @@ exports.listarFederacoes = async (req, res) => {
         res.status(500).send("Erro ao listar federações");
     }
 };
+
 // Adicionar Nova Federação
 exports.adicionarFederacao = async (req, res) => {
     const { razaoSocial, nomeFantasia, sigla, cnpj, presidente, cep, endereco, cidade, estado, pais, telefone, email, facebook, instagram, site } = req.body;
@@ -36,6 +37,8 @@ exports.adicionarFederacao = async (req, res) => {
         res.status(500).json({ error: "Erro ao cadastrar federação", message: erro.message });
     }
 };
+
+
 // Consultar Federação
 exports.consultarFederacao = async (req, res) => {
     try {
@@ -50,6 +53,8 @@ exports.consultarFederacao = async (req, res) => {
         return res.status(500).json({ error: true, message: "Erro ao consultar a Federação." });
     }
 };
+
+
 // Renderizar a página de edição de uma federação
 exports.renderizarEdicao = async (req, res) => {
     try {
