@@ -1,0 +1,105 @@
+/*----------------------------------------------------------*/
+/* Links do Cabeçalho */
+/*----------------------------------------------------------*/
+.other {
+    font-family: 'Muli';
+    font-size: 16px;
+    color: #dbd9d9;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-block; 
+    text-align: center;
+    margin-left: 15px;
+  }
+  .other:hover {
+    color: #808080;
+  
+  }
+  .login {
+    background-color: #666666;
+    font-family: 'Muli';
+    font-size: 13px;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 60px;
+    transition: background-color 0.3s, color 0.3s;
+    width: 120px; /* Definindo a largura do botão */
+    height: 30px; /* Definindo a altura do botão */
+    display: inline-block; /* Para garantir que o link se comporte como um botão */
+    text-align: center; /* Centraliza o texto dentro do botão */
+    line-height: 6px; /* Alinha verticalmente o texto dentro do botão */
+    margin-right: 30px;
+    margin-left: 5px;
+  }
+  .login:hover {
+    background-color: #fff;
+    color: #333;
+  }
+  .register {
+    font-family: 'Muli';
+    font-size: 13px;
+    color: white;
+    padding: 12px;
+    border: 1px solid #666666;
+    border-radius: 60px;
+    transition: background-color 0.3s, color 0.3s;
+    width: 120px; /* Definindo a largura do botão */
+    height: 30px; /* Definindo a altura do botão */
+    display: inline-block; /* Para garantir que o link se comporte como um botão */
+    text-align: center; /* Centraliza o texto dentro do botão */
+    line-height: 6px; /* Alinha verticalmente o texto dentro do botão */
+    margin-left: 30px;
+  }
+  .register:hover {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  /*----------------------------------------------------------*/
+  /* Cabeçalho */
+  /*----------------------------------------------------------*/
+  header {
+    padding: 15px 30px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    position: fixed;
+    top: 0; 
+    width: 100%;
+    z-index: 1000;
+    transition: top 0.3s ease-in-out;
+    background-color: #333; /* Adicione um fundo para o cabeçalho */
+  }
+  header.hidden {
+    top: -100px;
+  }
+  header .logo img {
+    z-index: 1100;
+    width: 50px;
+  }
+  header nav a {
+    color: #fff;
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+/*----------------------------------------------------------*/
+/* Botão de alternância do cabeçalho */
+/*----------------------------------------------------------*/
+button#toggle-header {
+    color: #fff;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    top: 13px;
+    right: 10px;
+    z-index: 1100; /* Certifique-se de que o botão esteja acima do cabeçalho */
+    transform: rotate(-90deg);
+  }
+  button#toggle-header.rotated {
+    transform: rotate(0deg);
+  }
