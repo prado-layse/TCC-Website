@@ -227,7 +227,7 @@
           </div>
         </li>
         <!-- Quarto Jogo (Opcional) -->
-        <div class="extra-game">
+        <!--<div class="extra-game" id="extra-game-info">
           <li>
             <div class="game-info">
               <div class="editable-info editable" contenteditable="false" id="titulo-jogo-editavel">
@@ -252,7 +252,7 @@
               <button class="game-button">16/09 - Assista no Youtube</button>
             </div>
           </li>
-        </div>
+        </div> -->
       </ul>
     </section>
   </div>
@@ -399,40 +399,6 @@
       document.getElementById('botao-salvar-jogo').style.display = 'none';
       document.getElementById('botao-cancelar-jogo').style.display = 'none';
     }
-
-    // Carregar textos salvos ao abrir a página
-    document.addEventListener('DOMContentLoaded', function() {
-      const tituloDestaque = localStorage.getItem('tituloDestaque');
-      const subtituloDestaque = localStorage.getItem('subtituloDestaque');
-      const tituloJogo = localStorage.getItem('tituloJogo');
-      const subtituloJogo = localStorage.getItem('subtituloJogo');
-
-      if (tituloDestaque) {
-        document.getElementById('titulo-editavel').textContent = tituloDestaque;
-      }
-      if (subtituloDestaque) {
-        document.getElementById('subtitulo-editavel').textContent = subtituloDestaque;
-      }
-      if (tituloJogo) {
-        document.getElementById('titulo-jogo-editavel').textContent = tituloJogo;
-      }
-      if (subtituloJogo) {
-        document.getElementById('subtitulo-jogo-editavel').textContent = subtituloJogo;
-      }
-    });
-  
-    // Ocultar o jogo extra caso a tela seja menor
-    window.addEventListener('resize', function() {
-      var larguraTela = window.innerWidth;
-      var elemento = document.querySelector('.extra-game');
-
-      if (larguraTela < 758){
-        elemento.style.display = 'none';
-      } else {
-        elemento.style.display = '';
-      }
-    });
-    window.dispatchEvent(new Event('resize'));
 
     // Retornar para o topo da tela ao clicar no logo do rodapé
     const footerLogo = document.getElementById('footer-logo');
