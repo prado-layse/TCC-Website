@@ -1,33 +1,6 @@
 const { Federacao, Endereco, Contato, Usuario, Clube, Atleta, sequelize } = require('../models');
 const bcrypt = require('bcryptjs');
 
-// Renderizar o Dashboard do Clube
-/*
-exports.rdDashboardClube = async (req, res) => {
-    const codUsuario = req.session.usuario.codUsuario;
-
-    if (!codUsuario) {
-        console.log("Acesso negado: Usuário não encontrado na sessão.");
-        return res.status(403).send("Acesso negado: Usuário não encontrado na sessão.");
-    }
-
-    try {
-        const clube = await Clube.findOne({ where: { codUsuario } });
-
-        if (!clube) {
-            console.log("Clube não encontrado para o usuário:", codUsuario);
-            return res.status(404).send("Clube não encontrado para o usuário.");
-        }
-
-        const atletas = await Atleta.findAll({ where: { codClube: clube.codClube } });
-
-        res.render('clube-dashboard', { clube, atletas });
-    } catch (error) {
-        console.error('Erro ao buscar dados do clube e atletas:', error);
-        res.status(500).json({ message: 'Erro interno do servidor.' });
-    }
-};*/
-
 // Listar Clubes
 exports.listarClubes = async (req, res) => {
     try {
@@ -81,13 +54,13 @@ exports.adicionarClube = async (req, res) => {
 
     try {
         const usuarioAdmin = await Usuario.findOne({ where: { codUsuario: adminId } });
-        if (usuarioAdmin.idPerfil !== 1) {
+        if (usuarioAdmin.perfil !== 'user-admin') {
             return res.status(403).json({ error: "Acesso negado. Apenas admin pode cadastrar clubes." });
         }
 
         const hashSenha = await bcrypt.hash(senha, 10);
         const usuarioClube = await Usuario.create({
-            idPerfil: 2,
+            perfil: 'user-clube',
             email,
             senha: hashSenha
         }, { transaction: t });

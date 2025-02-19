@@ -7,25 +7,25 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
         },
         nome: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         sobrenome: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         rg: {
             type: DataTypes.CHAR(9),
-            allowNull: true,
+            allowNull: false,
             unique: true,
         },
         cpf: {
-            type: DataTypes.CHAR(20),
-            allowNull: true,
+            type: DataTypes.CHAR(11),
+            allowNull: false,
             unique: true,
         },
     }, {
-        tableName: 'responsavelatleta',
+        tableName: 'responsavel_atleta',
         timestamps: false,
     });
 

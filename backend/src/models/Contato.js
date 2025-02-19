@@ -1,4 +1,3 @@
-// backend/src/models/Contato.js
 module.exports = (sequelize, DataTypes) => {
     const Contato = sequelize.define('Contato', {
         codContato: {
@@ -19,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             references: {
                 model: 'atleta',
-                key: 'codAlteta',
+                key: 'codAtleta',
             },
         },
         codClube: {
@@ -34,39 +33,45 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: true,
             references: {
-                model: 'ResponsavelAtleta',
+                model: 'responsavel_atleta',
                 key: 'codResponsavel',
             },
         },
         telefone: {
-            type: DataTypes.STRING,
-            allowNull: true,
+            type: DataTypes.STRING(15),
+            allowNull: false,
         },
         email: {
-            type: DataTypes.STRING,
-            allowNull: true,
+            type: DataTypes.STRING(255),
+            allowNull: false,
+            unique: true,
         },
         facebook: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(255),
             allowNull: true,
+            unique: true,
         },
         instagram: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(255),
             allowNull: true,
+            unique: true,
         },
         site: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(255),
             allowNull: true,
+            unique: true,
         },
     }, {
         tableName: 'contato',
         timestamps: false,
     });
 
-    //Contato.associate = (models) => {
-    //    Contato.belongsTo(models.Federacao, { foreignKey: 'codFederacao' });
-    //    Contato.belongsTo(models.Clube, { foreignKey: 'codClube'});
-    //};
+    Contato.associate = (models) => {
+        Contato.belongsTo(models.Federacao, { foreignKey: 'codFederacao', as: 'federacao' });
+        Contato.belongsTo(models.Atleta, { foreignKey: 'codAtleta', as: 'atleta' });
+        Contato.belongsTo(models.Clube, { foreignKey: 'codClube', as: 'clube' });
+        Contato.belongsTo(models.ResponsavelAtleta, { foreignKey: 'codResponsavel', as: 'responsavel' });
+    };
 
     return Contato;
 };

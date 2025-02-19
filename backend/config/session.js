@@ -9,6 +9,14 @@ const sessionStore = new MySQLStore({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
+    schema: {
+        tableName: 'Sessao', // Nome da tabela de sessões
+        columnNames: {
+            session_id: 'codSessao',
+            expires: 'validade',
+            data: 'data'
+        }
+    }
 });
 
 // Middleware de sessão
@@ -22,7 +30,7 @@ const sessionMiddleware = session({
         maxAge: 1000 * 60 * 60 * 24, // 1 dia
         secure: process.env.NODE_ENV === 'production', // true em produção
         httpOnly: true,
-    },
+    }
 });
 
 module.exports = sessionMiddleware;

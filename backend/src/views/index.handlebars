@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tela Inicial - CSB</title>
   <!-- Link para os arquivos CSS -->
-  <link rel="stylesheet" href="/backend/public/css/inicial.css">
+  <link rel="stylesheet" href="/backend/public/css/tela-inicial.css">
+  <link rel="stylesheet" href="/backend/public/css/cabecalho.css">
+  <link rel="stylesheet" href="/backend/public/css/rodape.css">  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;600&display=swap">
 </head>
@@ -74,36 +77,59 @@
         <div class="event">
           <div class="event-color blue"></div>
           <div class="event-date">
-            <strong>24 - 28</strong>
-            <span>AGO</span>
+            {{#if isAdmin}}
+              <input type="text" value="24 - 28" />
+              <input type="text" value="AGO" />
+            {{else}}
+              <strong>24 - 28</strong>
+              <span>AGO</span>
+            {{/if}}
           </div>
           <div class="event-info">
-            <p class="event-name">Treino Aberto</p>
-            <p class="event-location">Local: Petrópolis, RJ</p>
+            <a href="/evento/treino-aberto" class="event-link">
+              <p class="event-name">Treino Aberto</p>
+              <p class="event-location">Local: Petrópolis, RJ</p>
+            </a>
           </div>
           <div class="event-arrow">➤</div>
         </div>
+
         <div class="event">
           <div class="event-color yellow"></div>
           <div class="event-date">
-            <strong>06 - 22</strong>
-            <span>SET</span>
+            {{#if isAdmin}}
+              <input type="text" value="06 - 22" />
+              <input type="text" value="SET" />
+            {{else}}
+              <strong>06 - 22</strong>
+              <span>SET</span>
+            {{/if}}
           </div>
           <div class="event-info">
-            <p class="event-name">World Skate Games 2024</p>
-            <p class="event-location">Local: Novara, Itália</p>
+            <a href="/evento/world-skate-games-2024" class="event-link">
+              <p class="event-name">World Skate Games 2024</p>
+              <p class="event-location">Local: Novara, Itália</p>
+            </a>
           </div>
           <div class="event-arrow">➤</div>
         </div>
+            
         <div class="event">
           <div class="event-color green"></div>
           <div class="event-date">
-            <strong>22 - 26</strong>
-            <span>OUT</span>
+            {{#if isAdmin}}
+              <input type="text" value="22 - 26" />
+              <input type="text" value="OUT" />
+            {{else}}
+              <strong>22 - 26</strong>
+              <span>OUT</span>
+            {{/if}}
           </div>
           <div class="event-info">
-            <p class="event-name">Campeonato Brasileiro</p>
-            <p class="event-location">Local: Teresópolis, RJ</p>
+            <a href="/evento/campeonato-brasileiro" class="event-link">
+              <p class="event-name">Campeonato Brasileiro</p>
+              <p class="event-location">Local: Teresópolis, RJ</p>
+            </a>
           </div>
           <div class="event-arrow">➤</div>
         </div>
@@ -200,31 +226,65 @@
             <button class="game-button">16/09 - Assista no Youtube</button>
           </div>
         </li>
+        <!-- Quarto Jogo (Opcional) -->
+        <!--<div class="extra-game" id="extra-game-info">
+          <li>
+            <div class="game-info">
+              <div class="editable-info editable" contenteditable="false" id="titulo-jogo-editavel">
+                Evento: Insira o destaque
+              </div>
+              <div class="editable-info-local editable" contenteditable="false" id="subtitulo-jogo-editavel">
+                Local: Insira o local
+              </div>
+              <div class="game-teams">
+                <div class="team">
+                  <img src="/backend/public/imagens/brasil.png" alt="Brasil" class="flag">
+                  <span>Brasil</span>
+                </div>
+                <span class="vs">X</span>
+                <div class="team">
+                  <img src="/backend/public/imagens/india.png" alt="India" class="flag">
+                  <span>Índia</span>
+                </div>
+              </div>
+              </div>
+            <div class="game-action">
+              <button class="game-button">16/09 - Assista no Youtube</button>
+            </div>
+          </li>
+        </div> -->
       </ul>
     </section>
   </div>
   
   <!-- Rodapé -->
   <footer>
-    <div>
-      <img src="/images/csb_logo.png" alt="Logo CSB" width="80">
+    <div class="footer-logo" id="footer-logo">
+      <img src="/backend/public/imagens/cbs.png" alt="Logo CSB">
     </div>
-    <nav>
-      <a href="#">Sobre nós</a>
-      <a href="#">Política de Privacidade</a>
-      <a href="#">Termos de Uso</a>
-      <a href="#">FAQ</a>
-    </nav>
-    <div>
-      <span>Afiliado a:</span>
-      <img src="/images/world_skate_logo.png" alt="Logo World Skate" width="50">
-      <img src="/images/csp_logo.png" alt="Logo CSP" width="50">
+    <div class="footer-links">
+      <nav>
+        <p class="footer-title">Links úteis</p>
+        <a href="#">Sobre nós</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+        <a href="#">FAQ</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#"><img src="/backend/public/imagens/facebook-black.png" alt="Facebook" class="social-icon"></a>
+        <a href="#"><img src="/backend/public/imagens/instagram-black.png" alt="Instagram" class="social-icon"></a>
+        <a href="#"><img src="/backend/public/imagens/email.png" alt="Email" class="social-icon"></a>
+      </div>
     </div>
-    <div>
-      <a href="#"><img src="/images/facebook_icon.png" alt="Facebook" width="20"></a>
-      <a href="#"><img src="/images/instagram_icon.png" alt="Instagram" width="20"></a>
-      <a href="#"><img src="/images/twitter_icon.png" alt="Twitter" width="20"></a>
-    </div>
+    <div class="footer-affiliate">
+      <p class="footer-affiliate-title">Afiliações</p>
+      <div class="footer-affiliate-logo">
+        <img src="/backend/public/imagens/world-skate-logo.png" alt="Logo World Skate">
+        <img src="/backend/public/imagens/world-skate-america.png" alt="Logo World Skate America">
+        <img src="/backend/public/imagens/csp-logo.png" alt="Logo CSP">
+        <img src="/backend/public/imagens/brasil-olimpico.png" alt="Logo Brasil Olimpico">        
+      </div>
+    </div> 
   </footer>
 
   <script>
@@ -340,27 +400,15 @@
       document.getElementById('botao-cancelar-jogo').style.display = 'none';
     }
 
-    // Carregar textos salvos ao abrir a página
-    document.addEventListener('DOMContentLoaded', function() {
-      const tituloDestaque = localStorage.getItem('tituloDestaque');
-      const subtituloDestaque = localStorage.getItem('subtituloDestaque');
-      const tituloJogo = localStorage.getItem('tituloJogo');
-      const subtituloJogo = localStorage.getItem('subtituloJogo');
-
-      if (tituloDestaque) {
-        document.getElementById('titulo-editavel').textContent = tituloDestaque;
-      }
-      if (subtituloDestaque) {
-        document.getElementById('subtitulo-editavel').textContent = subtituloDestaque;
-      }
-      if (tituloJogo) {
-        document.getElementById('titulo-jogo-editavel').textContent = tituloJogo;
-      }
-      if (subtituloJogo) {
-        document.getElementById('subtitulo-jogo-editavel').textContent = subtituloJogo;
-      }
+    // Retornar para o topo da tela ao clicar no logo do rodapé
+    const footerLogo = document.getElementById('footer-logo');
+    footerLogo.addEventListener('click', function() {
+      window.scrollTo({
+        top:0,
+        behavior: 'smooth'
+      });
     });
+  
   </script>
-
 </body>
 </html>

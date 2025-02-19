@@ -5,12 +5,16 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        idPerfil: {
-            type: DataTypes.INTEGER,
+        nome: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        perfil: {
+            type: DataTypes.ENUM('user-admin', 'user-clube', 'user-consulta'),
             allowNull: false,
         },
         email: {
-            type: DataTypes.STRING(50),
+            type: DataTypes.STRING(255),
             allowNull: false,
             unique: true,
         },
@@ -19,13 +23,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     }, {
-        tableName: 'usuario', // Nome da tabela no banco de dados
-        timestamps: false, // Caso não tenha timestamps (createdAt, updatedAt)
+        tableName: 'usuario',
+        timestamps: false,
     });
 
     Usuario.associate = (models) => {
-        Usuario.belongsTo(models.Perfil, { foreignKey: 'idPerfil' });
-        // Esta linha já estava correta
         Usuario.hasMany(models.Clube, { foreignKey: 'codUsuario', as: 'clubes' });
     };
 

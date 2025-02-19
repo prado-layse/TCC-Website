@@ -1,9 +1,7 @@
 // backend/server.js
 const express = require('express');
 const path = require('path');
-const cors = require('cors');
 const { engine } = require('express-handlebars');
-const moment = require('moment');
 const methodOverride = require('method-override');
 require('dotenv').config({ path: path.join(__dirname, 'config', '.env') });
 const { sequelize } = require('./config/db'); // Apenas a conexão com o banco é necessária
