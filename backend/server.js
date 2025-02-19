@@ -59,7 +59,7 @@ sequelize.authenticate()
     })
     .then(() => {
         app.listen(PORT, () => {
-            console.log(`Servidor rodando na porta ${PORT}: http://localhost:${PORT}/`);
+            console.log(`Servidor rodando na porta ${PORT}: http://localhost:${PORT}/api/cbhp`);
         });
     })
     .catch((err) => {
