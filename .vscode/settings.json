@@ -1,3 +1,5 @@
 {
-    "workbench.editor.enablePreviewFromCodeNavigation": false
+    "workbench.editor.enablePreviewFromCodeNavigation": false,
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/804bd665-88b7-416e-a5ce-2392c2be2e0e/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/cbhp-app",
+    "appService.deploySubpath": "backend"
 }

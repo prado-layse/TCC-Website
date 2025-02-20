@@ -4,7 +4,8 @@
   "description": "Website para confederação brasileira de hóquei ",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "MIT",
