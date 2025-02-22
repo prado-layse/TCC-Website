@@ -4,6 +4,7 @@ const federacaoService = {
 
     // Listar Federações
     listarFederacoes: async () => {
+        try{
         const federacoes = await Federacao.findAll({
             include: [
                 { model: Endereco, as: 'Enderecos' },
@@ -12,6 +13,10 @@ const federacaoService = {
         });
 
         return JSON.parse(JSON.stringify(federacoes)); // Evita problemas com propriedades do Sequelize
+    }catch (error){
+        console.error("Erro ao buscar federações", error)
+        return [];
+        }
     },
 
     // Adicionar Nova Federação
@@ -21,7 +26,7 @@ const federacaoService = {
         try {
             const usuario = await Usuario.findOne({ where: { codUsuario } });
 
-            if (usuario.idPerfil !== 1) {
+            if (usuario.perfil !== 1) {
                 throw new Error("Acesso negado. Apenas usuários admin podem cadastrar federações.");
             }
 

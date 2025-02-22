@@ -22,7 +22,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(sessionMiddleware); // Middleware de sessão
-app.use(methodOverride('_method')); 
+app.use(methodOverride('_method'));
 
 // Configuração para servir arquivos estáticos
 app.use('/backend/public', express.static(path.join(__dirname, 'public')));
