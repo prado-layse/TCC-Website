@@ -23,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-    {{#each Federacao}}
+    {{#each federacoes}}
     <tr>
         <td>{{this.codFederacao}}</td>
         <td>{{this.razaoSocial}}</td>
@@ -32,7 +32,7 @@
         <td>{{this.cnpj}}</td>
         <td>{{this.presidente}}</td>
         <td>{{this.situacao}}</td>
-            {{#each this.Enderecos}} <!-- Abertura do loop para Enderecos -->
+            {{#each this.enderecos}} <!-- Abertura do loop para Enderecos -->
                 <td>{{this.cep}}</td>
                 <td>{{this.endereco}}</td>
                 <td>{{this.cidade}}</td>
@@ -41,16 +41,18 @@
             {{/each}} <!-- Fechamento do loop para Enderecos -->
         </td>
         <td>
-            {{#each this.Contatos}} <!-- Abertura do loop para Contatos -->
+            {{#each this.contatos}} <!-- Abertura do loop para Contatos -->
                 <td>{{this.telefone}}</td>
                 <td>{{this.email}}</td>
                 <td>{{this.facebook}}</td>
                 <td>{{this.instagram}}</td>
                 <td>{{this.site}}</td>
-                <td><a href="/api/federacoes/{{this.codFederacao}}/editar"><button type="button">Editar Federação</button></a></td>
+                <td><a href="/api/admin/federacoes/{{this.codFederacao}}/editar"><button type="button">Editar Federação</button></a></td>
             {{/each}} <!-- Fechamento do loop para Contatos -->
         </td>
     </tr>
     {{/each}}
+    
 </tbody>
 </table>
+

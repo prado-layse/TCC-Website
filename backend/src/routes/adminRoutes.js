@@ -23,15 +23,10 @@ router.get('/federacoes/cadastrar', (req, res) => { // Mudei aqui
     res.render('cadastro-federacao', {isAdmin: req.session.usuario?.isAdmin}); // Certifique-se de que a view está corretamente configurada
 });
 
-router.get('/', function(req, res){
-    Federacao.findAll().then(function(federacoes){
-        res.render('listar-federacoes', { federacoes: federacoes })
-    })
-})
-
+router.get('/', federacaoController.listarFederacoes);
 // Rota para cadastrar federação
 router.post('/federacoes/adicionar', auth('user-admin'), federacaoController.adicionarFederacao);
-router.get('/:codFederacao/editar', federacaoController.renderizarEdicao); // Rota para renderizar Tela de editar federação
-router.post('/:codFederacao/atualizar', federacaoController.atualizarFederacao); //Rota para atualizar a federação
+router.get('/federacoes/:codFederacao/editar', auth('user-admin'), federacaoController.renderizarEdicao); // Rota para renderizar Tela de editar federação
+router.post('/federacoes/:codFederacao/atualizar', auth('user-admin'), federacaoController.atualizarFederacao); //Rota para atualizar a federação
 
 module.exports = router;

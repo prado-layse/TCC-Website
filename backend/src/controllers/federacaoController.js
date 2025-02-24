@@ -4,7 +4,9 @@ const federacaoService = require('../services/federacaoService');
 exports.listarFederacoes = async (req, res) => {
     try {
         const federacoes = await federacaoService.listarFederacoes();
-        res.render('listar-federacoes', { federacoes });
+        res.render('listar-federacoes', { federacoes,
+            isAdmin: req.session.usuario?.isAdmin
+         });
     } catch (error) {
         console.error("Erro ao listar federações:", error);
         res.status(500).send("Erro ao listar federações");
@@ -63,17 +65,16 @@ exports.renderizarEdicao = async (req, res) => {
             return res.status(404).send("Federação não encontrada");
         }
 
-        const endereco = federacao.Enderecos[0] || {};
-        const contato = federacao.Contatos[0] || {};
+        const endereco = federacao.enderecos ? federacao.enderecos : {};
+        const contato = federacao.contatos ? federacao.contatos : {};
 
         res.render('editar-federacao', {
             federacao: federacao.toJSON(),
-            endereco,
-            contato,
+            endereco: endereco,
+            contato: contato,
         });
     } catch (erro) {
         console.error("Erro ao carregar página de edição:", erro);
-        res.status(500).send("Erro ao renderizar a página de edição");
     }
 };
 // Atualizar Federação
@@ -87,7 +88,7 @@ exports.atualizarFederacao = async (req, res) => {
 
         await federacaoService.atualizarFederacao(req.params.codFederacao, federacaoData, enderecoData, contatoData);
 
-        res.redirect('/api/federacoes');
+        res.redirect('/api/admin/');
     } catch (erro) {
         console.error("Erro ao atualizar a federação:", erro);
         res.status(500).send("Erro ao atualizar a federação");
