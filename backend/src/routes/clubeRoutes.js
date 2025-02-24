@@ -5,7 +5,7 @@ const atletaController = require('../controllers/atletaController');
 const auth = require('../middleware/auth');
 
 // Rota: Listar Clubes
-router.get('/', auth(1), clubeController.listarClubes);
+router.get('/', auth('user-admin', 'user-consulta'), clubeController.listarClubes);
 
 // Rota: Cadastrar Clube
 router.get('/cadastrar', auth(1), clubeController.rdCadastroClube);

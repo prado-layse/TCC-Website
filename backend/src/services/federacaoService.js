@@ -7,8 +7,8 @@ const federacaoService = {
         try{
         const federacoes = await Federacao.findAll({
             include: [
-                { model: Endereco, as: 'Enderecos' },
-                { model: Contato, as: 'Contatos' }
+                { model: Endereco, as: 'enderecos' },
+                { model: Contato, as: 'contatos' }
             ]
         });
 
@@ -26,7 +26,7 @@ const federacaoService = {
         try {
             const usuario = await Usuario.findOne({ where: { codUsuario } });
 
-            if (usuario.perfil !== 1) {
+            if (usuario.perfil !== 'user-admin') {
                 throw new Error("Acesso negado. Apenas usuários admin podem cadastrar federações.");
             }
 

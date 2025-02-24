@@ -1,5 +1,5 @@
 <h1>LISTAR FEDERAÇÕES</h1>
-<button onclick="window.location.href='/api/federacoes/cadastrar'">Nova Federação</button>
+<button onclick="window.location.href='/api/admin/federacoes/cadastrar'">Nova Federação</button>
 <table>
     <thead>
         <tr>
@@ -23,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-    {{#each federacoes}}
+    {{#each Federacao}}
     <tr>
         <td>{{this.codFederacao}}</td>
         <td>{{this.razaoSocial}}</td>
