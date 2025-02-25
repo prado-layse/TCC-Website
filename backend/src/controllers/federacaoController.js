@@ -88,7 +88,7 @@ exports.atualizarFederacao = async (req, res) => {
 
         await federacaoService.atualizarFederacao(req.params.codFederacao, federacaoData, enderecoData, contatoData);
 
-        res.redirect('/api/admin/');
+        res.redirect('/api/federacoes/');
     } catch (erro) {
         console.error("Erro ao atualizar a federação:", erro);
         res.status(500).send("Erro ao atualizar a federação");

@@ -19,21 +19,33 @@
       <img src="/backend/public/imagens/cbs.png" alt="Logo CSB">
     </div>
     <nav>
-      {{#if isUsuarioLogado}}
-        <a href="/api/usuarios/perfil">Perfil</a>
-        <a href="/api/usuarios/perfil">Sair da conta</a>
-        <a href="/api/institucional" class="other">Institucional</a>
+        {{#if isUsuarioLogado}}
+            <a href="/api/usuarios/perfil">Perfil</a>
+            <a href="/api/usuarios/perfil">Sair da conta</a>
+        {{/if}}
+        
+        <!-- Institucional com Pop-up -->
+        <div class="menu-item">
+            <a href="#" class="other" id="institucional-btn">Institucional</a>
+              <div class="popup-menu" id="popup-menu">
+                <a href="/api/">Sobre nós</a>
+                <a href="/api/federacoes">Federações Filiadas</a>
+                <a href="/api/sobre-nos">Estatuto</a>
+                <a href="/api/sobre-nos">Resoluções e Nomeações</a>
+                <a href="/api/sobre-nos">Comissão de Atletas</a>
+                <a href="/api/sobre-nos">FAQ</a>
+                <a href="/api/sobre-nos">Código de Ética</a>
+                <a href="/api/sobre-nos">Política de Privacidade</a>
+              </div>
+        </div>
+
         <a href="/api/selecao" class="other">Seleção</a>
         <a href="/api/clubes" class="other">Clubes</a>
-        <a href="/api/admin/" class="other">Federacoes</a>
-      {{else}}
-        <a href="/api/institucional" class="other">Institucional</a>
-        <a href="/api/selecao" class="other">Seleção</a>
-        <a href="/api/clubes" class="other">Clubes</a>
-        <a href="/api/admin/" class="other">Federacoes</a>
-        <a href="/api/usuarios/cadastrar" class="register">Cadastrar</a>
-        <a href="/api/usuarios/login" class="login">Entrar</a>        
-      {{/if}}
+
+        {{#unless isUsuarioLogado}}
+          <a href="/api/usuarios/cadastrar" class="register">Cadastrar</a>
+          <a href="/api/usuarios/login" class="login">Entrar</a>        
+        {{/unless}}
     </nav>
     <button id="toggle-header">☰</button>
   </header>
@@ -290,14 +302,44 @@
   </footer>
 
   <script>
-    // Botão para esconder o cabeçalho
+    // Botão para esconder o cabeçalho e Botão do
     document.addEventListener('DOMContentLoaded', function() {
       var header = document.querySelector('header');
       var toggleButton = document.getElementById('toggle-header');
+      const instButton = document.getElementById("institucional-btn");
+      const popup = document.getElementById("popup-menu"); 
 
       toggleButton.addEventListener('click', function() {
         header.classList.toggle('hidden');
         toggleButton.classList.toggle('rotated');
+      });
+
+      // Exibir pop-up ao passar o mouse
+      instButton.addEventListener("mouseenter", function () {
+        popup.style.opacity = "1";
+        popup.style.visibility = "visible";
+        popup.style.transform = "translateX(-50%) translateY(0)";
+      });
+
+        // Manter o pop-up aberto enquanto o mouse estiver sobre ele
+      popup.addEventListener("mouseenter", function () {
+        popup.style.opacity = "1";
+        popup.style.visibility = "visible";
+      });
+
+      // Fechar pop-up ao sair do botão e do pop-up
+      instButton.addEventListener("mouseleave", function () {
+        setTimeout(() => {
+          if (!popup.matches(":hover")) {
+            popup.style.opacity = "0";
+            popup.style.visibility = "hidden";
+          }
+        }, 200);
+      });
+
+      popup.addEventListener("mouseleave", function () {
+        popup.style.opacity = "0";
+        popup.style.visibility = "hidden";
       });
     });
 

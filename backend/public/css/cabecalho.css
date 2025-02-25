@@ -103,3 +103,76 @@ button#toggle-header {
   button#toggle-header.rotated {
     transform: rotate(0deg);
   }
+
+/*----------------------------------------------------------*/
+/* Container do menu */
+/*----------------------------------------------------------*/
+.menu-item {
+  position: relative;
+  display: inline-block;
+}
+
+/* Layout do pop-up */
+.popup-menu {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: #555;
+  border: 1px solid #777;
+  min-width: 240px;  /* Aumentando a largura para mais espaço */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3), 0px 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 20px 0;  /* Aumentando o padding para mais espaço vazio no pop-up */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Criando a seta como parte da "caixa de diálogo" */
+.popup-menu::before {
+  content: "▼";
+  border-top: 20px solid #555;
+  border-bottom: 50px solid transparent;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+}
+
+/* Itens do pop-up */
+.popup-menu a {
+  color: #dbd9d9;
+  font-family: 'Muli';
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  font-size: 15px;
+  transition: background 0.3s, padding-left 0.3s;
+  text-align: left;  /* Alinha o texto à esquerda dentro do bloco */
+  width: 90%;  /* Garante que o link ocupe toda a largura disponível do pop-up */
+  border-bottom: 1px solid #777;
+}
+
+/* Remover a borda do último item */
+.popup-menu a:last-child {
+  border-bottom: none;  /* Remove a linha no último item */
+}
+
+/* Efeito ao passar o mouse */
+.popup-menu a:hover {
+  background-color: #555;
+  color: #9b9b9b;
+  padding-left: 18px;
+}
+
+/* Exibir pop-up ao passar o mouse no botão ou nele mesmo */
+.menu-item:hover .popup-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
